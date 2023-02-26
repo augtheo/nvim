@@ -1,17 +1,20 @@
 local servers = {
-	"sumneko_lua",
-	"cssls",
-	"html",
-	"tsserver",
-	"pyright",
-	"bashls",
-	"jsonls",
-	"yamlls",
+  "sumneko_lua",
+  "clangd",
+  "cssls",
+  "html",
+  "rust_analyzer",
+  "tsserver",
+  "pyright",
+  "bashls",
+  "jsonls",
+  "yamlls",
+  "jdtls",
 }
 
 local settings = {
 	ui = {
-		border = "none",
+		border = "rounded",
 		icons = {
 			package_installed = "◍",
 			package_pending = "◍",
