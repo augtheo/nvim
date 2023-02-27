@@ -59,7 +59,7 @@ return packer.startup(function(use)
   use { "lewis6991/impatient.nvim", commit = "b842e16ecc1a700f62adb9802f8355b99b52a5a6" }
   use { "lukas-reineke/indent-blankline.nvim", commit = "db7cbcb40cc00fc5d6074d7569fb37197705e7f6" }
   use { "goolord/alpha-nvim", commit = "0bb6fc0646bcd1cdb4639737a1cee8d6e08bcc31" }
-  use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
+  use { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" }
 
   -- Colorschemes
   use { "folke/tokyonight.nvim", commit = "66bfc2e8f754869c7b651f3f47a2ee56ae557764" }
@@ -117,6 +117,7 @@ return packer.startup(function(use)
   --Trouble
   use {
     "folke/trouble.nvim",
+    commit = "3b754285635a66a93aeb15fa71a23417d8997217",
     requires = "nvim-tree/nvim-web-devicons",
     config = function()
       require("trouble").setup {
@@ -130,13 +131,37 @@ return packer.startup(function(use)
   -- Markdown
   use {
     "iamcco/markdown-preview.nvim",
+    commit = "02cc3874738bc0f86e4b91f09b8a0ac88aef8e96",
     run = function()
       vim.fn["mkdp#util#install"]()
     end,
   }
 
+  -- Neorg
+  use {
+    "nvim-neorg/neorg",
+    commit = "6c87e1d98a769b87d7ef4180eb9b00a45d272954",
+    config = function()
+      require("neorg").setup {
+        load = {
+          ["core.defaults"] = {}, -- Loads default behaviour
+          ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
+          ["core.norg.dirman"] = { -- Manages Neorg workspaces
+            config = {
+              workspaces = {
+                notes = "~/notes",
+              },
+            },
+          },
+        },
+      }
+    end,
+    run = ":Neorg sync-parsers",
+    requires = "nvim-lua/plenary.nvim",
+  }
   --Java
   use { "mfussenegger/nvim-jdtls", commit = "beb9101fb4a8a4f2655e691980b4c82a27d2e920" }
+
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
