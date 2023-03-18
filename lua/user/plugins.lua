@@ -137,31 +137,16 @@ return packer.startup(function(use)
     end,
   }
 
-  -- Neorg
-  use {
-    "nvim-neorg/neorg",
-    commit = "6c87e1d98a769b87d7ef4180eb9b00a45d272954",
-    config = function()
-      require("neorg").setup {
-        load = {
-          ["core.defaults"] = {}, -- Loads default behaviour
-          ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
-          ["core.norg.dirman"] = { -- Manages Neorg workspaces
-            config = {
-              workspaces = {
-                notes = "~/notes",
-              },
-            },
-          },
-        },
-      }
-    end,
-    run = ":Neorg sync-parsers",
-    requires = "nvim-lua/plenary.nvim",
-  }
   --Java
   use { "mfussenegger/nvim-jdtls", commit = "beb9101fb4a8a4f2655e691980b4c82a27d2e920" }
 
+  use({
+    "scalameta/nvim-metals",
+    requires = {
+      "nvim-lua/plenary.nvim",
+      "mfussenegger/nvim-dap",
+    },
+  })
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
