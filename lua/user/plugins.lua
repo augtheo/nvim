@@ -62,10 +62,6 @@ return packer.startup(function(use)
   use { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" }
 
   -- Colorschemes
-  use {
-    "projekt0n/github-nvim-theme",
-    tag = "v0.0.7",
-  }
   use { "catppuccin/nvim", as = "catppuccin" }
 
   -- cmp plugins
@@ -92,7 +88,7 @@ return packer.startup(function(use)
   use { "nvim-telescope/telescope.nvim" }
 
   -- Treesitter
-  use { "nvim-treesitter/nvim-treesitter", commit = "8e763332b7bf7b3a426fd8707b7f5aa85823a5ac" }
+  use { "nvim-treesitter/nvim-treesitter" }
   use { "nvim-treesitter/playground" }
 
   -- Git
@@ -130,12 +126,11 @@ return packer.startup(function(use)
   -- Markdown
   use {
     "iamcco/markdown-preview.nvim",
-    run = "cd app && npm install",
-    setup = function()
-      vim.g.mkdp_filetypes = { "markdown" }
+    run = function()
+      vim.fn["mkdp#util#install"]()
     end,
-    ft = { "markdown" },
   }
+
   use {
     "AckslD/nvim-FeMaco.lua",
     config = 'require("femaco").setup()',
