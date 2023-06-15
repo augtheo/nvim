@@ -1,6 +1,8 @@
 local servers = {
   "bashls",
   "lua_ls",
+  "jsonls",
+  "yamlls",
   "clangd",
   "rust_analyzer",
   "jdtls",
@@ -8,8 +10,6 @@ local servers = {
   "html",
   "cssls",
   "tsserver",
-  "jsonls",
-  "yamlls",
 }
 
 local settings = {

@@ -1,5 +1,3 @@
-vim.opt_local.shiftwidth = 4
-vim.opt_local.tabstop = 4
 vim.opt_local.cmdheight = 2 -- more space in the neovim command line for displaying messages
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -123,7 +121,6 @@ local config = {
     "-data",
     workspace_dir,
   },
-  on_attach = require("user.lsp.handlers").on_attach,
   capabilities = capabilities,
   -- 💀
   -- This is the default if not provided, you can remove it. Or adjust as needed.
@@ -211,19 +208,30 @@ local config = {
     -- bundles = {},
     bundles = bundles,
   },
-  -- on_attach = function(client, bufnr)
-  --   -- With `hotcodereplace = 'auto' the debug adapter will try to apply code changes
-  --   -- you make during a debug session immediately.
-  --   -- Remove the option if you do not want that.
-  --   -- You can use the `JdtHotcodeReplace` command to trigger it manually
-  --   require('jdtls').setup_dap({ hotcodereplace = 'auto' })
-  -- end
+  on_attach = function(client, bufnr)
+    local _, _ = pcall(vim.lsp.codelens.refresh)
+    require("jdtls").setup_dap { hotcodereplace = "auto" }
+    require("user.lsp.handlers").on_attach(client, bufnr)
+    local status_ok, jdtls_dap = pcall(require, "jdtls.dap")
+    if status_ok then
+      jdtls_dap.setup_dap_main_class_configs()
+    end
+    --   -- With `hotcodereplace = 'auto' the debug adapter will try to apply code changes
+    --   -- you make during a debug session immediately.
+    --   -- Remove the option if you do not want that.
+    --   -- You can use the `JdtHotcodeReplace` command to trigger it manually
+  end,
 }
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  pattern = { "*.java" },
+  callback = function()
+    local _, _ = pcall(vim.lsp.codelens.refresh)
+  end,
+})
 
 -- This starts a new client & server,
 -- or attaches to an existing client & server depending on the `root_dir`.
 jdtls.start_or_attach(config)
-
 
 vim.cmd "command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_compile JdtCompile lua require('jdtls').compile(<f-args>)"
 vim.cmd "command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_set_runtime JdtSetRuntime lua require('jdtls').set_runtime(<f-args>)"

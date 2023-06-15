@@ -96,10 +96,12 @@ return packer.startup(function(use)
 
   --Java
   use { "mfussenegger/nvim-jdtls" }
+  use { "https://gitlab.com/schrieveslaach/sonarlint.nvim" , as = "sonarlint.nvim"}
 
   -- DAP
   use { "mfussenegger/nvim-dap" }
   use { "rcarriga/nvim-dap-ui" }
+  use { "rcarriga/cmp-dap" }
   use { "ravenxrz/DAPInstall.nvim" }
 
   -- Which key
