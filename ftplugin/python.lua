@@ -17,14 +17,16 @@ local mappings = {
   L = {
     name = "python 🐍",
     c = {
-      "<Cmd>!python % <CR>" , "Exec"
+      "<Cmd>!python % <CR>",
+      "Exec",
     },
   },
 }
 
+local home = os.getenv "HOME"
+
+require("dap-python").setup(home .. "/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
 
 which_key.register(mappings, opts)
 which_key.register(vmappings, vopts)
 --
-
-

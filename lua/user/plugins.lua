@@ -45,8 +45,8 @@ packer.init {
 return packer.startup(function(use)
   -- My plugins here
   use { "wbthomason/packer.nvim" } -- Have packer manage itself
-  use { "nvim-lua/plenary.nvim" }  -- Useful lua functions used by lots of plugins
-  use { "windwp/nvim-autopairs" }  -- Autopairs, integrates with both cmp and treesitter
+  use { "nvim-lua/plenary.nvim" } -- Useful lua functions used by lots of plugins
+  use { "windwp/nvim-autopairs" } -- Autopairs, integrates with both cmp and treesitter
   use { "numToStr/Comment.nvim" }
   use { "JoosepAlviste/nvim-ts-context-commentstring" }
   use { "kyazdani42/nvim-web-devicons" }
@@ -65,15 +65,15 @@ return packer.startup(function(use)
   use { "catppuccin/nvim", as = "catppuccin" }
 
   -- cmp plugins
-  use { "hrsh7th/nvim-cmp" }         -- The completion plugin
-  use { "hrsh7th/cmp-buffer" }       -- buffer completions
-  use { "hrsh7th/cmp-path" }         -- path completions
+  use { "hrsh7th/nvim-cmp" } -- The completion plugin
+  use { "hrsh7th/cmp-buffer" } -- buffer completions
+  use { "hrsh7th/cmp-path" } -- path completions
   use { "saadparwaiz1/cmp_luasnip" } -- snippet completions
   use { "hrsh7th/cmp-nvim-lsp" }
   use { "hrsh7th/cmp-nvim-lua" }
 
   -- snippets
-  use { "L3MON4D3/LuaSnip" }             --snippet engine
+  use { "L3MON4D3/LuaSnip" } --snippet engine
   use { "rafamadriz/friendly-snippets" } -- a bunch of snippets to use
 
   -- LSP
@@ -96,8 +96,10 @@ return packer.startup(function(use)
 
   --Java
   use { "mfussenegger/nvim-jdtls" }
-  use { "https://gitlab.com/schrieveslaach/sonarlint.nvim" , as = "sonarlint.nvim"}
+  use { "https://gitlab.com/schrieveslaach/sonarlint.nvim", as = "sonarlint.nvim" }
 
+  --Python
+  use { "mfussenegger/nvim-dap-python" }
   -- DAP
   use { "mfussenegger/nvim-dap" }
   use { "rcarriga/nvim-dap-ui" }
@@ -122,6 +124,34 @@ return packer.startup(function(use)
     requires = "nvim-tree/nvim-web-devicons",
     config = function()
       require("trouble").setup {}
+    end,
+  }
+
+  use {
+    "folke/noice.nvim",
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+    },
+    config = function()
+      require("noice").setup {
+        lsp = {
+          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+          override = {
+            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+            ["vim.lsp.util.stylize_markdown"] = true,
+            ["cmp.entry.get_documentation"] = true,
+          },
+        },
+        -- you can enable a preset for easier configuration
+        presets = {
+          bottom_search = true, -- use a classic bottom cmdline for search
+          command_palette = true, -- position the cmdline and popupmenu together
+          long_message_to_split = true, -- long messages will be sent to a split
+          inc_rename = false, -- enables an input dialog for inc-rename.nvim
+          lsp_doc_border = false, -- add a border to hover docs and signature help
+        },
+      }
     end,
   }
 
