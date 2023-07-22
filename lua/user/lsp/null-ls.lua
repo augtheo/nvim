@@ -14,18 +14,18 @@ null_ls.setup {
   debug = false,
   sources = {
     formatting.prettierd,
-    -- formatting.prettier.with {
-    --   extra_filetypes = { "toml" },
-    --   extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" },
-    -- },
     formatting.stylua,
-    formatting.npm_groovy_lint,
+
+    -- Java
     formatting.google_java_format,
 
     -- python
     formatting.black.with { extra_args = { "--fast" } },
     formatting.isort,
     diagnostics.flake8.with { extra_args = { "--max-line-length", "88" } },
+
+    -- cpp
+    -- diagnostics.cpplint,
   },
   on_attach = function(client, bufnr)
     if client.supports_method "textDocument/formatting" then
@@ -41,3 +41,8 @@ null_ls.setup {
     end
   end,
 }
+
+-- required for cpplint https://github.com/jose-elias-alvarez/null-ls.nvim/issues/428
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities.offsetEncoding = { "utf-16" }
+-- require("lspconfig").clangd.setup { capabilities = capabilities }

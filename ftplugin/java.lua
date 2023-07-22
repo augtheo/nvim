@@ -1,3 +1,9 @@
+local status, jdtls = pcall(require, "jdtls")
+if not status then
+  return
+end
+
+-- Setup capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
 local status_cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
@@ -6,29 +12,20 @@ if not status_cmp_ok then
 end
 capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = false
+local extendedClientCapabilities = jdtls.extendedClientCapabilities
+extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
-local status, jdtls = pcall(require, "jdtls")
-if not status then
-  return
-end
--- Determine OS
+--  Setup constants
 local home = os.getenv "HOME"
+local WORKSPACE_PATH = home .. "/workspace/"
+local CONFIG = "linux"
+
 if vim.fn.has "mac" == 1 then
-  WORKSPACE_PATH = home .. "/workspace/"
   CONFIG = "mac"
-elseif vim.fn.has "unix" == 1 then
-  WORKSPACE_PATH = home .. "/workspace/"
-  CONFIG = "linux"
-else
-  print "Unsupported system"
 end
 
--- local launcher_path =
---   vim.fn.glob(home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar")
--- if #launcher_path == 0 then
---   launcher_path =
---     vim.fn.glob(home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar", 1, 1)[1]
--- end
+local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+local workspace_dir = WORKSPACE_PATH .. project_name
 
 -- Find root of project
 local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
@@ -39,10 +36,6 @@ end
 
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
-
-local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
-
-local workspace_dir = WORKSPACE_PATH .. project_name
 
 -- TODO: Testing
 
@@ -78,10 +71,7 @@ if JAVA_DAP_ACTIVE then
   )
 end
 
--- See `:help vim.lsp.start_client` for an overview of the supported `config` options.
 local config = {
-  -- The command that starts the language server
-  -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
   cmd = {
 
     -- 💀
@@ -98,36 +88,15 @@ local config = {
     "java.base/java.util=ALL-UNNAMED",
     "--add-opens",
     "java.base/java.lang=ALL-UNNAMED",
-
-    -- 💀
     "-jar",
-    -- launcher_path,
     vim.fn.glob(home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
-    -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^                                       ^^^^^^^^^^^^^^
-    -- Must point to the                                                     Change this to
-    -- eclipse.jdt.ls installation                                           the actual version
-
-    -- 💀
     "-configuration",
     home .. "/.local/share/nvim/mason/packages/jdtls/config_" .. CONFIG,
-    -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^        ^^^^^^
-    -- Must point to the                      Change to one of `linux`, `win` or `mac`
-    -- eclipse.jdt.ls installation            Depending on your system.
-
-    -- 💀
-    -- See `data directory configuration` section in the README
     "-data",
     workspace_dir,
   },
   capabilities = capabilities,
-  -- 💀
-  -- This is the default if not provided, you can remove it. Or adjust as needed.
-  -- One dedicated LSP server & client will be started per unique root_dir
   root_dir = root_dir,
-  -- Here you can configure eclipse.jdt.ls specific settings
-  -- See https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
-  -- or https://github.com/redhat-developer/vscode-java#supported-vs-code-settings
-  -- for a list of options
   settings = {
     java = {
       -- jdt = {
@@ -140,6 +109,16 @@ local config = {
       },
       configuration = {
         updateBuildConfiguration = "interactive",
+        runtimes = {
+          {
+            name = "JavaSE-11",
+            path = "~/.sdkman/candidates/java/11.0.12-open",
+          },
+          {
+            name = "JavaSE-17",
+            path = "~/.sdkman/candidates/java/17.0.6-tem",
+          },
+        },
       },
       maven = {
         downloadSources = true,
@@ -160,9 +139,6 @@ local config = {
       },
       format = {
         enabled = false,
-        -- settings = {
-        --   profile = "asdf"
-        -- }
       },
     },
     signatureHelp = { enabled = true },
@@ -195,15 +171,7 @@ local config = {
   flags = {
     allow_incremental_sync = true,
   },
-  -- Language server `initializationOptions`
-  -- You need to extend the `bundles` with paths to jar files
-  -- if you want to use additional eclipse.jdt.ls plugins.
-  --
-  -- See https://github.com/mfussenegger/nvim-jdtls#java-debug-installation
-  --
-  -- If you don't plan on using the debugger or other eclipse.jdt.ls plugins you can remove this
   init_options = {
-    -- bundles = {},
     bundles = bundles,
   },
   on_attach = function(client, bufnr)
@@ -214,10 +182,6 @@ local config = {
     if status_ok then
       jdtls_dap.setup_dap_main_class_configs()
     end
-    --   -- With `hotcodereplace = 'auto' the debug adapter will try to apply code changes
-    --   -- you make during a debug session immediately.
-    --   -- Remove the option if you do not want that.
-    --   -- You can use the `JdtHotcodeReplace` command to trigger it manually
   end,
 }
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -227,16 +191,14 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   end,
 })
 
--- This starts a new client & server,
--- or attaches to an existing client & server depending on the `root_dir`.
 jdtls.start_or_attach(config)
 
 vim.cmd "command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_compile JdtCompile lua require('jdtls').compile(<f-args>)"
 vim.cmd "command! -buffer -nargs=? -complete=custom,v:lua.require'jdtls'._complete_set_runtime JdtSetRuntime lua require('jdtls').set_runtime(<f-args>)"
 vim.cmd "command! -buffer JdtUpdateConfig lua require('jdtls').update_project_config()"
--- vim.cmd "command! -buffer JdtJol lua require('jdtls').jol()"
+vim.cmd "command! -buffer JdtJol lua require('jdtls').jol()"
 vim.cmd "command! -buffer JdtBytecode lua require('jdtls').javap()"
--- vim.cmd "command! -buffer JdtJshell lua require('jdtls').jshell()"
+vim.cmd "command! -buffer JdtJshell lua require('jdtls').jshell()"
 
 -- Java specific which key mappings
 local status_ok, which_key = pcall(require, "which-key")
