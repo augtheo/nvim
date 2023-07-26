@@ -158,7 +158,15 @@ return packer.startup(function(use)
       require("trouble").setup {}
     end,
   }
-  use { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" }
+  use { "MunifTanjim/nui.nvim" }
+  use {
+    "rcarriga/nvim-notify",
+    config = function()
+      require("notify").setup {
+        render = "minimal",
+      }
+    end,
+  }
 
   use {
     "folke/noice.nvim",

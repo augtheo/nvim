@@ -6,7 +6,7 @@ local servers = {
   "clangd",
   "rust_analyzer",
   "gopls",
-  "jdtls",
+  -- "jdtls",
   "pyright",
   "html",
   "cssls",
@@ -27,6 +27,8 @@ local settings = {
 }
 
 require("mason").setup(settings)
+
+-- TODO: Mason lspconfig should not setup jdtls but we need to ensure it's installed
 require("mason-lspconfig").setup {
   ensure_installed = servers,
   automatic_installation = true,

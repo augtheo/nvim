@@ -95,7 +95,7 @@ local mappings = {
   },
   ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
   ["P"] = { "<cmd>Telescope projects<cr>", "Projects" },
-  ["D"] = { "<cmd>lua _LAZYDOCKER_TOGGLE()<CR>", "Lazydocker"},
+  ["D"] = { "<cmd>lua _LAZYDOCKER_TOGGLE()<CR>", "Lazydocker" },
   ["G"] = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
   -- [">"] = { "<cmd>lua _TROUBLE_NEXT()<CR>", "Trouble Next"},
   -- ["<"] = { "<cmd>lua _TROUBLE_PREVIOUS()<CR>", "Trouble Next"},
@@ -165,6 +165,7 @@ local mappings = {
   s = {
     name = "Search",
     b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+    w = { "<cmd>Telescope grep_string<cr>", "Find word" },
     c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
     h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
     M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
@@ -198,7 +199,6 @@ local mappings = {
     t = { "<cmd>lua require'dap'.terminate()<cr>", "Terminate" },
   },
 }
-
 
 which_key.setup(setup)
 which_key.register(mappings, opts)
