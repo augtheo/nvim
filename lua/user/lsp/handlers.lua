@@ -10,15 +10,15 @@ M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
 M.capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
-  lineFoldingOnly = true
+  lineFoldingOnly = true,
 }
 M.setup = function()
   local signs = {
 
     { name = "DiagnosticSignError", text = "" },
-    { name = "DiagnosticSignWarn",  text = "" },
-    { name = "DiagnosticSignHint",  text = "" },
-    { name = "DiagnosticSignInfo",  text = "" },
+    { name = "DiagnosticSignWarn", text = "" },
+    { name = "DiagnosticSignHint", text = "" },
+    { name = "DiagnosticSignInfo", text = "" },
   }
 
   for _, sign in ipairs(signs) do
@@ -28,7 +28,7 @@ M.setup = function()
   local config = {
     virtual_text = false, -- disable virtual text
     signs = {
-      active = signs,   -- show signs
+      active = signs, -- show signs
     },
     update_in_insert = true,
     underline = true,
@@ -36,7 +36,7 @@ M.setup = function()
     float = {
       focusable = true,
       style = "minimal",
-      border = "rounded",
+      -- border = "single",
       source = "always",
       header = "",
       prefix = "",
@@ -45,13 +45,13 @@ M.setup = function()
 
   vim.diagnostic.config(config)
 
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "rounded",
-  })
-
-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = "rounded",
-  })
+  -- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+  --   border = "rounded",
+  -- })
+  --
+  -- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+  --   border = "rounded",
+  -- })
 end
 
 local function lsp_keymaps(bufnr)

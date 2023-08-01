@@ -3,17 +3,17 @@ if not status_ok then
   return
 end
 
-
 -- jump to the next item, skipping the groups
 function _TROUBLE_NEXT()
-  Trouble.next({skip_groups = true, jump = true});
+  Trouble.next { skip_groups = true, jump = true }
 end
 
 -- jump to the previous item, skipping the groups
 function _TROUBLE_PREVIOUS()
-  Trouble.previous({skip_groups = true, jump = true});
+  Trouble.previous { skip_groups = true, jump = true }
 end
 
+Trouble.setup {}
 -- -- jump to the first item, skipping the groups
 -- require("trouble").first({skip_groups = true, jump = true});
 --

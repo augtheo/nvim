@@ -33,7 +33,7 @@ end
 packer.init {
   display = {
     open_fn = function()
-      return require("packer.util").float { border = "rounded" }
+      return require("packer.util").float { border = "single" }
     end,
   },
   git = {
@@ -47,8 +47,11 @@ return packer.startup(function(use)
   use { "wbthomason/packer.nvim" } -- Have packer manage itself
   use { "nvim-lua/plenary.nvim" } -- Useful lua functions used by lots of plugins
   use { "windwp/nvim-autopairs" } -- Autopairs, integrates with both cmp and treesitter
+
+  -- Comments
   use { "numToStr/Comment.nvim" }
   use { "JoosepAlviste/nvim-ts-context-commentstring" }
+
   use { "kyazdani42/nvim-web-devicons" }
   use { "kyazdani42/nvim-tree.lua" }
   use { "akinsho/bufferline.nvim" }
@@ -56,7 +59,6 @@ return packer.startup(function(use)
   use { "nvim-lualine/lualine.nvim" }
   use { "akinsho/toggleterm.nvim" }
   use { "ahmedkhalf/project.nvim" }
-  use { "lewis6991/impatient.nvim" }
   use { "lukas-reineke/indent-blankline.nvim" }
   use { "goolord/alpha-nvim" }
   use { "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" }
@@ -71,6 +73,7 @@ return packer.startup(function(use)
   use { "saadparwaiz1/cmp_luasnip" } -- snippet completions
   use { "hrsh7th/cmp-nvim-lsp" }
   use { "hrsh7th/cmp-nvim-lua" }
+  use { "hrsh7th/cmp-cmdline" }
 
   -- snippets
   use { "L3MON4D3/LuaSnip" } --snippet engine
@@ -91,20 +94,13 @@ return packer.startup(function(use)
   use { "nvim-treesitter/nvim-treesitter" }
   use { "nvim-treesitter/playground" }
 
+  -- Context
+  use {
+    "nvim-treesitter/nvim-treesitter-context",
+  }
   -- Git
   use { "lewis6991/gitsigns.nvim" }
-
-  --Java
-  use { "mfussenegger/nvim-jdtls" }
-  use { "https://gitlab.com/schrieveslaach/sonarlint.nvim", as = "sonarlint.nvim" }
-  -- use { "andy-bell101/neotest-java" }
-
-  --Python
-  use { "mfussenegger/nvim-dap-python" }
-  use { "AckslD/swenv.nvim" }
-  use { "stevearc/dressing.nvim" }
-  use { "nvim-neotest/neotest" }
-  use { "nvim-neotest/neotest-python" }
+  use { "tpope/vim-fugitive" }
 
   -- DAP
   use { "mfussenegger/nvim-dap" }
@@ -112,96 +108,20 @@ return packer.startup(function(use)
   use { "rcarriga/cmp-dap" }
   use { "ravenxrz/DAPInstall.nvim" }
 
-  -- Which key
-  use { "folke/which-key.nvim" }
+  -- Test
+  use { "nvim-neotest/neotest" }
 
-  --To do
-  use {
-    "folke/todo-comments.nvim",
-    requires = "nvim-lua/plenary.nvim",
-    config = function()
-      require("todo-comments").setup {}
-    end,
-  }
+  --Java
+  use { "mfussenegger/nvim-jdtls" }
+  use { "https://gitlab.com/schrieveslaach/sonarlint.nvim", as = "sonarlint.nvim" }
+  use { "augtheo/gradle.nvim", run = "./gradlew install" }
+  -- use { "andy-bell101/neotest-java" }
 
-  -- Context
-  --
-  -- use {
-  --   "wellle/context.vim",
-  -- }
-
-  -- use {
-  --   "nvim-treesitter/nvim-treesitter-context",
-  --   config = function()
-  --     require("treesitter-context").setup {
-  --       enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-  --       max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
-  --       min_window_height = 0, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-  --       line_numbers = true,
-  --       multiline_threshold = 20, -- Maximum number of lines to collapse for a single context line
-  --       trim_scope = "outer", -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
-  --       mode = "cursor", -- Line used to calculate context. Choices: 'cursor', 'topline'
-  --       -- Separator between context and content. Should be a single character string, like '-'.
-  --       -- When separator is set, the context will only show up when there are at least 2 lines above cursorline.
-  --       separator = nil,
-  --       zindex = 20, -- The Z-index of the context window
-  --       on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
-  --     }
-  --   end,
-  -- }
-
-  --Trouble
-  use {
-    "folke/trouble.nvim",
-    requires = "nvim-tree/nvim-web-devicons",
-    config = function()
-      require("trouble").setup {}
-    end,
-  }
-  use { "MunifTanjim/nui.nvim" }
-  use {
-    "rcarriga/nvim-notify",
-    config = function()
-      require("notify").setup {
-        render = "minimal",
-      }
-    end,
-  }
-
-  use {
-    "folke/noice.nvim",
-    requires = {},
-    config = function()
-      require("noice").setup {
-        lsp = {
-          -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-          override = {
-            ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-            ["vim.lsp.util.stylize_markdown"] = true,
-            ["cmp.entry.get_documentation"] = true,
-          },
-        },
-        -- you can enable a preset for easier configuration
-        presets = {
-          bottom_search = true, -- use a classic bottom cmdline for search
-          command_palette = true, -- position the cmdline and popupmenu together
-          long_message_to_split = true, -- long messages will be sent to a split
-          inc_rename = false, -- enables an input dialog for inc-rename.nvim
-          lsp_doc_border = false, -- add a border to hover docs and signature help
-        },
-        routes = {
-          {
-            filter = {
-              event = "msg_show",
-              kind = "",
-              find = "written",
-            },
-            opts = { skip = true },
-          },
-        },
-      }
-    end,
-  }
+  --Python
+  use { "mfussenegger/nvim-dap-python" }
+  use { "AckslD/swenv.nvim" }
+  use { "stevearc/dressing.nvim" }
+  use { "nvim-neotest/neotest-python" }
 
   -- Markdown
   use {
@@ -210,6 +130,26 @@ return packer.startup(function(use)
       vim.fn["mkdp#util#install"]()
     end,
   }
+
+  -- begin folke's plugins
+  -- Which key
+  use { "folke/which-key.nvim" }
+
+  --To do
+  use {
+    "folke/todo-comments.nvim",
+    requires = "nvim-lua/plenary.nvim",
+  }
+  --Trouble
+  use {
+    "folke/trouble.nvim",
+  }
+  -- Noice
+  use { "folke/noice.nvim", requires = {
+    "MunifTanjim/nui.nvim",
+    "rcarriga/nvim-notify",
+  } }
+  -- end folke's plugins
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

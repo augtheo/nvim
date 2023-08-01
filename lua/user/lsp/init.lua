@@ -3,8 +3,7 @@ if not status_ok then
   return
 end
 
-require('lspconfig.ui.windows').default_options = {border = "single"}
-
+require("lspconfig.ui.windows").default_options = { border = "single" }
 
 require "user.lsp.mason"
 require("user.lsp.handlers").setup()

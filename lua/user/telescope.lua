@@ -5,14 +5,27 @@ end
 
 local actions = require "telescope.actions"
 
+telescope.load_extension "noice"
 telescope.setup {
+  border = false,
   defaults = {
+    layout_strategy = "horizontal",
+    layout_config = {
+      horizontal = {
+        prompt_position = "top",
+        preview_width = 0.55,
+        results_width = 0.8,
+      },
+      -- width = 0.87,
+      -- height = 0.80,
+      -- preview_cutoff = 120,
+    },
 
     find_command = { "fd", "-t=f", "-a" },
     path_display = { "absolute" },
     -- wrap_results = true,
-    prompt_prefix = " ",
-    selection_caret = " ",
+    prompt_prefix = "   ",
+    selection_caret = "  ",
     -- path_display = { "smart" },
     file_ignore_patterns = { ".git/", "node_modules" },
 

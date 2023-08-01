@@ -43,7 +43,7 @@ local setup = {
     scroll_up = "<c-u>", -- binding to scroll up inside the popup
   },
   window = {
-    border = "rounded", -- none, single, double, shadow
+    -- border = "rounded", -- none, single, double, shadow
     position = "bottom", -- bottom, top
     margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
     padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
@@ -97,8 +97,8 @@ local mappings = {
   ["P"] = { "<cmd>Telescope projects<cr>", "Projects" },
   ["D"] = { "<cmd>lua _LAZYDOCKER_TOGGLE()<CR>", "Lazydocker" },
   ["G"] = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
-  -- [">"] = { "<cmd>lua _TROUBLE_NEXT()<CR>", "Trouble Next"},
-  -- ["<"] = { "<cmd>lua _TROUBLE_PREVIOUS()<CR>", "Trouble Next"},
+  [">"] = { "<cmd>lua _TROUBLE_NEXT()<CR>", "Trouble Next" },
+  ["<"] = { "<cmd>lua _TROUBLE_PREVIOUS()<CR>", "Trouble Next" },
 
   p = {
     name = "Packer",
@@ -166,6 +166,7 @@ local mappings = {
     name = "Search",
     b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
     w = { "<cmd>Telescope grep_string<cr>", "Find word" },
+    f = { "<cmd>Telescope lsp_references<cr>", "Find references" },
     c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
     h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
     M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
