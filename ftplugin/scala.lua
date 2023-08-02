@@ -1,1 +1,1 @@
-require("metals").initialize_or_attach({})
+require("metals").initialize_or_attach {}

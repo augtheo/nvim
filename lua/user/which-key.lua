@@ -87,7 +87,7 @@ local mappings = {
   ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
   ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>q!<CR>", "Quit" },
-  ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
+  ["c"] = { "<cmd>bdelete!<CR>", "Close Buffer" },
   ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
   ["f"] = {
     "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
@@ -128,6 +128,11 @@ local mappings = {
     d = {
       "<cmd>Gitsigns diffthis HEAD<cr>",
       "Diff",
+    },
+    w = {
+      name = "Worktrees",
+      c = { "<cmd>Telescope git_worktree create_git_worktree<CR>", "Create worktree" },
+      s = { "<cmd>Telescope git_worktree git_worktrees<CR>", "Switch worktree" },
     },
   },
 

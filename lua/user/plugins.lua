@@ -43,18 +43,16 @@ packer.init {
 
 -- Install your plugins here
 return packer.startup(function(use)
-  -- My plugins here
   use { "wbthomason/packer.nvim" } -- Have packer manage itself
   use { "nvim-lua/plenary.nvim" } -- Useful lua functions used by lots of plugins
-  use { "windwp/nvim-autopairs" } -- Autopairs, integrates with both cmp and treesitter
 
   -- Comments
   use { "numToStr/Comment.nvim" }
   use { "JoosepAlviste/nvim-ts-context-commentstring" }
 
+  use { "windwp/nvim-autopairs" } -- Autopairs, integrates with both cmp and treesitter
   use { "kyazdani42/nvim-web-devicons" }
   use { "kyazdani42/nvim-tree.lua" }
-  use { "moll/vim-bbye" }
   use { "nvim-lualine/lualine.nvim" }
   use { "akinsho/toggleterm.nvim" }
   use { "ahmedkhalf/project.nvim" }
@@ -100,6 +98,8 @@ return packer.startup(function(use)
   -- Git
   use { "lewis6991/gitsigns.nvim" }
   use { "tpope/vim-fugitive" }
+  use { "ThePrimeagen/git-worktree.nvim" }
+  use { "ruifm/gitlinker.nvim", requires = "nvim-lua/plenary.nvim" }
 
   -- DAP
   use { "mfussenegger/nvim-dap" }

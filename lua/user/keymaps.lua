@@ -33,7 +33,7 @@ keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
 -- Close buffers
-keymap("n", "<S-q>", "<cmd>Bdelete!<CR>", opts)
+keymap("n", "<S-q>", "<cmd>bdelete!<CR>", opts)
 
 -- Better scroll
 keymap("n", "<C-d>", "<C-d>zz", opts)

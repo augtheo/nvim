@@ -28,6 +28,7 @@ local diff = {
 local filetype = {
   "filetype",
   icons_enabled = colored,
+  icon_only = true,
 }
 
 local location = {
@@ -52,9 +53,13 @@ lualine.setup {
   sections = {
     lualine_a = { "mode" },
     lualine_b = { "branch" },
-    lualine_c = { diagnostics },
-    lualine_x = { diff, spaces, "encoding", filetype },
+    lualine_c = { diff, diagnostics },
+    lualine_x = { spaces, "encoding" },
     lualine_y = { location },
     lualine_z = { "progress" },
+  },
+  tabline = {
+    lualine_a = { filetype },
+    lualine_b = { "filename" },
   },
 }

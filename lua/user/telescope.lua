@@ -23,7 +23,7 @@ telescope.setup {
 
     find_command = { "fd", "-t=f", "-a" },
     path_display = { "absolute" },
-    -- wrap_results = true,
+    wrap_results = true,
     prompt_prefix = "   ",
     selection_caret = "  ",
     -- path_display = { "smart" },
