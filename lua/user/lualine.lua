@@ -31,6 +31,11 @@ local filetype = {
   icon_only = true,
 }
 
+local relative_filename = {
+  "filename",
+  path = 1,
+}
+
 local location = {
   "location",
   padding = 1,
@@ -38,6 +43,15 @@ local location = {
 
 local spaces = function()
   return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
+end
+
+local progress = function()
+  local current_line = vim.fn.line "."
+  local total_lines = vim.fn.line "$"
+  local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
+  local line_ratio = current_line / total_lines
+  local index = math.ceil(line_ratio * #chars)
+  return "%#lualine_a_inactive#" .. chars[index] .. "%*"
 end
 
 lualine.setup {
@@ -53,13 +67,20 @@ lualine.setup {
   sections = {
     lualine_a = { "mode" },
     lualine_b = { "branch" },
-    lualine_c = { diff, diagnostics },
-    lualine_x = { spaces, "encoding" },
+    lualine_c = { diff },
+    lualine_x = { diagnostics, spaces, "encoding" },
     lualine_y = { location },
-    lualine_z = { "progress" },
+    lualine_z = { progress },
   },
   tabline = {
-    lualine_a = { filetype },
-    lualine_b = { "filename" },
+    lualine_a = { "buffers" },
   },
+  -- TODO: Remove winbar from nvimtree, dap-ui and use that instead of tabline.
+  -- winbar = {
+  --   lualine_b = {},
+  --   lualine_c = { "buffers" },
+  -- },
+  -- inactive_winbar = {
+  --   lualine_b = { relative_filename },
+  -- },
 }

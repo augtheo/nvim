@@ -8,6 +8,8 @@ if not snip_status_ok then
   return
 end
 
+require("luasnip/loaders/from_vscode").lazy_load()
+require("luasnip").filetype_extend("java", { "javadoc", "java-testing" })
 require("luasnip/loaders/from_vscode").lazy_load { paths = { "~/.config/nvim/snippets" } }
 
 local check_backspace = function()
@@ -97,11 +99,12 @@ cmp.setup {
     format = function(entry, vim_item)
       vim_item.kind = kind_icons[vim_item.kind]
       vim_item.menu = ({
-        nvim_lsp = "",
-        nvim_lua = "",
-        luasnip = "",
-        buffer = "",
-        path = "",
+        nvim_lsp = "[LSP]",
+        nvim_lua = "[api]",
+        luasnip = "[snip]",
+        buffer = "[buf]",
+        path = "[path]",
+        cmdline = "[cmd]",
         emoji = "",
       })[entry.source.name]
       return vim_item
@@ -111,8 +114,8 @@ cmp.setup {
     { name = "nvim_lsp" },
     { name = "nvim_lua" },
     { name = "luasnip" },
-    { name = "buffer" },
     { name = "path" },
+    { name = "buffer", keyword_length = 3, max_item_count = 3 },
     -- { name = "cmdline" },
   },
   confirm_opts = {

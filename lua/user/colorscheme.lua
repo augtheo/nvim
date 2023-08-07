@@ -1,27 +1,24 @@
 require("catppuccin").setup {
   integrations = {
-    alpha = true,
-    cmp = true,
-    gitsigns = true,
-    nvimtree = true,
-    treesitter = true,
+    mason = true,
+    mini = true,
+    noice = true,
     notify = true,
+    neotest = true,
     telescope = {
-      enabled = true,
       style = "nvchad",
     },
-    which_key = true,
+    treesitter_context = true,
+    treesitter = true,
     illuminate = true,
-    mason = true,
-    noice = true,
-    dap = {
-      enabled = true,
-      enable_ui = true, -- enable nvim-dap-ui
-    },
-    neotest = true,
-    -- mini = false,
+    which_key = true,
     -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
   },
+  custom_highlights = function(colors)
+    return {
+      Pmenu = { bg = border and colors.none or colors.mantle },
+    }
+  end,
   -- transparent_background = true,
 }
 
