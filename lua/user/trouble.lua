@@ -13,7 +13,9 @@ function _TROUBLE_PREVIOUS()
   Trouble.previous { skip_groups = true, jump = true }
 end
 
-Trouble.setup {}
+Trouble.setup {
+  padding = true,
+}
 -- -- jump to the first item, skipping the groups
 -- require("trouble").first({skip_groups = true, jump = true});
 --

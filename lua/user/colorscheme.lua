@@ -8,6 +8,7 @@ require("catppuccin").setup {
     telescope = {
       style = "nvchad",
     },
+    lsp_trouble = true,
     treesitter_context = true,
     treesitter = true,
     illuminate = true,
@@ -15,8 +16,12 @@ require("catppuccin").setup {
     -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
   },
   custom_highlights = function(colors)
+    local custom_color = colors.surface0
     return {
-      Pmenu = { bg = border and colors.none or colors.mantle },
+      Pmenu = { bg = colors.mantle },
+      NvimTreeWinSeparator = { fg = colors.base },
+      VertSplit = { fg = custom_color },
+      HorizSplit = { fg = custom_color },
     }
   end,
   -- transparent_background = true,

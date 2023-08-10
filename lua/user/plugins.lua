@@ -51,8 +51,8 @@ return packer.startup(function(use)
   use { "JoosepAlviste/nvim-ts-context-commentstring" }
 
   use { "windwp/nvim-autopairs" } -- Autopairs, integrates with both cmp and treesitter
-  use { "kyazdani42/nvim-web-devicons" }
-  use { "kyazdani42/nvim-tree.lua" }
+  use { "nvim-tree/nvim-web-devicons" }
+  use { "nvim-tree/nvim-tree.lua" }
   use { "nvim-lualine/lualine.nvim" }
   use { "akinsho/toggleterm.nvim" }
   use { "ahmedkhalf/project.nvim" }
@@ -111,9 +111,19 @@ return packer.startup(function(use)
   use { "nvim-neotest/neotest" }
 
   --Java
-  use { "mfussenegger/nvim-jdtls" }
-  use { "https://gitlab.com/schrieveslaach/sonarlint.nvim", as = "sonarlint.nvim" }
-  use { "augtheo/gradle.nvim", run = "./gradlew install" }
+  use { "mfussenegger/nvim-jdtls", ft = { "java" } }
+  use { "https://gitlab.com/schrieveslaach/sonarlint.nvim", as = "sonarlint.nvim", ft = { "java" } }
+  use {
+    "augtheo/gradle.nvim",
+    run = "./gradlew install",
+    cond = function()
+      local file = vim.fn.glob "build.gradle"
+      if file and #file > 0 then
+        return true
+      end
+      return false
+    end,
+  }
   -- use { "andy-bell101/neotest-java" }
 
   --Python

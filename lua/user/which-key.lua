@@ -98,6 +98,7 @@ local mappings = {
   ["G"] = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
   [">"] = { "<cmd>lua _TROUBLE_NEXT()<CR>", "Trouble Next" },
   ["<"] = { "<cmd>lua _TROUBLE_PREVIOUS()<CR>", "Trouble Next" },
+  ["n"] = { "<cmd>NoiceDismiss<CR>", "Dismiss Noice" },
 
   p = {
     name = "Packer",

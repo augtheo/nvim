@@ -1,4 +1,7 @@
 vim.loader.enable()
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 require "user.options"
 require "user.keymaps"
 require "user.plugins"
@@ -21,7 +24,6 @@ require "user.alpha"
 require "user.lsp"
 require "user.dap"
 require "user.ufo"
-require "user.sonar"
 require "user.notify"
 require "user.which-key"
 require "user.todo"
