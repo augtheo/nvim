@@ -19,7 +19,7 @@ require("catppuccin").setup {
     local custom_color = colors.surface0
     return {
       Pmenu = { bg = colors.mantle },
-      NvimTreeWinSeparator = { fg = colors.base },
+      NvimTreeWinSeparator = { fg = custom_color },
       VertSplit = { fg = custom_color },
       HorizSplit = { fg = custom_color },
     }

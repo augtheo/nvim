@@ -99,6 +99,7 @@ local mappings = {
   [">"] = { "<cmd>lua _TROUBLE_NEXT()<CR>", "Trouble Next" },
   ["<"] = { "<cmd>lua _TROUBLE_PREVIOUS()<CR>", "Trouble Next" },
   ["n"] = { "<cmd>NoiceDismiss<CR>", "Dismiss Noice" },
+  ["x"] = { "<cmd>lua _RUN_CODE() <CR>", "Run " },
 
   p = {
     name = "Packer",

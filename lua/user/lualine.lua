@@ -74,6 +74,7 @@ lualine.setup {
   },
   tabline = {
     lualine_a = { "buffers" },
+    lualine_z = { "tabs" },
   },
   -- TODO: Remove winbar from nvimtree, dap-ui and use that instead of tabline.
   -- winbar = {

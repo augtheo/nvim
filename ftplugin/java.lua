@@ -51,12 +51,7 @@ if JAVA_DAP_ACTIVE then
   -- OR use Mason to install, here I use Mason
   vim.list_extend(
     bundles,
-    vim.fn.glob(
-      home
-        .. "/.local/share/nvim/mason/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar",
-      true,
-      true
-    )
+    vim.fn.glob("$MASON/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", true, true)
   )
 
   -- NOTE: for testing
@@ -65,10 +60,7 @@ if JAVA_DAP_ACTIVE then
   -- npm install
   -- npm run build-plugin
   -- Or use Mason to install, here I use Mason
-  vim.list_extend(
-    bundles,
-    vim.fn.glob(home .. "/.local/share/nvim/mason/packages/java-test/extension/server/*.jar", true, true)
-  )
+  vim.list_extend(bundles, vim.fn.glob("$MASON/packages/java-test/extension/server/*.jar", true, true))
 end
 
 local config = {
@@ -81,7 +73,7 @@ local config = {
     "-Declipse.product=org.eclipse.jdt.ls.core.product",
     "-Dlog.protocol=true",
     "-Dlog.level=ALL",
-    "-javaagent:" .. home .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar",
+    "-javaagent:" .. vim.fn.expand "$MASON/packages/jdtls/lombok.jar",
     "-Xms1g",
     "--add-modules=ALL-SYSTEM",
     "--add-opens",
@@ -89,9 +81,9 @@ local config = {
     "--add-opens",
     "java.base/java.lang=ALL-UNNAMED",
     "-jar",
-    vim.fn.glob(home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
+    vim.fn.glob "$MASON/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar",
     "-configuration",
-    home .. "/.local/share/nvim/mason/packages/jdtls/config_" .. CONFIG,
+    vim.fn.expand "$MASON/packages/jdtls/config_" .. CONFIG,
     "-data",
     workspace_dir,
   },

@@ -10,12 +10,11 @@
 -- }
 
 vim.opt.fillchars = {
-  --   horiz = "━",
-  --   horizup = "┻",
-  --   horizdown = "┳",
-  --   vert = "┃",
-  --   vertright = "┣",
-  vertright = "─",
-  vertleft = "─",
-  -- verthoriz = "╋",
+  horiz = "▁",
+  horizup = "▁",
+  horizdown = "▁",
+  vert = "▏",
+  vertleft = "▏",
+  vertright = "🭼",
+  verthoriz = "▏",
 }

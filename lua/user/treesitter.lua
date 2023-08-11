@@ -10,6 +10,7 @@ end
 
 configs.setup {
   ensure_installed = {
+    "query",
     "java",
     "rust",
     "cpp",
@@ -41,5 +42,10 @@ configs.setup {
   context_commentstring = {
     enable = true,
     enable_autocmd = false,
+  },
+  query_linter = {
+    enable = true,
+    use_virtual_text = true,
+    lint_events = { "BufWrite", "CursorHold" },
   },
 }
