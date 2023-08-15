@@ -13,20 +13,7 @@ local servers = {
   "tsserver",
 }
 
-local settings = {
-  ui = {
-    -- border = "rounded",
-    icons = {
-      package_installed = "◍",
-      package_pending = "◍",
-      package_uninstalled = "◍",
-    },
-  },
-  log_level = vim.log.levels.INFO,
-  max_concurrent_installers = 4,
-}
-
-require("mason").setup(settings)
+require("mason").setup()
 
 -- TODO: Mason lspconfig should not setup jdtls but we need to ensure it's installed
 require("mason-lspconfig").setup {
@@ -45,11 +32,7 @@ for _, server in pairs(servers) do
   opts = {
     on_attach = require("user.lsp.handlers").on_attach,
     capabilities = require("user.lsp.handlers").capabilities,
-    settings = require("user.lsp.handlers").settings(server),
   }
-
-  server = vim.split(server, "@")[1]
-
   local require_ok, conf_opts = pcall(require, "user.lsp.settings." .. server)
   if require_ok then
     opts = vim.tbl_deep_extend("force", conf_opts, opts)

@@ -26,7 +26,7 @@ configs.setup {
     "tsx",
     "typescript",
   }, -- put the language you want in this array
-  -- ensure_installed = "all", -- one of "all" or a list of languages
+  auto_install = true,
   ignore_install = { "" }, -- List of parsers to ignore installing
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
 

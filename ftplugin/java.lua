@@ -37,8 +37,6 @@ end
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
--- TODO: Testing
-
 JAVA_DAP_ACTIVE = true
 
 local bundles = {}
@@ -167,7 +165,14 @@ local config = {
     bundles = bundles,
   },
   on_attach = function(client, bufnr)
+    -- FIXME: Uncommenting below code cause the rest of the setup to fail.
+    -- local v_ok, ve = pcall(vim.fn.system "java -version 2>&1 | head -n 1 | awk -F '\"' '{print $2}' | tr -d '\0'")
+    -- print(ve)
+    -- if v_ok then
+    --   vim.g.JAVA_VERSION = ve
+    -- end
     local _, _ = pcall(vim.lsp.codelens.refresh)
+    client.server_capabilities.documentFormattingProvider = false
     require("jdtls").setup_dap { hotcodereplace = "auto" }
     require("user.lsp.handlers").on_attach(client, bufnr)
     local status_ok, jdtls_dap = pcall(require, "jdtls.dap")

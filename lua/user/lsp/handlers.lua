@@ -5,18 +5,6 @@ if not status_cmp_ok then
   return
 end
 
-M.settings = function(server_name)
-  if server_name == "lua_ls" then
-    return {
-      Lua = {
-        diagnostics = {
-          globals = { "vim" },
-        },
-      },
-    }
-  end
-end
-
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 M.capabilities.textDocument.completion.completionItem.snippetSupport = true
 M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
@@ -78,14 +66,14 @@ M.on_attach = function(client, bufnr)
     client.server_capabilities.documentFormattingProvider = false
   end
 
-  if client.name == "jdtls" then
-    client.server_capabilities.documentFormattingProvider = false
-    vim.lsp.codelens.refresh()
-    if JAVA_DAP_ACTIVE then
-      require("jdtls").setup_dap { hotcodereplace = "auto" }
-      require("jdtls.dap").setup_dap_main_class_configs()
-    end
-  end
+  -- if client.name == "jdtls" then
+  --   client.server_capabilities.documentFormattingProvider = false
+  --   vim.lsp.codelens.refresh()
+  --   if JAVA_DAP_ACTIVE then
+  --     require("jdtls").setup_dap { hotcodereplace = "auto" }
+  --     require("jdtls.dap").setup_dap_main_class_configs()
+  --   end
+  -- end
 
   lsp_keymaps(bufnr)
   local status_ok, illuminate = pcall(require, "illuminate")

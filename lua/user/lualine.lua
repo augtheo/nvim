@@ -36,6 +36,28 @@ local relative_filename = {
   path = 1,
 }
 
+local function get_java()
+  if vim.bo.filetype == "java" and vim.g.JAVA_VERSION then
+    return "[java:" .. vim.g.JAVA_VERSION .. "]"
+  else
+    return ""
+  end
+end
+
+function getFileName(path)
+  return path:match "^.+/(.+)$"
+end
+
+local function get_venv()
+  local venv = vim.env.VIRTUAL_ENV
+  if venv then
+    local params = getFileName(venv)
+    return "(env:" .. params .. ")"
+  else
+    return ""
+  end
+end
+
 local location = {
   "location",
   padding = 1,
@@ -54,11 +76,15 @@ local progress = function()
   return "%#lualine_a_inactive#" .. chars[index] .. "%*"
 end
 
+local lualine_theme = function()
+  return os.getenv "NVIM_COLORSCHEME" or "catppuccin"
+end
+
 lualine.setup {
   options = {
     globalstatus = true,
     icons_enabled = true,
-    theme = "catppuccin",
+    theme = lualine_theme(),
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
     disabled_filetypes = { "alpha", "dashboard" },
@@ -68,7 +94,7 @@ lualine.setup {
     lualine_a = { "mode" },
     lualine_b = { "branch" },
     lualine_c = { diff },
-    lualine_x = { diagnostics, spaces, "encoding" },
+    lualine_x = { diagnostics, get_java, get_venv, spaces, "encoding" },
     lualine_y = { location },
     lualine_z = { progress },
   },
@@ -76,6 +102,7 @@ lualine.setup {
     lualine_a = { "buffers" },
     lualine_z = { "tabs" },
   },
+  extensions = { "nvim-tree", "trouble", "toggleterm", "nvim-dap-ui", "fugitive", "quickfix" },
   -- TODO: Remove winbar from nvimtree, dap-ui and use that instead of tabline.
   -- winbar = {
   --   lualine_b = {},
