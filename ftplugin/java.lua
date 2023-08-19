@@ -64,7 +64,6 @@ end
 local config = {
   cmd = {
 
-    -- 💀
     "java",
     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
     "-Dosgi.bundles.defaultStartLevel=4",
@@ -218,6 +217,29 @@ require("sonarlint").setup {
     "java",
   },
 }
+
+local neotest_setup = function()
+  require("neotest").setup {
+    adapters = {
+      require "neotest-java" {
+        -- function to determine which runner to use based on project path
+        determine_runner = function(project_root_path)
+          -- return should be "maven" or "gradle"
+          return "gradle"
+        end,
+        -- override the builtin runner discovery behaviour to always use given
+        -- tool. Default is "nil", so no override
+        force_runner = nil,
+        -- if the automatic runner discovery can't uniquely determine whether
+        -- to use Gradle or Maven, fallback to using this runner. Default is
+        -- "gradle"
+        fallback_runner = "gradle",
+      },
+    },
+  }
+end
+
+neotest_setup()
 
 -- Java specific which key mappings
 local status_ok, which_key = pcall(require, "which-key")

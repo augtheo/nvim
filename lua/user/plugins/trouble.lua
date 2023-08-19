@@ -16,6 +16,7 @@ end
 Trouble.setup {
   padding = true,
 }
+
 -- -- jump to the first item, skipping the groups
 -- require("trouble").first({skip_groups = true, jump = true});
 --

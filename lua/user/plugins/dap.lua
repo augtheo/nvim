@@ -2,22 +2,12 @@ local dap_status_ok, dap = pcall(require, "dap")
 if not dap_status_ok then
   return
 end
+vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
 
 local dap_ui_status_ok, dapui = pcall(require, "dapui")
 if not dap_ui_status_ok then
   return
 end
-
-local dap_install_status_ok, dap_install = pcall(require, "dap-install")
-if not dap_install_status_ok then
-  return
-end
-
-dap_install.setup {}
-
-dap_install.config("python", {})
--- add other configs here
-
 dapui.setup {
   expand_lines = true,
   icons = { expanded = "", collapsed = "", circular = "" },
@@ -33,17 +23,17 @@ dapui.setup {
   layouts = {
     {
       elements = {
-        { id = "scopes",      size = 0.33 },
+        { id = "scopes", size = 0.33 },
         { id = "breakpoints", size = 0.17 },
-        { id = "stacks",      size = 0.25 },
-        { id = "watches",     size = 0.25 },
+        { id = "stacks", size = 0.25 },
+        { id = "watches", size = 0.25 },
       },
       size = 0.33,
       position = "right",
     },
     {
       elements = {
-        { id = "repl",    size = 0.45 },
+        { id = "repl", size = 0.45 },
         { id = "console", size = 0.55 },
       },
       size = 0.27,
@@ -52,16 +42,13 @@ dapui.setup {
   },
   floating = {
     max_height = 0.9,
-    max_width = 0.5,             -- Floats will be treated as percentage of your screen.
+    max_width = 0.5, -- Floats will be treated as percentage of your screen.
     border = vim.g.border_chars, -- Border style. Can be 'single', 'double' or 'rounded'
     mappings = {
       close = { "q", "<Esc>" },
     },
   },
 }
-
-vim.fn.sign_define("DapBreakpoint", { text = "", texthl = "DiagnosticSignError", linehl = "", numhl = "" })
-
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()
 end
@@ -73,3 +60,20 @@ end
 dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
 end
+
+local cmp_ok, cmp = pcall(require, "cmp")
+if not cmp_ok then
+  return
+end
+cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
+  sources = {
+    { name = "dap" },
+  },
+})
+
+local tele_status_ok, telescope = pcall(require, "telescope")
+if not tele_status_ok then
+  return
+end
+
+telescope.load_extension "dap"

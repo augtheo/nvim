@@ -24,10 +24,10 @@ vim.g.mapleader = " "
 
 -- Normal ----------------------------------------------------------
 -- Better window navigation
-keymap("n", "<C-h>", "<C-w>h", opts {})
-keymap("n", "<C-j>", "<C-w>j", opts {})
-keymap("n", "<C-k>", "<C-w>k", opts {})
-keymap("n", "<C-l>", "<C-w>l", opts {})
+keymap("n", "<C-h>", "<C-w>h", opts "Go to left window")
+keymap("n", "<C-j>", "<C-w>j", opts "Go to lower window")
+keymap("n", "<C-k>", "<C-w>k", opts "Go to upper window")
+keymap("n", "<C-l>", "<C-w>l", opts "Go to right window")
 
 -- Resize with arrows
 keymap("n", "<C-Up>", ":resize -2<CR>", opts "Horizontal resize Decrease")
@@ -36,8 +36,8 @@ keymap("n", "<C-Left>", ":vertical resize +2<CR>", opts "Vertical resize Increas
 keymap("n", "<C-Right>", ":vertical resize -2<CR>", opts "Vertical resize Decrease")
 
 -- Navigate buffers
-keymap("n", "<S-l>", ":bnext<CR>", opts {})
-keymap("n", "<S-h>", ":bprevious<CR>", opts {})
+keymap("n", "<S-l>", ":bnext<CR>", opts "Next buffer")
+keymap("n", "<S-h>", ":bprevious<CR>", opts "Prev buffer")
 
 -- Close buffers
 keymap("n", "<S-q>", "<cmd>bdelete!<CR>", opts "Quit")
@@ -72,8 +72,25 @@ keymap("v", "<A-k>", ":m '<-2<CR>gv=gv", opts {})
 -- Git
 keymap("n", "g[", "<cmd>diffget //2<CR>", opts "Accept Left")
 keymap("n", "g]", "<cmd>diffget //3<CR>", opts "Accept Right")
--- Plugins --
--- UFO
--- Using ufo provider need remap `zR` and `zM`. If Neovim is 0.6.1, remap yourself
--- keymap('n', 'zR', "<cmd>lua require('ufo').openAllFolds<CR>" , opts{}) keymap('n', 'zM', "<cmd>lua require('ufo').closeAllFolds<CR>" , opts)
+
+-- tabs
+keymap("n", "<leader><tab>l", "<cmd>tablast<cr>", opts "Last Tab")
+keymap("n", "<leader><tab>f", "<cmd>tabfirst<cr>", opts "First Tab")
+keymap("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", opts "New Tab")
+keymap("n", "<leader><tab>]", "<cmd>tabnext<cr>", opts "Next Tab")
+keymap("n", "<leader><tab>d", "<cmd>tabclose<cr>", opts "Close Tab")
+keymap("n", "<leader><tab>[", "<cmd>tabprevious<cr>", opts "Previous Tab")
+
+-- Neotest
 --
+keymap("n", "<leader>mr", "<cmd>lua require('neotest').run.run()<cr>", { desc = "Test Method" })
+keymap("n", "<leader>md", "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", { desc = "Test Method DAP" })
+keymap("n", "<leader>mf", "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", { desc = "Test Class" })
+
+keymap(
+  "n",
+  "<leader>mF",
+  "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>",
+  { desc = "Test Class DAP" }
+)
+keymap("n", "<leader>ms", "<cmd>lua require('neotest').summary.toggle()<cr>", { desc = "Test Summary" })

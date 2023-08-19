@@ -34,6 +34,7 @@ vim.cmd "autocmd! TermOpen term://* lua set_terminal_keymaps()"
 local Terminal = require("toggleterm.terminal").Terminal
 local lazygit = Terminal:new { cmd = "lazygit", hidden = true }
 local lazydocker = Terminal:new { cmd = "lazydocker", hidden = true }
+local python = Terminal:new { cmd = "python", hidden = true }
 
 function _LAZYGIT_TOGGLE()
   lazygit:toggle()
@@ -42,3 +43,16 @@ end
 function _LAZYDOCKER_TOGGLE()
   lazydocker:toggle()
 end
+
+function _PYTHON_TOGGLE()
+  python:toggle()
+end
+
+-- Shorten function name
+local keymap = vim.keymap.set
+
+keymap("n", "<leader>ts", "<cmd>TermSelect<CR>", { desc = "Term Select" })
+keymap("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", { desc = "Float" })
+keymap("n", "<leader>tp", "<cmd>lua _PYTHON_TOGGLE()<cr>", { desc = "Python" })
+keymap("n", "<leader>th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", { desc = "Horizontal" })
+keymap("n", "<leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", { desc = "Vertical" })

@@ -84,6 +84,7 @@ nvim_tree.setup {
     update_cwd = true,
   },
   renderer = {
+    group_empty = true,
     root_folder_modifier = ":t",
     icons = {
       glyphs = {
@@ -125,14 +126,15 @@ nvim_tree.setup {
     },
   },
   view = {
-    width = 30,
+    width = 40,
     side = "left",
-    -- mappings = {
-    --   list = {
-    --     { key = { "l", "<CR>", "o" }, cb = tree_cb "edit" },
-    --     { key = "h",                  cb = tree_cb "close_node" },
-    --     { key = "v",                  cb = tree_cb "vsplit" },
-    --   },
-    -- },
   },
 }
+
+_GROUP_BY_TOGGLE_STATE = true
+function _NVIM_TREE_TOGGLE_GROUP_BY()
+  _GROUP_BY_TOGGLE_STATE = not _GROUP_BY_TOGGLE_STATE
+  require("nvim-tree").setup { renderer = { group_empty = _GROUP_BY_TOGGLE_STATE } }
+end
+
+vim.cmd "command! NvimTreeToggleGroupEmpty lua _NVIM_TREE_TOGGLE_GROUP_BY()"

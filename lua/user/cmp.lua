@@ -115,7 +115,7 @@ cmp.setup {
     { name = "nvim_lua" },
     { name = "luasnip" },
     { name = "path" },
-    { name = "buffer",  keyword_length = 3, max_item_count = 3 },
+    { name = "buffer", keyword_length = 3, max_item_count = 3 },
     -- { name = "cmdline" },
   },
   confirm_opts = {
@@ -129,4 +129,7 @@ cmp.setup {
   experimental = {
     ghost_text = true,
   },
+  enabled = function()
+    return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" or require("cmp_dap").is_dap_buffer()
+  end,
 }

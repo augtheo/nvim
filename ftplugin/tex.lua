@@ -17,13 +17,12 @@ local mappings = {
   L = {
     name = "LaTex",
     c = {
-      "<Cmd>!pdflatex % > /dev/null 2>&1 <CR>" , "Compile"
+      "<Cmd>!pdflatex % > /dev/null 2>&1 <CR>",
+      "Compile",
     },
   },
 }
 
-
 which_key.register(mappings, opts)
 which_key.register(vmappings, vopts)
 --
-

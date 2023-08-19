@@ -101,7 +101,7 @@ require("dressing").setup {
       size = nil,
       relative = "editor",
       border = {
-        style = "rounded",
+        style = "single",
       },
       buf_options = {
         swapfile = false,
@@ -119,7 +119,7 @@ require("dressing").setup {
     -- Options for built-in selector
     builtin = {
       -- These are passed to nvim_open_win
-      border = "rounded",
+      border = "single",
       -- 'editor' and 'win' will default to being centered
       relative = "editor",
 

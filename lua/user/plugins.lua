@@ -53,19 +53,60 @@ return packer.startup(function(use)
   use { "nvim-tree/nvim-web-devicons" }
 
   -- UI Niceties
-  use { "nvim-tree/nvim-tree.lua" }
-  use { "goolord/alpha-nvim" }
-  use { "nvim-lualine/lualine.nvim" }
-  use { "nvim-telescope/telescope.nvim" }
-  use { "ahmedkhalf/project.nvim" }
-  use { "stevearc/dressing.nvim" }
-  use { "akinsho/toggleterm.nvim" }
+  use {
+    "nvim-tree/nvim-tree.lua",
+    config = function()
+      require "user.plugins.nvim-tree"
+    end,
+  }
+  use {
+    "goolord/alpha-nvim",
+    event = "VimEnter",
+    config = function()
+      require "user.plugins.alpha"
+    end,
+  }
+  use {
+    "nvim-lualine/lualine.nvim",
+    config = function()
+      require "user.plugins.lualine"
+    end,
+  }
+  use {
+    "nvim-telescope/telescope.nvim",
+    config = function()
+      require "user.plugins.telescope"
+    end,
+  }
+  use {
+    "ahmedkhalf/project.nvim",
+    requires = {
+      "nvim-telescope/telescope.nvim",
+    },
+    config = function()
+      require "user.plugins.project"
+    end,
+  }
+  use {
+    "stevearc/dressing.nvim",
+    config = function()
+      require "user.plugins.dressing"
+    end,
+  }
+  use {
+    "akinsho/toggleterm.nvim",
+    config = function()
+      require "user.plugins.toggleterm"
+    end,
+  }
 
   -- Treesitter
   use {
     {
       "nvim-treesitter/nvim-treesitter",
-      event = "CursorHold",
+      config = function()
+        require "user.plugins.treesitter"
+      end,
     },
     { "nvim-treesitter/playground", after = "nvim-treesitter" },
     { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" },
@@ -76,7 +117,7 @@ return packer.startup(function(use)
         require "user.plugins.context"
       end,
     },
-    { "JoosepAlviste/nvim-ts-context-commentstring", after = "nvim-treesitter" },
+    { "JoosepAlviste/nvim-ts-context-commentstring", after = "nvim-treesitter", ft = { "typescript" } },
   }
 
   -- Editing
@@ -94,6 +135,9 @@ return packer.startup(function(use)
     config = function()
       require "user.plugins.indentline"
     end,
+    requires = {
+      "nvim-treesitter/nvim-treesitter",
+    },
   }
   use {
     "kevinhwang91/nvim-ufo",
@@ -134,7 +178,15 @@ return packer.startup(function(use)
     end,
   }
   use { "tpope/vim-fugitive", event = "BufRead" }
-  use { "ThePrimeagen/git-worktree.nvim", event = "BufRead" }
+  use {
+    "ThePrimeagen/git-worktree.nvim",
+    requires = {
+      "nvim-telescope/telescope.nvim",
+    },
+    config = function()
+      require "user.plugins.git-worktree"
+    end,
+  }
   use {
     "ruifm/gitlinker.nvim",
     requires = "nvim-lua/plenary.nvim",
@@ -145,13 +197,33 @@ return packer.startup(function(use)
   }
 
   -- DAP
-  use { "mfussenegger/nvim-dap" }
-  use { "rcarriga/nvim-dap-ui" }
-  use { "rcarriga/cmp-dap" }
-  use { "ravenxrz/DAPInstall.nvim" }
+  use {
+    "rcarriga/nvim-dap-ui",
+    -- ft = { "java", "python" },
+  }
+  use {
+    "rcarriga/cmp-dap", -- nvim-cmp source for nvim-dap REPL and nvim-dap-ui buffers
+    -- ft = { "java", "python" },
+  }
+  use {
+    "mfussenegger/nvim-dap",
+    requires = {
+      "nvim-telescope/telescope.nvim",
+      "nvim-telescope/telescope-dap.nvim",
+    },
+    config = function()
+      require "user.plugins.dap"
+    end,
+    -- ft = { "java", "python" },
+  }
 
   -- Test
-  use { "nvim-neotest/neotest" }
+  use {
+    "nvim-neotest/neotest",
+    config = function()
+      require "user.plugins.neotest"
+    end,
+  }
 
   --Java
   use { "mfussenegger/nvim-jdtls", ft = { "java" } }
@@ -167,10 +239,16 @@ return packer.startup(function(use)
       return false
     end,
   }
-  -- use { "andy-bell101/neotest-java" }
+  use { "andy-bell101/neotest-java" }
 
   --Python
-  use { "mfussenegger/nvim-dap-python" }
+  use {
+    "mfussenegger/nvim-dap-python",
+    config = function()
+      require("dap-python").setup(vim.fn.expand "$MASON/packages/debugpy/venv/bin/python")
+    end,
+    ft = { "python" },
+  }
   use { "AckslD/swenv.nvim" }
   use { "nvim-neotest/neotest-python" }
 
@@ -180,6 +258,7 @@ return packer.startup(function(use)
     run = function()
       vim.fn["mkdp#util#install"]()
     end,
+    ft = { "markdown" },
   }
 
   -- begin folke's plugins
@@ -189,18 +268,44 @@ return packer.startup(function(use)
   --To do
   use {
     "folke/todo-comments.nvim",
+    event = { "BufReadPost", "BufNewFile" },
     requires = "nvim-lua/plenary.nvim",
+    config = function()
+      require "user.plugins.todo"
+    end,
   }
   --Trouble
   use {
     "folke/trouble.nvim",
+    config = function()
+      require "user.plugins.trouble"
+    end,
   }
   -- Noice
-  use { "folke/noice.nvim", requires = {
-    "MunifTanjim/nui.nvim",
+  use {
     "rcarriga/nvim-notify",
-  } }
+    config = function()
+      require "user.plugins.notify"
+    end,
+  }
+  use {
+    "folke/noice.nvim",
+    requires = {
+      "MunifTanjim/nui.nvim",
+      "rcarriga/nvim-notify",
+      "nvim-telescope/telescope.nvim",
+    },
+    config = function()
+      require "user.plugins.noice"
+    end,
+  }
   -- end folke's plugins
+  use {
+    "glacambre/firenvim",
+    run = function()
+      vim.fn["firenvim#install"](0)
+    end,
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
