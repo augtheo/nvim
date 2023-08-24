@@ -68,6 +68,7 @@ return packer.startup(function(use)
   }
   use {
     "nvim-lualine/lualine.nvim",
+    event = "VimEnter",
     config = function()
       require "user.plugins.lualine"
     end,
@@ -167,7 +168,12 @@ return packer.startup(function(use)
   use { "williamboman/mason.nvim" }
   use { "williamboman/mason-lspconfig.nvim" }
   use { "jose-elias-alvarez/null-ls.nvim" } -- for formatters and linters
-  use { "RRethy/vim-illuminate" }
+  use {
+    "RRethy/vim-illuminate",
+    config = function()
+      require "user.plugins.illuminate"
+    end,
+  }
 
   -- Git
   use {
@@ -198,31 +204,23 @@ return packer.startup(function(use)
 
   -- DAP
   use {
-    "rcarriga/nvim-dap-ui",
-    -- ft = { "java", "python" },
-  }
-  use {
-    "rcarriga/cmp-dap", -- nvim-cmp source for nvim-dap REPL and nvim-dap-ui buffers
-    -- ft = { "java", "python" },
-  }
-  use {
     "mfussenegger/nvim-dap",
     requires = {
       "nvim-telescope/telescope.nvim",
       "nvim-telescope/telescope-dap.nvim",
+      "rcarriga/nvim-dap-ui",
+      "rcarriga/cmp-dap", -- nvim-cmp source for nvim-dap REPL and nvim-dap-ui buffers
     },
     config = function()
       require "user.plugins.dap"
     end,
-    -- ft = { "java", "python" },
   }
 
   -- Test
   use {
-    "nvim-neotest/neotest",
-    config = function()
-      require "user.plugins.neotest"
-    end,
+    { "nvim-neotest/neotest" },
+    { "andy-bell101/neotest-java" },
+    { "nvim-neotest/neotest-python" },
   }
 
   --Java
@@ -239,7 +237,6 @@ return packer.startup(function(use)
       return false
     end,
   }
-  use { "andy-bell101/neotest-java" }
 
   --Python
   use {
@@ -250,7 +247,6 @@ return packer.startup(function(use)
     ft = { "python" },
   }
   use { "AckslD/swenv.nvim" }
-  use { "nvim-neotest/neotest-python" }
 
   -- Markdown
   use {
@@ -300,12 +296,15 @@ return packer.startup(function(use)
     end,
   }
   -- end folke's plugins
-  use {
-    "glacambre/firenvim",
-    run = function()
-      vim.fn["firenvim#install"](0)
-    end,
-  }
+  --
+  --
+  ---- Experimental
+  -- use {
+  --   "glacambre/firenvim",
+  --   run = function()
+  --     vim.fn["firenvim#install"](0)
+  --   end,
+  -- }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

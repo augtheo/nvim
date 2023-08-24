@@ -83,15 +83,15 @@ local mappings = {
   ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
   ["w"] = { "<cmd>w!<CR>", "Save" },
   ["q"] = { "<cmd>q!<CR>", "Quit" },
-  ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
-  ["D"] = { "<cmd>lua _LAZYDOCKER_TOGGLE()<CR>", "Lazydocker" },
-  ["G"] = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
-  ["n"] = { "<cmd>NoiceDismiss<CR>", "Dismiss Noice" },
   ["x"] = { "<cmd>lua _RUN_CODE() <CR>", "Run " },
 
   ["<tab>"] = { name = "+tabs" },
   ["s"] = { name = "+search" },
   ["t"] = { name = "+Terminal" },
+  ["u"] = { name = "+ui" },
+  ["f"] = { name = "+find" },
+  ["m"] = { name = "+Test" },
+
   g = {
     name = "Git",
     j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
@@ -114,11 +114,6 @@ local mappings = {
       c = { "<cmd>Telescope git_worktree create_git_worktree<CR>", "Create worktree" },
       s = { "<cmd>Telescope git_worktree git_worktrees<CR>", "Switch worktree" },
     },
-  },
-
-  l = {
-    name = "LSP",
-    i = { "<cmd>LspInfo<cr>", "Info" },
   },
 
   d = {

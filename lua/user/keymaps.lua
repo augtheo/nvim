@@ -94,3 +94,7 @@ keymap(
   { desc = "Test Class DAP" }
 )
 keymap("n", "<leader>ms", "<cmd>lua require('neotest').summary.toggle()<cr>", { desc = "Test Summary" })
+
+-- ui
+keymap("n", "<leader>uh", "<cmd>nohlsearch<cr>", { desc = "Stop Highlights" })
+keymap("n", "<leader>un", "<cmd>NoiceDismiss<cr>", { desc = "Dismiss Noice" })

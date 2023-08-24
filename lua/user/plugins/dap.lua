@@ -40,6 +40,9 @@ dapui.setup {
       position = "bottom",
     },
   },
+  controls = {
+    enabled = false,
+  },
   floating = {
     max_height = 0.9,
     max_width = 0.5, -- Floats will be treated as percentage of your screen.

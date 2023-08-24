@@ -23,7 +23,6 @@ null_ls.setup {
     formatting.black.with { extra_args = { "--fast" } },
     formatting.isort,
     diagnostics.flake8.with { extra_args = { "--max-line-length", "88" } },
-    diagnostics.rstcheck,
 
     -- cpp
     -- diagnostics.cpplint,

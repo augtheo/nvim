@@ -56,3 +56,5 @@ keymap("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", { desc = "Float
 keymap("n", "<leader>tp", "<cmd>lua _PYTHON_TOGGLE()<cr>", { desc = "Python" })
 keymap("n", "<leader>th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", { desc = "Horizontal" })
 keymap("n", "<leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", { desc = "Vertical" })
+keymap("n", "<leader>td", "<cmd>lua _LAZYDOCKER_TOGGLE()<cr>", { desc = "Lazydocker" })
+keymap("n", "<leader>tg", "<cmd>lua _LAZYGIT_TOGGLE()<cr>", { desc = "Lazygit" })

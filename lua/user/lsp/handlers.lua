@@ -12,7 +12,7 @@ M.capabilities.textDocument.foldingRange = {
   dynamicRegistration = false,
   lineFoldingOnly = true,
 }
-M.setup = function()
+M.setup_diagnostics = function()
   local signs = {
 
     { name = "DiagnosticSignError", text = "" },
@@ -60,17 +60,50 @@ local function lsp_keymaps(bufnr)
   keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references<cr>", opts "References")
   keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts "Diagnostics")
   keymap(bufnr, "n", "gt", "<cmd>Telescope lsp_type_definitions<cr>", opts "Goto Type Definition")
+  keymap(bufnr, "n", "[d", "<cmd>lua vim.diagnostic.goto_next()<cr>", opts "Goto Next Diagnostic")
+  keymap(bufnr, "n", "]d", "<cmd>lua vim.diagnostic.goto_prev()<cr>", opts "Goto Prev Diagnostic")
   --lsp capabilities
   keymap(bufnr, "n", "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts "Code Actions")
   keymap(bufnr, "n", "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>", opts "CodeLens")
   keymap(bufnr, "n", "<leader>lf", "<cmd>lua vim.lsp.buf.format{async=true}<cr>", opts "Format")
   keymap(bufnr, "n", "<leader>ls", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts "Signature Help")
   keymap(bufnr, "n", "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", opts "Rename")
+
+  local opts = {
+    mode = "n", -- NORMAL mode
+    prefix = "<leader>",
+    buffer = bufnr, -- Global mappings. Specify a buffer number for buffer local mappings
+    silent = true, -- use `silent` when creating keymaps
+    noremap = true, -- use `noremap` when creating keymaps
+    nowait = true, -- use `nowait` when creating keymaps
+  }
+  local mappings = {
+    ["l"] = "+lsp",
+  }
+
+  local status_ok, which_key = pcall(require, "which-key")
+  if not status_ok then
+    return
+  end
+  which_key.register(mappings, opts)
 end
 
 M.on_attach = function(client, bufnr)
   if client.name == "tsserver" then
     client.server_capabilities.documentFormattingProvider = false
+  end
+
+  if client.supports_method "textDocument/formatting" then
+    local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+    vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        -- on 0.8, you should use vim.lsp.buf.format({ bufnr = bufnr }) instead
+        vim.lsp.buf.format { async = false }
+      end,
+    })
   end
 
   lsp_keymaps(bufnr)

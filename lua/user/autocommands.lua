@@ -51,3 +51,29 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
     end
   end,
 })
+
+local augroup = vim.api.nvim_create_augroup
+local autocmd = vim.api.nvim_create_autocmd
+local cmd = vim.api.nvim_create_user_command
+local namespace = vim.api.nvim_create_namespace
+
+local group_name = augroup("alpha_settings", { clear = true })
+autocmd("User", {
+  desc = "Disable status and tablines for alpha",
+  group = group_name,
+  pattern = "AlphaReady",
+  callback = function()
+    local prev_showtabline = vim.opt.showtabline
+    local prev_status = vim.opt.laststatus
+    vim.opt.laststatus = 0
+    vim.opt.showtabline = 0
+    vim.opt_local.winbar = nil
+    autocmd("BufUnload", {
+      pattern = "<buffer>",
+      callback = function()
+        vim.opt.laststatus = prev_status
+        vim.opt.showtabline = prev_showtabline
+      end,
+    })
+  end,
+})
