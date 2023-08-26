@@ -25,6 +25,8 @@ telescope.setup {
   },
 }
 
+telescope.load_extension "undo"
+
 -- Shorten function name
 local keymap = vim.keymap.set
 

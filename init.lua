@@ -9,8 +9,4 @@ require "user.keymaps"
 
 -- TODO: Move custom setup outside of init.lua
 require "user.colorscheme"
-require "user.cmp"
-require "user.autopairs"
-require "user.lsp"
-require "user.which-key"
 require "user.utils"

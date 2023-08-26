@@ -75,6 +75,9 @@ return packer.startup(function(use)
   }
   use {
     "nvim-telescope/telescope.nvim",
+    requires = {
+      "debugloop/telescope-undo.nvim",
+    },
     config = function()
       require "user.plugins.telescope"
     end,
@@ -129,7 +132,14 @@ return packer.startup(function(use)
       require "user.plugins.comment"
     end,
   }
-  use { "windwp/nvim-autopairs" } -- Autopairs, integrates with both cmp and treesitter
+  use {
+    "windwp/nvim-autopairs",
+    event = "InsertCharPre",
+    after = "nvim-cmp",
+    config = function()
+      require "user.plugins.autopairs"
+    end,
+  } -- Autopairs, integrates with both cmp and treesitter
   use {
     "lukas-reineke/indent-blankline.nvim",
     event = "BufRead",
@@ -150,24 +160,51 @@ return packer.startup(function(use)
   }
 
   -- cmp plugins
-  use { "hrsh7th/nvim-cmp" } -- The completion plugin
-  use { "hrsh7th/cmp-buffer" } -- buffer sources
-  use { "hrsh7th/cmp-path" } -- path sources
-  use { "hrsh7th/cmp-nvim-lsp" }
-  use { "hrsh7th/cmp-nvim-lua" }
-  use { "hrsh7th/cmp-cmdline" }
-  use { "saadparwaiz1/cmp_luasnip" } -- snippet completions
-
-  -- snippets
-  use { "L3MON4D3/LuaSnip" } --snippet engine
-  use { "rafamadriz/friendly-snippets" } -- a bunch of snippets to use
+  use {
+    {
+      "hrsh7th/nvim-cmp",
+      event = "InsertEnter",
+      config = function()
+        require "user.plugins.cmp"
+      end,
+      requires = {
+        {
+          "L3MON4D3/LuaSnip",
+          event = "InsertEnter",
+          requires = {
+            {
+              "rafamadriz/friendly-snippets",
+              event = "CursorHold",
+            },
+          },
+        },
+      },
+    },
+    { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
+    { "hrsh7th/cmp-path", after = "nvim-cmp" },
+    { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
+    { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
+    { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
+  }
 
   -- LSP
-  -- TODO: Setup LSP lazily
-  use { "neovim/nvim-lspconfig" } -- enable LSP
-  use { "williamboman/mason.nvim" }
-  use { "williamboman/mason-lspconfig.nvim" }
-  use { "jose-elias-alvarez/null-ls.nvim" } -- for formatters and linters
+  use {
+    "neovim/nvim-lspconfig",
+    event = "BufRead",
+    config = function()
+      require "user.lsp"
+    end,
+    requires = {
+      { "williamboman/mason.nvim" },
+      { "williamboman/mason-lspconfig.nvim" },
+      { "jose-elias-alvarez/null-ls.nvim" }, -- for formatters and linters
+      {
+        -- WARN: Unfortunately we won't be able to lazy load this
+        "hrsh7th/cmp-nvim-lsp",
+      },
+    },
+  }
+
   use {
     "RRethy/vim-illuminate",
     config = function()
@@ -209,8 +246,16 @@ return packer.startup(function(use)
       "nvim-telescope/telescope.nvim",
       "nvim-telescope/telescope-dap.nvim",
       "rcarriga/nvim-dap-ui",
-      "rcarriga/cmp-dap", -- nvim-cmp source for nvim-dap REPL and nvim-dap-ui buffers
+      {
+        "rcarriga/cmp-dap", -- nvim-cmp source for nvim-dap REPL and nvim-dap-ui buffers
+        after = "nvim-cmp",
+        config = function()
+          require "user.plugins.cmp-dap"
+        end,
+      },
     },
+    event = "CursorHold",
+    after = "nvim-cmp",
     config = function()
       require "user.plugins.dap"
     end,
@@ -259,7 +304,13 @@ return packer.startup(function(use)
 
   -- begin folke's plugins
   -- Which key
-  use { "folke/which-key.nvim" }
+  use {
+    "folke/which-key.nvim",
+    event = "CursorHold",
+    config = function()
+      require "user.plugins.which-key"
+    end,
+  }
 
   --To do
   use {

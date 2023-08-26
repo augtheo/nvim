@@ -64,16 +64,6 @@ dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
 end
 
-local cmp_ok, cmp = pcall(require, "cmp")
-if not cmp_ok then
-  return
-end
-cmp.setup.filetype({ "dap-repl", "dapui_watches", "dapui_hover" }, {
-  sources = {
-    { name = "dap" },
-  },
-})
-
 local tele_status_ok, telescope = pcall(require, "telescope")
 if not tele_status_ok then
   return

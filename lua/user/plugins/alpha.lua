@@ -13,13 +13,15 @@ dashboard.section.header.val = {
   [[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
 }
 dashboard.section.buttons.val = {
-  dashboard.button("f", " " .. " Find file", ":Telescope find_files <CR>"),
-  dashboard.button("e", " " .. " New file", ":ene <BAR> startinsert <CR>"),
-  dashboard.button("p", " " .. " Find project", ":Telescope projects <CR>"),
-  dashboard.button("r", " " .. " Recently used files", ":Telescope oldfiles <CR>"),
-  dashboard.button("t", " " .. " Find text", ":Telescope live_grep <CR>"), -- TODO: Add git worktree launch shortcut
-  dashboard.button("c", " " .. " Configuration", ":e $MYVIMRC <CR>"),
-  dashboard.button("q", " " .. " Quit", ":qa<CR>"),
+  dashboard.button("f", " " .. " Find file", "<cmd>Telescope find_files <cr>"),
+  dashboard.button("e", " " .. " New file", "<cmd>ene <BAR> startinsert <cr>"),
+  dashboard.button("p", " " .. " Find project", "<cmd>Telescope projects <cr>"),
+  dashboard.button("d", " " .. " Create Git Worktree", "<cmd>Telescope git_worktree create_git_worktree<CR>"),
+  dashboard.button("g", " " .. " Switch Git Worktree", "<cmd>Telescope git_worktree git_worktrees<cr>"),
+  dashboard.button("r", " " .. " Recently used files", "<cmd>Telescope oldfiles <cr>"),
+  dashboard.button("t", " " .. " Find text", "<cmd>Telescope live_grep <cr>"),
+  dashboard.button("c", " " .. " Configuration", "<cmd>e $MYVIMRC <cr>"),
+  dashboard.button("q", " " .. " Quit", "<cmd>qa<cr>"),
 }
 local function footer()
   return ""
