@@ -20,6 +20,7 @@ dashboard.section.buttons.val = {
   dashboard.button("g", " " .. " Switch Git Worktree", "<cmd>Telescope git_worktree git_worktrees<cr>"),
   dashboard.button("r", " " .. " Recently used files", "<cmd>Telescope oldfiles <cr>"),
   dashboard.button("t", " " .. " Find text", "<cmd>Telescope live_grep <cr>"),
+  dashboard.button("s", " " .. " Restore Session", [[:lua require("persistence").load() <cr>]]),
   dashboard.button("c", " " .. " Configuration", "<cmd>e $MYVIMRC <cr>"),
   dashboard.button("q", " " .. " Quit", "<cmd>qa<cr>"),
 }

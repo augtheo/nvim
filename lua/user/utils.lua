@@ -14,7 +14,9 @@ local function substitute(cmd)
   return cmd
 end
 
-function _RUN_CODE()
+local M = {}
+
+M._RUN_CODE = function()
   local fileExtension = vim.fn.expand "%:e"
   local selectedCmd = ""
   local options = "bot 10 new | term "
@@ -23,8 +25,8 @@ function _RUN_CODE()
       default = "gcc % -o $fileBase && $fileBase",
     },
     cpp = {
-      compile_and_run_interactively = "g++ -DLOCAL % -o $fileBase && ./$fileBase",
-      compile_and_run_with_input = "g++ -DLOCAL % -o $fileBase && ./$fileBase < input.txt | tee output.txt",
+      compile_and_run_interactively = "g++ -DLOCAL % -o $fileBase && $fileBase",
+      compile_and_run_with_input = "g++ -DLOCAL % -o $fileBase && $fileBase < input.txt | tee output.txt",
       compile_with_warning_flags = "g++ -Wall -Wextra -pedantic -std=c++17 -O2 -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fstack-protector -DLOCAL %  -o $fileBase",
       diff_output_with_expected = "diff expected.txt output.txt",
     },
@@ -80,3 +82,5 @@ function _RUN_CODE()
     )
   end
 end
+
+return M

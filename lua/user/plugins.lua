@@ -46,8 +46,13 @@ return packer.startup(function(use)
   use { "nvim-lua/plenary.nvim" } -- Useful lua functions used by lots of plugins
 
   -- Colorschemes
-  use { "AlphaTechnolog/pywal.nvim", as = "pywal" }
-  use { "catppuccin/nvim", as = "catppuccin" }
+  use {
+    "catppuccin/nvim",
+    as = "catppuccin",
+    config = function()
+      require "user.colorscheme"
+    end,
+  }
 
   -- Icons
   use { "nvim-tree/nvim-web-devicons" }
@@ -108,6 +113,7 @@ return packer.startup(function(use)
   use {
     {
       "nvim-treesitter/nvim-treesitter",
+      event = "BufRead",
       config = function()
         require "user.plugins.treesitter"
       end,
@@ -196,7 +202,6 @@ return packer.startup(function(use)
     end,
     requires = {
       { "williamboman/mason.nvim" },
-      { "williamboman/mason-lspconfig.nvim" },
       { "jose-elias-alvarez/null-ls.nvim" }, -- for formatters and linters
       {
         -- WARN: Unfortunately we won't be able to lazy load this
@@ -345,6 +350,13 @@ return packer.startup(function(use)
     config = function()
       require "user.plugins.noice"
     end,
+  }
+
+  use {
+    "folke/persistence.nvim",
+    -- config = function()
+    --   require("persistence").setup()
+    -- end,
   }
   -- end folke's plugins
   --

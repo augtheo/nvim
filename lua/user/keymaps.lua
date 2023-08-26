@@ -98,3 +98,14 @@ keymap("n", "<leader>ms", "<cmd>lua require('neotest').summary.toggle()<cr>", { 
 -- ui
 keymap("n", "<leader>uh", "<cmd>nohlsearch<cr>", { desc = "Stop Highlights" })
 keymap("n", "<leader>un", "<cmd>NoiceDismiss<cr>", { desc = "Dismiss Noice" })
+
+-- persistence
+keymap("n", "<leader>qq", "<cmd>q!<CR>", { desc = "Quit" })
+keymap("n", "<leader>qs", "<cmd>lua require('persistence').load()<cr>", { desc = "Restore Session" })
+keymap(
+  "n",
+  "<leader>ql",
+  "<cmd>lua require('persistence').load({ last = true })<cr>",
+  { desc = "Restore Last Session" }
+)
+keymap("n", "<leader>qd", "<cmd>lua require('persistence').stop()<cr>", { desc = "Don't Save Current Session" })

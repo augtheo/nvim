@@ -115,7 +115,7 @@ cmp.setup {
     { name = "nvim_lua" },
     { name = "luasnip" },
     { name = "path" },
-    { name = "buffer", keyword_length = 3, max_item_count = 3 },
+    { name = "buffer",  keyword_length = 3, max_item_count = 3 },
     -- { name = "cmdline" },
   },
   confirm_opts = {

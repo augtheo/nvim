@@ -76,15 +76,13 @@ local progress = function()
   return "%#lualine_a_inactive#" .. chars[index] .. "%*"
 end
 
-local lualine_theme = function()
-  return os.getenv "NVIM_COLORSCHEME" or "catppuccin"
-end
+local lualine_theme = "catppuccin"
 
 lualine.setup {
   options = {
     globalstatus = true,
     icons_enabled = true,
-    theme = lualine_theme(),
+    theme = lualine_theme,
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
     disabled_filetypes = { "alpha", "dashboard" },
