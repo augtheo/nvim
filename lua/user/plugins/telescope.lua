@@ -34,6 +34,52 @@ telescope.setup {
 
 telescope.load_extension "undo"
 
+-- begin define custom opts for pretty file picker
+local telescopeUtilities = require "telescope.utils"
+local telescopeMakeEntryModule = require "telescope.make_entry"
+local plenaryStrings = require "plenary.strings"
+local devIcons = require "nvim-web-devicons"
+local telescopeEntryDisplayModule = require "telescope.pickers.entry_display"
+local fileTypeIconWidth = plenaryStrings.strdisplaywidth(devIcons.get_icon("fname", { default = true }))
+
+local function getPathAndTail(fileName)
+  local bufferNameTail = telescopeUtilities.path_tail(fileName)
+  local pathWithoutTail = require("plenary.strings").truncate(fileName, #fileName - #bufferNameTail, "")
+  local pathToDisplay = telescopeUtilities.transform_path({
+    path_display = { "truncate" },
+  }, pathWithoutTail)
+  return bufferNameTail, pathToDisplay
+end
+
+local customFilePickerOpts = {
+  entry_maker = function(line)
+    local originalEntryMaker = telescopeMakeEntryModule.gen_from_file {}
+    local originalEntryTable = originalEntryMaker(line)
+
+    local displayer = telescopeEntryDisplayModule.create {
+      separator = " ",
+      items = {
+        { width = fileTypeIconWidth },
+        { width = nil },
+        { remaining = true },
+      },
+    }
+
+    originalEntryTable.display = function(entry)
+      local tail, pathToDisplay = getPathAndTail(entry.value)
+      local tailForDisplay = tail .. " "
+      local icon, iconHighlight = telescopeUtilities.get_devicons(tail)
+      return displayer {
+        { icon, iconHighlight },
+        tailForDisplay,
+        { pathToDisplay, "TelescopeResultsComment" },
+      }
+    end
+    return originalEntryTable
+  end,
+}
+-- end define custom opts for pretty file picker
+
 -- Shorten function name
 local keymap = vim.keymap.set
 
@@ -46,8 +92,13 @@ keymap("n", "<leader>P", "<cmd>Telescope projects<cr>", { desc = "Projects" })
 
 -- find
 keymap("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find Buffers" })
-keymap("n", "<leader>ff", "<cmd> Telescope find_files<cr>", { desc = "Find Files" })
-keymap("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Recent" })
+keymap("n", "<leader>ff", function()
+  require("telescope.builtin").find_files(customFilePickerOpts)
+end, { desc = "Find Files" })
+keymap("n", "<leader>fr", function()
+  require("telescope.builtin").oldfiles(customFilePickerOpts)
+end, { desc = "Find Recent" })
+-- keymap("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Recent" })
 
 -- git
 keymap("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Commits" })
