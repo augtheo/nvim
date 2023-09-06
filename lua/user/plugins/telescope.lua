@@ -33,8 +33,9 @@ telescope.setup {
 }
 
 telescope.load_extension "undo"
+telescope.load_extension "live_grep_args"
 
--- begin define custom opts for pretty file picker
+-- begin define custom opts for pretty pickers
 local telescopeUtilities = require "telescope.utils"
 local telescopeMakeEntryModule = require "telescope.make_entry"
 local plenaryStrings = require "plenary.strings"
@@ -57,7 +58,7 @@ local customFilePickerOpts = {
     local originalEntryTable = originalEntryMaker(line)
 
     local displayer = telescopeEntryDisplayModule.create {
-      separator = " ",
+      separator = "",
       items = {
         { width = fileTypeIconWidth },
         { width = nil },
@@ -78,27 +79,75 @@ local customFilePickerOpts = {
     return originalEntryTable
   end,
 }
--- end define custom opts for pretty file picker
+
+local customGrepPickerOpts = {
+  entry_maker = function(line)
+    local originalEntryMaker = telescopeMakeEntryModule.gen_from_vimgrep {}
+    local originalEntryTable = originalEntryMaker(line)
+
+    local displayer = telescopeEntryDisplayModule.create {
+      separator = " ", -- Telescope will use this separator between each entry item
+      items = {
+        { width = fileTypeIconWidth },
+        { width = nil },
+        { width = nil }, -- Maximum path size, keep it short
+        { remaining = true },
+      },
+    }
+
+    originalEntryTable.display = function(entry)
+      local tail, pathToDisplay = getPathAndTail(entry.filename)
+      local icon, iconHighlight = telescopeUtilities.get_devicons(tail)
+      local coordinates = ""
+      if true then
+        if entry.lnum then
+          if entry.col then
+            coordinates = string.format("%s:%s", entry.lnum, entry.col)
+          else
+            coordinates = string.format("%s", entry.lnum)
+          end
+        end
+      end
+
+      return displayer {
+        { icon, iconHighlight },
+        tail,
+        { coordinates, "TelescopeResultsLineNr" },
+        { pathToDisplay, "TelescopeResultsComment" },
+        -- entry.text,
+      }
+    end
+
+    return originalEntryTable
+  end,
+}
+
+-- end define custom opts for pretty pickers
 
 -- Shorten function name
 local keymap = vim.keymap.set
 
 -- quick
--- keymap("n", "<leader>b", "<cmd>Telescope buffers theme=dropdown previewer=false<cr>", { desc = "Switch Buffer" })
--- keymap("n", "<leader>f", "<cmd>Telescope find_files theme=dropdown previewer=false<cr>", { desc = "Find Files" })
-keymap("n", "<leader>/", "<cmd>Telescope live_grep<cr>", { desc = "Grep" })
-keymap("n", "<leader>:", "<cmd>Telescope command_history<cr>", { desc = "Command History" })
-keymap("n", "<leader>P", "<cmd>Telescope projects<cr>", { desc = "Projects" })
+keymap("n", "<leader>/", function()
+  require("telescope.builtin").live_grep(customGrepPickerOpts)
+end, { desc = "grep" })
+keymap("n", "<leader>:", "<cmd>Telescope command_history<cr>", { desc = "history" })
 
 -- find
+keymap("n", "<leader>fb", "<cmd>Telescope buffers theme=dropdown previewer=false<cr>", { desc = "Buffers" })
 keymap("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find Buffers" })
 keymap("n", "<leader>ff", function()
   require("telescope.builtin").find_files(customFilePickerOpts)
-end, { desc = "Find Files" })
+end, { desc = "Files" })
 keymap("n", "<leader>fr", function()
   require("telescope.builtin").oldfiles(customFilePickerOpts)
-end, { desc = "Find Recent" })
--- keymap("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Recent" })
+end, { desc = "Recent" })
+keymap(
+  "n",
+  "<leader>fg",
+  ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>",
+  { desc = "With Args" }
+)
 
 -- git
 keymap("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Commits" })
@@ -120,8 +169,9 @@ keymap("n", "<leader>sM", "<cmd>Telescope man_pages<cr>", { desc = "Man Pages" }
 keymap("n", "<leader>sm", "<cmd>Telescope marks<cr>", { desc = "Jump to Mark" })
 keymap("n", "<leader>so", "<cmd>Telescope vim_options<cr>", { desc = "Options" })
 keymap("n", "<leader>sR", "<cmd>Telescope resume<cr>", { desc = "Resume" })
-keymap("n", "<leader>sw", "<cmd>Telescope grep_string<cr>", { desc = "Word" })
-
+keymap("n", "<leader>sw", function()
+  require("telescope.builtin").grep_string(customGrepPickerOpts)
+end, { desc = "Word" })
 -- lsp
 keymap("n", "<leader>ss", "<cmd>Telescope lsp_document_symbols<cr>", { desc = "Document Symbols" })
 keymap("n", "<leader>sS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", { desc = "Workspace Symbols" })

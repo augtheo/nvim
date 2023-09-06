@@ -33,6 +33,7 @@ configs.setup {
     enable = true,
   },
   indent = { enable = true, disable = { "python", "css" } },
+  textobjexts = { enable = true },
 
   context_commentstring = {
     enable = true,
@@ -43,4 +44,10 @@ configs.setup {
     use_virtual_text = true,
     lint_events = { "BufWrite", "CursorHold" },
   },
+  incremental_selection = {
+    enable = true,
+  },
+  -- indentation = {
+  --   enable = true,
+  -- },
 }

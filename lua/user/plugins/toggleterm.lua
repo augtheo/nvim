@@ -51,10 +51,10 @@ end
 -- Shorten function name
 local keymap = vim.keymap.set
 
-keymap("n", "<leader>ts", "<cmd>TermSelect<CR>", { desc = "Term Select" })
-keymap("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", { desc = "Float" })
-keymap("n", "<leader>tp", "<cmd>lua _PYTHON_TOGGLE()<cr>", { desc = "Python" })
-keymap("n", "<leader>th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", { desc = "Horizontal" })
-keymap("n", "<leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", { desc = "Vertical" })
-keymap("n", "<leader>td", "<cmd>lua _LAZYDOCKER_TOGGLE()<cr>", { desc = "Lazydocker" })
-keymap("n", "<leader>tg", "<cmd>lua _LAZYGIT_TOGGLE()<cr>", { desc = "Lazygit" })
+keymap("n", "<leader>\\s", "<cmd>TermSelect<CR>", { desc = "Term Select" })
+keymap("n", "<leader>\\f", "<cmd>ToggleTerm direction=float<cr>", { desc = "Float" })
+keymap("n", "<leader>\\p", "<cmd>lua _PYTHON_TOGGLE()<cr>", { desc = "Python" })
+keymap("n", "<leader>\\h", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", { desc = "Horizontal" })
+keymap("n", "<leader>\\v", "<cmd>ToggleTerm size=80 direction=vertical<cr>", { desc = "Vertical" })
+keymap("n", "<leader>\\d", "<cmd>lua _LAZYDOCKER_TOGGLE()<cr>", { desc = "Lazydocker" })
+keymap("n", "<leader>\\g", "<cmd>lua _LAZYGIT_TOGGLE()<cr>", { desc = "Lazygit" })

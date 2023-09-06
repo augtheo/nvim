@@ -5,17 +5,23 @@ end
 
 local dashboard = require "alpha.themes.dashboard"
 dashboard.section.header.val = {
+  [[                                                 ]],
+  [[                                                 ]],
+  [[                                                 ]],
+  [[                                                 ]],
+  [[                                                 ]],
   [[                               __                ]],
   [[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
   [[ / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
   [[/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
   [[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
   [[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
+  [[                                                 ]],
+  [[                                                 ]],
 }
 dashboard.section.buttons.val = {
   dashboard.button("f", " " .. " Find file", "<cmd>Telescope find_files <cr>"),
   dashboard.button("e", " " .. " New file", "<cmd>ene <BAR> startinsert <cr>"),
-  dashboard.button("p", " " .. " Find project", "<cmd>Telescope projects <cr>"),
   dashboard.button("d", " " .. " Create Git Worktree", "<cmd>Telescope git_worktree create_git_worktree<CR>"),
   dashboard.button("g", " " .. " Switch Git Worktree", "<cmd>Telescope git_worktree git_worktrees<cr>"),
   dashboard.button("r", " " .. " Recently used files", "<cmd>Telescope oldfiles <cr>"),

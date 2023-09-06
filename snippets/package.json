@@ -11,8 +11,8 @@
         "path": "./cpp.json"
       },
       {
-        "language" : "rust",
-        "path" : "./rust.json"
+        "language": "rust",
+        "path": "./rust.json"
       }
     ]
   }

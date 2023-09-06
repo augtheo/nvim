@@ -83,17 +83,17 @@ keymap("n", "<leader><tab>[", "<cmd>tabprevious<cr>", opts "Previous Tab")
 
 -- Neotest
 --
-keymap("n", "<leader>mr", "<cmd>lua require('neotest').run.run()<cr>", { desc = "Test Method" })
-keymap("n", "<leader>md", "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", { desc = "Test Method DAP" })
-keymap("n", "<leader>mf", "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", { desc = "Test Class" })
+keymap("n", "<leader>tr", "<cmd>lua require('neotest').run.run()<cr>", { desc = "Test Method" })
+keymap("n", "<leader>td", "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", { desc = "Test Method DAP" })
+keymap("n", "<leader>tf", "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", { desc = "Test Class" })
 
 keymap(
   "n",
-  "<leader>mF",
+  "<leader>tF",
   "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>",
   { desc = "Test Class DAP" }
 )
-keymap("n", "<leader>ms", "<cmd>lua require('neotest').summary.toggle()<cr>", { desc = "Test Summary" })
+keymap("n", "<leader>ts", "<cmd>lua require('neotest').summary.toggle()<cr>", { desc = "Test Summary" })
 
 -- ui
 keymap("n", "<leader>uh", "<cmd>nohlsearch<cr>", { desc = "Stop Highlights" })

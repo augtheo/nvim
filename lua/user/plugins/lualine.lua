@@ -36,6 +36,15 @@ local relative_filename = {
   path = 1,
 }
 
+local function show_macro_recording()
+  local recording_register = vim.fn.reg_recording()
+  if recording_register == "" then
+    return ""
+  else
+    return "Recording @" .. recording_register
+  end
+end
+
 local function get_java()
   if vim.bo.filetype == "java" and vim.g.JAVA_VERSION then
     return "[java:" .. vim.g.JAVA_VERSION .. "]"
@@ -44,7 +53,7 @@ local function get_java()
   end
 end
 
-function getFileName(path)
+local function getFileName(path)
   return path:match "^.+/(.+)$"
 end
 
@@ -76,6 +85,17 @@ local progress = function()
   return "%#lualine_a_inactive#" .. chars[index] .. "%*"
 end
 
+-- Override 'encoding': Don't display if encoding is UTF-8.
+local encoding = function()
+  local ret, _ = (vim.bo.fenc or vim.go.enc):gsub("^utf%-8$", "")
+  return ret
+end
+-- fileformat: Don't display if &ff is unix.
+fileformat = function()
+  local ret, _ = vim.bo.fileformat:gsub("^unix$", "")
+  return ret
+end
+
 local lualine_theme = "catppuccin"
 
 lualine.setup {
@@ -91,8 +111,8 @@ lualine.setup {
   sections = {
     lualine_a = { "mode" },
     lualine_b = { "branch" },
-    lualine_c = { diff },
-    lualine_x = { diagnostics, get_java, get_venv, spaces, "encoding" },
+    lualine_c = { diff, { "macro-recording", fmt = show_macro_recording } },
+    lualine_x = { diagnostics, get_java, get_venv, encoding },
     lualine_y = { location },
     lualine_z = { progress },
   },

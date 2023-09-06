@@ -60,6 +60,7 @@ return packer.startup(function(use)
   -- UI Niceties
   use {
     "nvim-tree/nvim-tree.lua",
+    cmd = "NvimTreeToggle",
     config = function()
       require "user.plugins.nvim-tree"
     end,
@@ -81,19 +82,11 @@ return packer.startup(function(use)
   use {
     "nvim-telescope/telescope.nvim",
     requires = {
+      "nvim-telescope/telescope-live-grep-args.nvim",
       "debugloop/telescope-undo.nvim",
     },
     config = function()
       require "user.plugins.telescope"
-    end,
-  }
-  use {
-    "ahmedkhalf/project.nvim",
-    requires = {
-      "nvim-telescope/telescope.nvim",
-    },
-    config = function()
-      require "user.plugins.project"
     end,
   }
   use {
@@ -353,13 +346,22 @@ return packer.startup(function(use)
   }
 
   use {
+    -- TODO: Make lazy loaded cmp and treesitter plugins work once session is loaded
     "folke/persistence.nvim",
-    -- config = function()
-    --   require("persistence").setup()
-    -- end,
+    config = function()
+      require("persistence").setup()
+    end,
   }
   -- end folke's plugins
   --
+  -- begin echasnovski's plugins
+  use {
+    "echasnovski/mini.bracketed",
+    config = function()
+      require("mini.bracketed").setup()
+    end,
+  }
+  -- end echasnovski's plugins
   --
   ---- Experimental
   -- use {
