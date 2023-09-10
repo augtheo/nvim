@@ -13,13 +13,32 @@ require("noice").setup {
         },
       },
     },
-    popup = {
-      border = {
-        style = "none",
-      },
-    },
+    -- popup = {
+    --   border = {
+    --     style = "single",
+    --   },
+    -- },
   },
   lsp = {
+    signature = { enabled = true },
+    hover = { enabled = true },
+    documentation = {
+      opts = {
+        border = { style = "single" },
+        relative = "cursor",
+        position = {
+          row = 2,
+        },
+        win_options = {
+          concealcursor = "n",
+          conceallevel = 3,
+          winhighlight = {
+            Normal = "Normal",
+            FloatBorder = "FloatBorder",
+          },
+        },
+      },
+    },
     -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
     override = {
       ["vim.lsp.util.convert_input_to_markdown_lines"] = true,

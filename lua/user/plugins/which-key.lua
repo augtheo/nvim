@@ -92,15 +92,8 @@ local mappings = {
   ["t"] = { name = "+test" },
   ["q"] = { name = "+quit/session" },
   ["d"] = { name = "+debug" },
-
-  g = {
-    name = "git",
-    w = {
-      name = "worktrees",
-      c = { "<cmd>Telescope git_worktree create_git_worktree<CR>", "Create worktree" },
-      s = { "<cmd>Telescope git_worktree git_worktrees<CR>", "Switch worktree" },
-    },
-  },
+  ["g"] = { name = "+git" },
+  ["gw"] = {name = "+worktrees"},
 }
 
 which_key.setup(setup)

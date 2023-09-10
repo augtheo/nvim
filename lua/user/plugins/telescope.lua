@@ -32,8 +32,8 @@ telescope.setup {
   },
 }
 
+telescope.load_extension "fzf"
 telescope.load_extension "undo"
-telescope.load_extension "live_grep_args"
 
 -- begin define custom opts for pretty pickers
 local telescopeUtilities = require "telescope.utils"
@@ -58,9 +58,9 @@ local customFilePickerOpts = {
     local originalEntryTable = originalEntryMaker(line)
 
     local displayer = telescopeEntryDisplayModule.create {
-      separator = "",
+      separator = " ",
       items = {
-        { width = fileTypeIconWidth },
+        { width = nil },
         { width = nil },
         { remaining = true },
       },
@@ -72,7 +72,7 @@ local customFilePickerOpts = {
       local icon, iconHighlight = telescopeUtilities.get_devicons(tail)
       return displayer {
         { icon, iconHighlight },
-        tailForDisplay,
+        tail,
         { pathToDisplay, "TelescopeResultsComment" },
       }
     end
@@ -88,7 +88,7 @@ local customGrepPickerOpts = {
     local displayer = telescopeEntryDisplayModule.create {
       separator = " ", -- Telescope will use this separator between each entry item
       items = {
-        { width = fileTypeIconWidth },
+        { width = nil },
         { width = nil },
         { width = nil }, -- Maximum path size, keep it short
         { remaining = true },
@@ -114,7 +114,6 @@ local customGrepPickerOpts = {
         tail,
         { coordinates, "TelescopeResultsLineNr" },
         { pathToDisplay, "TelescopeResultsComment" },
-        -- entry.text,
       }
     end
 
@@ -149,6 +148,12 @@ keymap(
   { desc = "With Args" }
 )
 
+keymap("n", "<leader>fp", function()
+  require("telescope.builtin").find_files(
+    vim.tbl_deep_extend("force", customFilePickerOpts, { cwd = vim.fn.input "Module: " })
+  )
+end, { desc = "Find within project" })
+
 -- git
 keymap("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Commits" })
 keymap("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", { desc = "Branches" })
@@ -158,8 +163,7 @@ keymap("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "Status" })
 keymap("n", '<leader>s"', "<cmd>Telescope registers<cr>", { desc = "Registers" })
 keymap("n", "<leader>sa", "<cmd>Telescope autocommands<cr>", { desc = "Auto Commands" })
 keymap("n", "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Buffer" })
-keymap("n", "<leader>sc", "<cmd>Telescope command_history<cr>", { desc = "Command History" })
-keymap("n", "<leader>sC", "<cmd>Telescope commands<cr>", { desc = "Commands" })
+keymap("n", "<leader>sc", "<cmd>Telescope commands<cr>", { desc = "Commands" })
 keymap("n", "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", { desc = "Document diagnostics" })
 keymap("n", "<leader>sD", "<cmd>Telescope diagnostics<cr>", { desc = "Workspace diagnostics" })
 keymap("n", "<leader>sh", "<cmd>Telescope help_tags<cr>", { desc = "Help Pages" })
@@ -169,9 +173,16 @@ keymap("n", "<leader>sM", "<cmd>Telescope man_pages<cr>", { desc = "Man Pages" }
 keymap("n", "<leader>sm", "<cmd>Telescope marks<cr>", { desc = "Jump to Mark" })
 keymap("n", "<leader>so", "<cmd>Telescope vim_options<cr>", { desc = "Options" })
 keymap("n", "<leader>sR", "<cmd>Telescope resume<cr>", { desc = "Resume" })
+
+keymap("n", "<leader>s/", function()
+  require("telescope.builtin").grep_string(
+    vim.tbl_deep_extend("force", customGrepPickerOpts, { search = vim.fn.input "Search: " })
+  )
+end, { desc = "Search Word" })
+
 keymap("n", "<leader>sw", function()
   require("telescope.builtin").grep_string(customGrepPickerOpts)
-end, { desc = "Word" })
+end, { desc = "Cursor Word" })
 -- lsp
 keymap("n", "<leader>ss", "<cmd>Telescope lsp_document_symbols<cr>", { desc = "Document Symbols" })
 keymap("n", "<leader>sS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", { desc = "Workspace Symbols" })

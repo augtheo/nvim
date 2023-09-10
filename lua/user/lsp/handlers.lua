@@ -56,8 +56,20 @@ local function lsp_keymaps(bufnr)
   keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts "Go to declaration")
   keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts "Go to definition")
   keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts "Hover")
-  keymap(bufnr, "n", "gI", "<cmd>Telescope lsp_implementations<cr>", opts "Implementations")
-  keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references show_line=false<cr>", opts "References")
+  keymap(
+    bufnr,
+    "n",
+    "gI",
+    "<cmd>Telescope lsp_implementations path_display={'smart'} show_line=false<cr>",
+    opts "Implementations"
+  )
+  keymap(
+    bufnr,
+    "n",
+    "gr",
+    "<cmd>Telescope lsp_references path_display={'smart'} show_line=false<cr>",
+    opts "References"
+  )
   keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts "Diagnostics")
   keymap(bufnr, "n", "gt", "<cmd>Telescope lsp_type_definitions<cr>", opts "Goto Type Definition")
   --lsp capabilities

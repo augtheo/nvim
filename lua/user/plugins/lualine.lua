@@ -82,7 +82,10 @@ local progress = function()
   local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
   local line_ratio = current_line / total_lines
   local index = math.ceil(line_ratio * #chars)
-  return "%#lualine_a_inactive#" .. chars[index] .. "%*"
+  local text = "%#lualine_a_inactive#" .. chars[index] .. "%*"
+  text = (current_line == 1 and "Top") or text
+  text = (current_line == total_lines and "Bot") or text
+  return text
 end
 
 -- Override 'encoding': Don't display if encoding is UTF-8.
@@ -111,8 +114,18 @@ lualine.setup {
   sections = {
     lualine_a = { "mode" },
     lualine_b = { "branch" },
-    lualine_c = { diff, { "macro-recording", fmt = show_macro_recording } },
-    lualine_x = { diagnostics, get_java, get_venv, encoding },
+    lualine_c = { diff },
+    lualine_x = {
+      -- {
+      --   require("noice").api.status.command.get,
+      --   cond = require("noice").api.status.command.has,
+      -- },
+      {
+        require("noice").api.status.mode.get,
+        cond = require("noice").api.status.mode.has,
+      },
+      diagnostics, get_java, get_venv, encoding ,
+    },
     lualine_y = { location },
     lualine_z = { progress },
   },

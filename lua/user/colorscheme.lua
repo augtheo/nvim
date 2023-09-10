@@ -18,6 +18,7 @@ require("catppuccin").setup {
   custom_highlights = function(colors)
     local custom_color = colors.surface0
     return {
+      FloatBorder = { fg = custom_color },
       Pmenu = { bg = colors.mantle },
       NvimTreeWinSeparator = { fg = custom_color },
       NvimTreeWindowPicker = { bg = colors.blue, fg = colors.mantle, style = { "bold" } },

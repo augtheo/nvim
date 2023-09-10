@@ -42,28 +42,15 @@ JAVA_DAP_ACTIVE = true
 local bundles = {}
 
 if JAVA_DAP_ACTIVE then
-  -- NOTE: for debugging
-  -- git clone git@github.com:microsoft/java-debug.git ~/.config/lvim/.java-debug
-  -- cd ~/.config/lvim/.java-debug/
-  -- ./mvnw clean install
-  -- OR use Mason to install, here I use Mason
   vim.list_extend(
     bundles,
     vim.fn.glob("$MASON/packages/java-debug-adapter/extension/server/com.microsoft.java.debug.plugin-*.jar", true, true)
   )
-
-  -- NOTE: for testing
-  -- git clone git@github.com:microsoft/vscode-java-test.git ~/.config/lvim/.vscode-java-test
-  -- cd ~/.config/lvim/vscode-java-test
-  -- npm install
-  -- npm run build-plugin
-  -- Or use Mason to install, here I use Mason
   vim.list_extend(bundles, vim.fn.glob("$MASON/packages/java-test/extension/server/*.jar", true, true))
 end
 
 local config = {
   cmd = {
-
     "java",
     "-Declipse.application=org.eclipse.jdt.ls.core.id1",
     "-Dosgi.bundles.defaultStartLevel=4",
@@ -174,6 +161,21 @@ local config = {
     client.server_capabilities.documentFormattingProvider = false
     require("jdtls").setup_dap { hotcodereplace = "auto" }
     require("user.lsp.handlers").on_attach(client, bufnr)
+
+    -- begin setup jdtls specific keymaps
+    local keymap = vim.api.nvim_buf_set_keymap
+    keymap(bufnr,"n", "<leader>lo", "<Cmd>lua require'jdtls'.organize_imports()<CR>", { desc = "Organize Imports" })
+    keymap(bufnr,"n", "<leader>lv", "<Cmd>lua require('jdtls').extract_variable()<CR>", { desc = "Extract Variable" })
+    keymap(bufnr,"n", "<leader>lc", "<Cmd>lua require('jdtls').extract_constant()<CR>", { desc = "Extract Constant" })
+    keymap(bufnr,"n", "<leader>lt", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", { desc = "Test Method" })
+    keymap(bufnr,"n", "<leader>lT", "<Cmd>lua require'jdtls'.test_class()<CR>", { desc = "Test Class" })
+    keymap(bufnr,"n", "<leader>lu", "<Cmd>JdtUpdateConfig<CR>", { desc = "Update Config" })
+
+    keymap(bufnr,"v", "<leader>lv", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", { desc = "Extract Variable" })
+    keymap(bufnr,"v", "<leader>lc", "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>", { desc = "Extract Constant" })
+    keymap(bufnr,"v", "<leader>lm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", { desc = "Extract Method" })
+    -- end setup jdtls specific keymaps 
+    
     local status_ok, jdtls_dap = pcall(require, "jdtls.dap")
     if status_ok then
       jdtls_dap.setup_dap_main_class_configs()
@@ -226,52 +228,3 @@ require("neotest").setup {
     require "neotest-java",
   },
 }
-
--- Java specific which key mappings
-local status_ok, which_key = pcall(require, "which-key")
-if not status_ok then
-  return
-end
---
-local opts = {
-  mode = "n", -- NORMAL mode
-  prefix = "<leader>",
-  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true, -- use `silent` when creating keymaps
-  noremap = true, -- use `noremap` when creating keymaps
-  nowait = true, -- use `nowait` when creating keymaps
-}
-
-local mappings = {
-  L = {
-    name = "Java ",
-    o = { "<Cmd>lua require'jdtls'.organize_imports()<CR>", "Organize Imports" },
-    v = { "<Cmd>lua require('jdtls').extract_variable()<CR>", "Extract Variable" },
-    c = { "<Cmd>lua require('jdtls').extract_constant()<CR>", "Extract Constant" },
-    t = { "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", "Test Method" },
-    T = { "<Cmd>lua require'jdtls'.test_class()<CR>", "Test Class" },
-    u = { "<Cmd>JdtUpdateConfig<CR>", "Update Config" },
-  },
-}
-
-local vopts = {
-  mode = "v", -- VISUAL mode
-  prefix = "<leader>",
-  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true, -- use `silent` when creating keymaps
-  noremap = true, -- use `noremap` when creating keymaps
-  nowait = true, -- use `nowait` when creating keymaps
-}
-
-local vmappings = {
-  L = {
-    name = "Java ",
-    v = { "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", "Extract Variable" },
-    c = { "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>", "Extract Constant" },
-    m = { "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", "Extract Method" },
-  },
-}
-
-which_key.register(mappings, opts)
-which_key.register(vmappings, vopts)
---

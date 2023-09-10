@@ -34,6 +34,7 @@ gitsigns.setup {
     col = 1,
   },
 }
+
 local keymap = vim.keymap.set
 keymap("n", "]g", "<cmd>lua require 'gitsigns'.next_hunk()<cr>", { desc = "Next Hunk" })
 keymap("n", "[g", "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", { desc = "Prev Hunk" })

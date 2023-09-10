@@ -95,36 +95,36 @@ cmp.setup {
     }),
   },
   formatting = {
-    fields = { "kind", "abbr", "menu" },
+    fields = { "abbr", "kind", "menu" },
     format = function(entry, vim_item)
-      vim_item.kind = kind_icons[vim_item.kind]
-      vim_item.menu = ({
-        nvim_lsp = "[LSP]",
-        nvim_lua = "[api]",
-        luasnip = "[snip]",
-        buffer = "[buf]",
-        path = "[path]",
-        cmdline = "[cmd]",
-        emoji = "",
-      })[entry.source.name]
+      local icon = (" " .. kind_icons[vim_item.kind] .. " ")
+      vim_item.kind = string.format("%s %s", icon, vim_item.kind or "")
       return vim_item
     end,
   },
   sources = {
     { name = "nvim_lsp" },
-    { name = "nvim_lua" },
     { name = "luasnip" },
+    { name = "buffer", keyword_length = 3 },
+    { name = "nvim_lua" },
     { name = "path" },
-    { name = "buffer",  keyword_length = 3, max_item_count = 3 },
-    -- { name = "cmdline" },
+    { name = "cmdline" },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
     select = false,
   },
   window = {
-    -- completion = cmp.config.window.bordered(),
-    -- documentation = cmp.config.window.bordered(),
+    completion = {
+      scrollbar = false,
+      border = "single",
+      winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None", -- NOTE: https://github.com/hrsh7th/nvim-cmp/issues/1100
+    },
+    documentation = {
+      scrollbar = false,
+      border = "single",
+      winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+    },
   },
   experimental = {
     ghost_text = true,

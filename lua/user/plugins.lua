@@ -43,7 +43,7 @@ packer.init {
 
 return packer.startup(function(use)
   use { "wbthomason/packer.nvim" } -- Have packer manage itself
-  use { "nvim-lua/plenary.nvim" } -- Useful lua functions used by lots of plugins
+  use { "nvim-lua/plenary.nvim" }  -- Useful lua functions used by lots of plugins
 
   -- Colorschemes
   use {
@@ -74,16 +74,17 @@ return packer.startup(function(use)
   }
   use {
     "nvim-lualine/lualine.nvim",
-    event = "VimEnter",
+    -- event = "VimEnter",
     config = function()
       require "user.plugins.lualine"
     end,
+    after = "noice.nvim",
   }
   use {
     "nvim-telescope/telescope.nvim",
     requires = {
-      "nvim-telescope/telescope-live-grep-args.nvim",
-      "debugloop/telescope-undo.nvim",
+      { "debugloop/telescope-undo.nvim" },
+      { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
     },
     config = function()
       require "user.plugins.telescope"
@@ -111,7 +112,7 @@ return packer.startup(function(use)
         require "user.plugins.treesitter"
       end,
     },
-    { "nvim-treesitter/playground", after = "nvim-treesitter" },
+    { "nvim-treesitter/playground",                  after = "nvim-treesitter" },
     { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" },
     {
       "nvim-treesitter/nvim-treesitter-context",
@@ -180,10 +181,10 @@ return packer.startup(function(use)
       },
     },
     { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
-    { "hrsh7th/cmp-path", after = "nvim-cmp" },
-    { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
-    { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
-    { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
+    { "hrsh7th/cmp-path",         after = "nvim-cmp" },
+    { "hrsh7th/cmp-buffer",       after = "nvim-cmp" },
+    { "hrsh7th/cmp-nvim-lua",     after = "nvim-cmp" },
+    { "hrsh7th/cmp-cmdline",      after = "nvim-cmp" },
   }
 
   -- LSP
@@ -272,13 +273,7 @@ return packer.startup(function(use)
   use {
     "augtheo/gradle.nvim",
     run = "./gradlew install",
-    cond = function()
-      local file = vim.fn.glob "build.gradle"
-      if file and #file > 0 then
-        return true
-      end
-      return false
-    end,
+    cmd = { "GradleTasks", "GradleRun" },
   }
 
   --Python
@@ -335,6 +330,7 @@ return packer.startup(function(use)
   }
   use {
     "folke/noice.nvim",
+    event = "VimEnter",
     requires = {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",

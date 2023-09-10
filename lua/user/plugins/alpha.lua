@@ -22,8 +22,8 @@ dashboard.section.header.val = {
 dashboard.section.buttons.val = {
   dashboard.button("f", " " .. " Find file", "<cmd>Telescope find_files <cr>"),
   dashboard.button("e", " " .. " New file", "<cmd>ene <BAR> startinsert <cr>"),
-  dashboard.button("d", " " .. " Create Git Worktree", "<cmd>Telescope git_worktree create_git_worktree<CR>"),
-  dashboard.button("g", " " .. " Switch Git Worktree", "<cmd>Telescope git_worktree git_worktrees<cr>"),
+  dashboard.button("g", " " .. " Find worktree", "<cmd>Telescope git_worktree git_worktrees<cr>"),
+  dashboard.button("d", " " .. " New worktree", "<cmd>Telescope git_worktree create_git_worktree<CR>"),
   dashboard.button("r", " " .. " Recently used files", "<cmd>Telescope oldfiles <cr>"),
   dashboard.button("t", " " .. " Find text", "<cmd>Telescope live_grep <cr>"),
   dashboard.button("s", " " .. " Restore Session", [[:lua require("persistence").load() <cr>]]),

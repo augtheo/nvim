@@ -36,4 +36,4 @@ require("swenv").setup {
 
 neotest_setup()
 
-vim.keymap.set("n", "<leader>LC", "<cmd>lua require('swenv.api').pick_venv()<cr>", { desc = "Choose Env" })
+vim.keymap.set("n", "<leader>lc", "<cmd>lua require('swenv.api').pick_venv()<cr>", { desc = "Choose Env" })
