@@ -108,7 +108,7 @@ cmp.setup {
     { name = "buffer", keyword_length = 3 },
     { name = "nvim_lua" },
     { name = "path" },
-    { name = "cmdline" },
+    -- { name = "cmdline" },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,

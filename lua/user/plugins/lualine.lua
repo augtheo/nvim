@@ -79,12 +79,12 @@ end
 local progress = function()
   local current_line = vim.fn.line "."
   local total_lines = vim.fn.line "$"
-  local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
+  local chars = { "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
   local line_ratio = current_line / total_lines
   local index = math.ceil(line_ratio * #chars)
-  local text = "%#lualine_a_inactive#" .. chars[index] .. "%*"
-  text = (current_line == 1 and "Top") or text
-  text = (current_line == total_lines and "Bot") or text
+  local text = "█" .. chars[index] .. "%* "
+  -- text = (current_line == 1 and "Top") or text
+  -- text = (current_line == total_lines and "Bot") or text
   return text
 end
 
@@ -94,7 +94,7 @@ local encoding = function()
   return ret
 end
 -- fileformat: Don't display if &ff is unix.
-fileformat = function()
+local fileformat = function()
   local ret, _ = vim.bo.fileformat:gsub("^unix$", "")
   return ret
 end
@@ -124,10 +124,15 @@ lualine.setup {
         require("noice").api.status.mode.get,
         cond = require("noice").api.status.mode.has,
       },
-      diagnostics, get_java, get_venv, encoding ,
+      diagnostics,
+      get_java,
+      get_venv,
+      encoding,
     },
     lualine_y = { location },
-    lualine_z = { progress },
+    lualine_z = {
+      { progress, padding = 0 },
+    },
   },
   tabline = {
     lualine_a = { "buffers" },
