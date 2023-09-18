@@ -1,7 +1,4 @@
--- Shorten function name
-local keymap = vim.keymap.set
--- Silent keymap option
--- local opts{}= { silent = true }
+local keymap = vim.keymap.set -- Shorten function name
 
 local opts = function(description)
   return {
@@ -21,6 +18,8 @@ vim.g.mapleader = " "
 --   visual_block_mode = "x",
 --   term_mode = "t",
 --   command_mode = "c",
+--
+-- stylua: ignore start
 
 -- Normal ----------------------------------------------------------
 -- Better window navigation
@@ -76,7 +75,7 @@ keymap("n", "g]", "<cmd>diffget //3<CR>", opts "Accept Right")
 -- tabs
 keymap("n", "<leader><tab>l", "<cmd>tablast<cr>", opts "Last Tab")
 keymap("n", "<leader><tab>f", "<cmd>tabfirst<cr>", opts "First Tab")
-keymap("n", "<leader><tab><tab>", "<cmd>tabnew<cr>", opts "New Tab")
+keymap("n", "<leader><tab><tab>", "<cmd>tabnew %<cr>", opts "New Tab")
 keymap("n", "<leader><tab>]", "<cmd>tabnext<cr>", opts "Next Tab")
 keymap("n", "<leader><tab>d", "<cmd>tabclose<cr>", opts "Close Tab")
 keymap("n", "<leader><tab>[", "<cmd>tabprevious<cr>", opts "Previous Tab")
@@ -87,25 +86,18 @@ keymap("n", "<leader>tr", "<cmd>lua require('neotest').run.run()<cr>", { desc = 
 keymap("n", "<leader>td", "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", { desc = "Test Method DAP" })
 keymap("n", "<leader>tf", "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", { desc = "Test Class" })
 
-keymap(
-  "n",
-  "<leader>tF",
-  "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>",
-  { desc = "Test Class DAP" }
-)
+keymap("n", "<leader>tF", "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>", { desc = "Test Class DAP" } ) 
 keymap("n", "<leader>ts", "<cmd>lua require('neotest').summary.toggle()<cr>", { desc = "Test Summary" })
 
 -- ui
 keymap("n", "<leader>uh", "<cmd>nohlsearch<cr>", { desc = "Stop Highlights" })
 keymap("n", "<leader>un", "<cmd>NoiceDismiss<cr>", { desc = "Dismiss Noice" })
-
+keymap("n", "<leader>ud", function()   require("user.utils").toggle_diagnostics() end, { desc = "Toggle Diagnostics" }) 
 -- persistence
+keymap("n", "<leader>qo", "<cmd>%bd!|e#<cr>", { desc = "Close all other Buffers" })
 keymap("n", "<leader>qq", "<cmd>q!<CR>", { desc = "Quit" })
 keymap("n", "<leader>qs", "<cmd>lua require('persistence').load()<cr>", { desc = "Restore Session" })
-keymap(
-  "n",
-  "<leader>ql",
-  "<cmd>lua require('persistence').load({ last = true })<cr>",
-  { desc = "Restore Last Session" }
-)
+keymap("n", "<leader>ql", "<cmd>lua require('persistence').load({ last = true })<cr>", { desc = "Restore Last Session" } ) 
 keymap("n", "<leader>qd", "<cmd>lua require('persistence').stop()<cr>", { desc = "Don't Save Current Session" })
+
+-- stylua: ignore end

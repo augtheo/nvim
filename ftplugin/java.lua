@@ -6,11 +6,7 @@ end
 -- Setup capabilities
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-local status_cmp_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-if not status_cmp_ok then
-  return
-end
-capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 capabilities.textDocument.completion.completionItem.snippetSupport = false
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
@@ -33,9 +29,6 @@ local root_dir = require("jdtls.setup").find_root(root_markers)
 if root_dir == "" then
   return
 end
-
-local extendedClientCapabilities = jdtls.extendedClientCapabilities
-extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
 JAVA_DAP_ACTIVE = true
 
@@ -151,41 +144,33 @@ local config = {
     bundles = bundles,
   },
   on_attach = function(client, bufnr)
-    -- FIXME: Uncommenting below code cause the rest of the setup to fail.
-    -- local v_ok, ve = pcall(vim.fn.system "java -version 2>&1 | head -n 1 | awk -F '\"' '{print $2}' | tr -d '\0'")
-    -- print(ve)
-    -- if v_ok then
-    --   vim.g.JAVA_VERSION = ve
-    -- end
-    local _, _ = pcall(vim.lsp.codelens.refresh)
+    vim.lsp.codelens.refresh()
     client.server_capabilities.documentFormattingProvider = false
     require("jdtls").setup_dap { hotcodereplace = "auto" }
     require("user.lsp.handlers").on_attach(client, bufnr)
 
-    -- begin setup jdtls specific keymaps
+    -- stylua: ignore start
     local keymap = vim.api.nvim_buf_set_keymap
-    keymap(bufnr,"n", "<leader>lo", "<Cmd>lua require'jdtls'.organize_imports()<CR>", { desc = "Organize Imports" })
-    keymap(bufnr,"n", "<leader>lv", "<Cmd>lua require('jdtls').extract_variable()<CR>", { desc = "Extract Variable" })
-    keymap(bufnr,"n", "<leader>lc", "<Cmd>lua require('jdtls').extract_constant()<CR>", { desc = "Extract Constant" })
-    keymap(bufnr,"n", "<leader>lt", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", { desc = "Test Method" })
-    keymap(bufnr,"n", "<leader>lT", "<Cmd>lua require'jdtls'.test_class()<CR>", { desc = "Test Class" })
-    keymap(bufnr,"n", "<leader>lu", "<Cmd>JdtUpdateConfig<CR>", { desc = "Update Config" })
+    keymap(bufnr, "n", "<leader>lo", "<Cmd>lua require'jdtls'.organize_imports()<CR>", { desc = "Organize Imports" })
+    keymap(bufnr, "n", "<leader>lv", "<Cmd>lua require('jdtls').extract_variable()<CR>", { desc = "Extract Variable" })
+    keymap(bufnr, "n", "<leader>lc", "<Cmd>lua require('jdtls').extract_constant()<CR>", { desc = "Extract Constant" })
+    keymap(bufnr, "n", "<leader>lt", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", { desc = "Test Method" })
+    keymap(bufnr, "n", "<leader>lT", "<Cmd>lua require'jdtls'.test_class()<CR>", { desc = "Test Class" })
+    keymap(bufnr, "n", "<leader>lu", "<Cmd>JdtUpdateConfig<CR>", { desc = "Update Config" })
 
-    keymap(bufnr,"v", "<leader>lv", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", { desc = "Extract Variable" })
-    keymap(bufnr,"v", "<leader>lc", "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>", { desc = "Extract Constant" })
-    keymap(bufnr,"v", "<leader>lm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", { desc = "Extract Method" })
-    -- end setup jdtls specific keymaps 
-    
-    local status_ok, jdtls_dap = pcall(require, "jdtls.dap")
-    if status_ok then
-      jdtls_dap.setup_dap_main_class_configs()
-    end
+    keymap(bufnr, "v", "<leader>lv", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", { desc = "Extract Variable" } )
+    keymap(bufnr, "v", "<leader>lc", "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>", { desc = "Extract Constant" } )
+    keymap(bufnr, "v", "<leader>lm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", { desc = "Extract Method" } )
+    -- stylua: ignore end
+
+    require("jdtls.dap").setup_dap_main_class_configs()
   end,
 }
+
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
   pattern = { "*.java" },
   callback = function()
-    local _, _ = pcall(vim.lsp.codelens.refresh)
+    vim.lsp.codelens.refresh()
   end,
 })
 jdtls.start_or_attach(config)

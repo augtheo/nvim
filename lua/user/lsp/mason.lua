@@ -1,3 +1,5 @@
+require("mason").setup()
+
 local servers = {
   "bashls",
   "lua_ls",
@@ -12,17 +14,10 @@ local servers = {
   "tsserver",
 }
 
-require("mason").setup()
-
-local lspconfig_status_ok, lspconfig = pcall(require, "lspconfig")
-if not lspconfig_status_ok then
-  return
-end
-
-local opts = {}
+local lspconfig = require "lspconfig"
 
 for _, server in pairs(servers) do
-  opts = {
+  local opts = {
     on_attach = require("user.lsp.handlers").on_attach,
     capabilities = require("user.lsp.handlers").capabilities,
   }

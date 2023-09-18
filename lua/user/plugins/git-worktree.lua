@@ -1,9 +1,5 @@
 require("git-worktree").setup {}
-local status_ok, telescope = pcall(require, "telescope")
-if not status_ok then
-  return
-end
-telescope.load_extension "git_worktree"
+require("telescope").load_extension "git_worktree"
 
 local keymap = vim.keymap.set
 

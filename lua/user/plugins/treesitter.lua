@@ -1,9 +1,4 @@
-local status_ok, configs = pcall(require, "nvim-treesitter.configs")
-if not status_ok then
-  return
-end
-
-configs.setup {
+require("nvim-treesitter.configs").setup {
   ensure_installed = {
     "query",
     "java",
@@ -27,14 +22,36 @@ configs.setup {
 
   highlight = {
     enable = true, -- false will disable the whole extension
+    additional_vim_regex_highlighting = false,
     disable = { "css" }, -- list of language that will be disabled
   },
   autopairs = {
     enable = true,
   },
   indent = { enable = true, disable = { "python", "css" } },
-  textobjexts = { enable = true },
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true,
 
+      keymaps = {
+        ["al"] = "@loop.outer",
+        ["il"] = "@loop.inner",
+
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+
+        ["aa"] = "@parameter.outer",
+        ["ia"] = "@parameter.inner",
+
+        ["av"] = "@variable.outer",
+        ["iv"] = "@variable.inner",
+      },
+    },
+  },
   context_commentstring = {
     enable = true,
     enable_autocmd = false,

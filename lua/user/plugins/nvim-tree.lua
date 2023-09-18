@@ -1,7 +1,7 @@
-local status_ok, nvim_tree = pcall(require, "nvim-tree")
-if not status_ok then
-  return
-end
+local icons = {
+  git = require("user.icons").git,
+  diagnostics = require("user.icons").diagnostics,
+}
 
 local function on_attach(bufnr)
   local api = require "nvim-tree.api"
@@ -32,14 +32,14 @@ local function on_attach(bufnr)
   vim.keymap.set("n", "B", api.tree.toggle_no_buffer_filter, opts "Toggle No Buffer")
   vim.keymap.set("n", "c", api.fs.copy.node, opts "Copy")
   vim.keymap.set("n", "C", api.tree.toggle_git_clean_filter, opts "Toggle Git Clean")
-  vim.keymap.set("n", "[c", api.node.navigate.git.prev, opts "Prev Git")
-  vim.keymap.set("n", "]c", api.node.navigate.git.next, opts "Next Git")
+  vim.keymap.set("n", "[g", api.node.navigate.git.prev, opts "Prev Git")
+  vim.keymap.set("n", "]g", api.node.navigate.git.next, opts "Next Git")
   vim.keymap.set("n", "d", api.fs.remove, opts "Delete")
   vim.keymap.set("n", "D", api.fs.trash, opts "Trash")
   vim.keymap.set("n", "E", api.tree.expand_all, opts "Expand All")
   vim.keymap.set("n", "e", api.fs.rename_basename, opts "Rename: Basename")
-  vim.keymap.set("n", "]e", api.node.navigate.diagnostics.next, opts "Next Diagnostic")
-  vim.keymap.set("n", "[e", api.node.navigate.diagnostics.prev, opts "Prev Diagnostic")
+  vim.keymap.set("n", "]d", api.node.navigate.diagnostics.next, opts "Next Diagnostic")
+  vim.keymap.set("n", "[d", api.node.navigate.diagnostics.prev, opts "Prev Diagnostic")
   vim.keymap.set("n", "F", api.live_filter.clear, opts "Clean Filter")
   vim.keymap.set("n", "f", api.live_filter.start, opts "Filter")
   vim.keymap.set("n", "g?", api.tree.toggle_help, opts "Help")
@@ -77,8 +77,10 @@ local function on_attach(bufnr)
   vim.keymap.set("n", "v", api.node.open.vertical, opts "Open: Vertical Split")
 end
 
-nvim_tree.setup {
+require("nvim-tree").setup {
   on_attach = on_attach,
+  hijack_cursor = true,
+  hijack_unnamed_buffer_when_opening = true,
   update_focused_file = {
     enable = true,
     update_cwd = true,
@@ -87,6 +89,7 @@ nvim_tree.setup {
     group_empty = true,
     root_folder_modifier = ":t",
     icons = {
+      git_placement = "after",
       glyphs = {
         default = "",
         symlink = "",
@@ -101,13 +104,13 @@ nvim_tree.setup {
           symlink_open = "",
         },
         git = {
-          unstaged = "",
-          staged = "S",
-          unmerged = "",
-          renamed = "➜",
-          untracked = "U",
-          deleted = "",
-          ignored = "◌",
+          unstaged = icons.git.Unstage,
+          staged = icons.git.Stage,
+          unmerged = icons.git.Unmerge,
+          renamed = icons.git.Rename,
+          untracked = icons.git.Untrack,
+          deleted = icons.git.Remove,
+          ignored = icons.git.Ignore,
         },
       },
     },
@@ -119,10 +122,10 @@ nvim_tree.setup {
     enable = true,
     show_on_dirs = true,
     icons = {
-      hint = "",
-      info = "",
-      warning = "",
-      error = "",
+      hint = icons.diagnostics.Hint,
+      info = icons.diagnostics.Info,
+      warning = icons.diagnostics.Warn,
+      error = icons.diagnostics.Error,
     },
   },
   view = {

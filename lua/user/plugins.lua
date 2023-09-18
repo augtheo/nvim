@@ -43,7 +43,7 @@ packer.init {
 
 return packer.startup(function(use)
   use { "wbthomason/packer.nvim" } -- Have packer manage itself
-  use { "nvim-lua/plenary.nvim" }  -- Useful lua functions used by lots of plugins
+  use { "nvim-lua/plenary.nvim" } -- Useful lua functions used by lots of plugins
 
   -- Colorschemes
   use {
@@ -103,6 +103,12 @@ return packer.startup(function(use)
     end,
   }
 
+  use {
+    "kevinhwang91/nvim-bqf",
+    config = function()
+      require "user.plugins.better-quickfix"
+    end,
+  }
   -- Treesitter
   use {
     {
@@ -112,7 +118,7 @@ return packer.startup(function(use)
         require "user.plugins.treesitter"
       end,
     },
-    { "nvim-treesitter/playground",                  after = "nvim-treesitter" },
+    { "nvim-treesitter/playground", after = "nvim-treesitter", cmd = "TSPlaygroundToggle" },
     { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" },
     {
       "nvim-treesitter/nvim-treesitter-context",
@@ -127,28 +133,10 @@ return packer.startup(function(use)
   -- Editing
   use {
     "numToStr/Comment.nvim",
-    event = "BufRead",
+    after = "nvim-treesitter",
     config = function()
       require "user.plugins.comment"
     end,
-  }
-  use {
-    "windwp/nvim-autopairs",
-    event = "InsertCharPre",
-    after = "nvim-cmp",
-    config = function()
-      require "user.plugins.autopairs"
-    end,
-  } -- Autopairs, integrates with both cmp and treesitter
-  use {
-    "lukas-reineke/indent-blankline.nvim",
-    event = "BufRead",
-    config = function()
-      require "user.plugins.indentline"
-    end,
-    requires = {
-      "nvim-treesitter/nvim-treesitter",
-    },
   }
   use {
     "kevinhwang91/nvim-ufo",
@@ -158,6 +146,22 @@ return packer.startup(function(use)
       require "user.plugins.ufo"
     end,
   }
+
+  use {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "BufRead",
+    config = function()
+      require "user.plugins.indentline"
+    end,
+  }
+
+  use {
+    "windwp/nvim-autopairs",
+    event = "InsertCharPre",
+    config = function()
+      require "user.plugins.autopairs"
+    end,
+  } -- Autopairs, integrates with both cmp and treesitter
 
   -- cmp plugins
   use {
@@ -181,10 +185,10 @@ return packer.startup(function(use)
       },
     },
     { "saadparwaiz1/cmp_luasnip", after = "nvim-cmp" },
-    { "hrsh7th/cmp-path",         after = "nvim-cmp" },
-    { "hrsh7th/cmp-buffer",       after = "nvim-cmp" },
-    { "hrsh7th/cmp-nvim-lua",     after = "nvim-cmp" },
-    { "hrsh7th/cmp-cmdline",      after = "nvim-cmp" },
+    { "hrsh7th/cmp-path", after = "nvim-cmp" },
+    { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
+    { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
+    { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
   }
 
   -- LSP
@@ -206,6 +210,7 @@ return packer.startup(function(use)
 
   use {
     "RRethy/vim-illuminate",
+    event = "BufRead",
     config = function()
       require "user.plugins.illuminate"
     end,
@@ -219,9 +224,10 @@ return packer.startup(function(use)
       require "user.plugins.gitsigns"
     end,
   }
-  use { "tpope/vim-fugitive", event = "BufRead" }
+  use { "tpope/vim-fugitive", cmd = "Git" }
   use {
     "ThePrimeagen/git-worktree.nvim",
+    after = "telescope.nvim",
     requires = {
       "nvim-telescope/telescope.nvim",
     },
@@ -242,7 +248,6 @@ return packer.startup(function(use)
   use {
     "mfussenegger/nvim-dap",
     requires = {
-      "nvim-telescope/telescope.nvim",
       "nvim-telescope/telescope-dap.nvim",
       "rcarriga/nvim-dap-ui",
       {
@@ -254,7 +259,7 @@ return packer.startup(function(use)
       },
     },
     event = "CursorHold",
-    after = "nvim-cmp",
+    after = { "nvim-cmp", "telescope.nvim" },
     config = function()
       require "user.plugins.dap"
     end,
@@ -311,12 +316,13 @@ return packer.startup(function(use)
     event = { "BufReadPost", "BufNewFile" },
     requires = "nvim-lua/plenary.nvim",
     config = function()
-      require "user.plugins.todo"
+      require("todo-comments").setup {}
     end,
   }
   --Trouble
   use {
     "folke/trouble.nvim",
+    cmd = { "Trouble", "TroubleToggle" },
     config = function()
       require "user.plugins.trouble"
     end,

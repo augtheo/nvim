@@ -13,6 +13,4 @@ require("treesitter-context").setup {
   on_attach = nil, -- (fun(buf: integer): boolean) return false to disable attaching
 }
 
-vim.keymap.set("n", "[c", function()
-  require("treesitter-context").go_to_context()
-end, { silent = true, desc = "Go To Context" })
+vim.keymap.set("n", "[c", require("treesitter-context").go_to_context, { silent = true, desc = "Go To Context" })

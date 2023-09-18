@@ -1,23 +1,38 @@
+local single_border = {
+  style = "single",
+  padding = { 0, 0 },
+}
+
 require("noice").setup {
   views = {
     cmdline_popup = {
-      border = {
-        style = "none",
-        padding = { 1, 1 },
+      position = {
+        row = 5,
+        col = "50%",
       },
-      filter_options = {},
+      size = {
+        width = 60,
+        height = "auto",
+      },
+      border = single_border,
+    },
+    popupmenu = {
+      border = single_border,
+      position = {
+        row = 8,
+        col = "50%",
+      },
+      size = {
+        width = 60,
+        height = 10,
+      },
       win_options = {
-        winhighlight = {
-          Normal = "NormalFloat",
-          FloatBorder = "NormalFloatBorder",
-        },
+        winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
       },
     },
-    -- popup = {
-    --   border = {
-    --     style = "single",
-    --   },
-    -- },
+    popup = {
+      border = single_border,
+    },
   },
   lsp = {
     signature = { enabled = true },
@@ -66,9 +81,4 @@ require("noice").setup {
   },
 }
 
-local status_ok, telescope = pcall(require, "telescope")
-if not status_ok then
-  return
-end
-
-telescope.load_extension "noice"
+require("telescope").load_extension "noice"

@@ -1,7 +1,4 @@
-local status_ok, alpha = pcall(require, "alpha")
-if not status_ok then
-  return
-end
+local alpha = require "alpha"
 
 local dashboard = require "alpha.themes.dashboard"
 dashboard.section.header.val = {
@@ -20,12 +17,12 @@ dashboard.section.header.val = {
   [[                                                 ]],
 }
 dashboard.section.buttons.val = {
-  dashboard.button("f", " " .. " Find file", "<cmd>Telescope find_files <cr>"),
+  dashboard.button("f", " " .. " Find file", [[:lua require("user.plugins.telescope").find_files() <cr>]]),
   dashboard.button("e", " " .. " New file", "<cmd>ene <BAR> startinsert <cr>"),
   dashboard.button("g", " " .. " Find worktree", "<cmd>Telescope git_worktree git_worktrees<cr>"),
   dashboard.button("d", " " .. " New worktree", "<cmd>Telescope git_worktree create_git_worktree<CR>"),
-  dashboard.button("r", " " .. " Recently used files", "<cmd>Telescope oldfiles <cr>"),
-  dashboard.button("t", " " .. " Find text", "<cmd>Telescope live_grep <cr>"),
+  dashboard.button("r", " " .. " Recently used files", [[:lua require("user.plugins.telescope").oldfiles() <cr>]]),
+  dashboard.button("t", " " .. " Find text", [[:lua require("user.plugins.telescope").live_grep() <cr>]]),
   dashboard.button("s", " " .. " Restore Session", [[:lua require("persistence").load() <cr>]]),
   dashboard.button("c", " " .. " Configuration", "<cmd>e $MYVIMRC <cr>"),
   dashboard.button("q", " " .. " Quit", "<cmd>qa<cr>"),

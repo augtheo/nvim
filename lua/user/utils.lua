@@ -67,7 +67,7 @@ M._RUN_CODE = function()
       selectedCmd = supportedFiletypes[fileExtension][choices[1]]
       vim.cmd(options .. substitute(selectedCmd))
     else
-      vim.ui.select(choices, { prompt = "Choose: " }, function(choice)
+      vim.ui.select(choices, { prompt = "Choose" }, function(choice)
         selectedCmd = supportedFiletypes[fileExtension][choice]
         if selectedCmd then
           vim.cmd(options .. substitute(selectedCmd))
@@ -80,6 +80,18 @@ M._RUN_CODE = function()
       vim.log.levels.WARN,
       { title = "Code Runner" }
     )
+  end
+end
+
+local diagnostics_enabled = true
+M.toggle_diagnostics = function()
+  diagnostics_enabled = not diagnostics_enabled
+  if diagnostics_enabled then
+    vim.diagnostic.enable()
+    vim.notify("Enabled diagnostics", vim.log.levels.INFO, { title = "Diagnostics" })
+  else
+    vim.diagnostic.disable()
+    vim.notify("Disabled diagnostics", vim.log.levels.WARN, { title = "Diagnostics" })
   end
 end
 

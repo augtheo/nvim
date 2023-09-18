@@ -30,28 +30,6 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-  pattern = { "*.java" },
-  callback = function()
-    vim.lsp.codelens.refresh()
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "VimEnter" }, {
-  callback = function()
-    vim.cmd "hi link illuminatedWord LspReferenceText"
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
-  callback = function()
-    local line_count = vim.api.nvim_buf_line_count(0)
-    if line_count >= 5000 then
-      vim.cmd "IlluminatePauseBuf"
-    end
-  end,
-})
-
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 local cmd = vim.api.nvim_create_user_command

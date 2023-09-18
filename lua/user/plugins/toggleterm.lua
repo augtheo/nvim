@@ -1,9 +1,4 @@
-local status_ok, toggleterm = pcall(require, "toggleterm")
-if not status_ok then
-  return
-end
-
-toggleterm.setup {
+require("toggleterm").setup {
   size = 20,
   open_mapping = [[<c-\>]],
   hide_numbers = true,
@@ -36,15 +31,15 @@ local lazygit = Terminal:new { cmd = "lazygit", hidden = true }
 local lazydocker = Terminal:new { cmd = "lazydocker", hidden = true }
 local python = Terminal:new { cmd = "python", hidden = true }
 
-function _LAZYGIT_TOGGLE()
+local function lazygit_toggle()
   lazygit:toggle()
 end
 
-function _LAZYDOCKER_TOGGLE()
+local function lazydocker_toggle()
   lazydocker:toggle()
 end
 
-function _PYTHON_TOGGLE()
+local function python_toggle()
   python:toggle()
 end
 
@@ -53,8 +48,8 @@ local keymap = vim.keymap.set
 
 keymap("n", "<leader>\\s", "<cmd>TermSelect<CR>", { desc = "Term Select" })
 keymap("n", "<leader>\\f", "<cmd>ToggleTerm direction=float<cr>", { desc = "Float" })
-keymap("n", "<leader>\\p", "<cmd>lua _PYTHON_TOGGLE()<cr>", { desc = "Python" })
 keymap("n", "<leader>\\h", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", { desc = "Horizontal" })
 keymap("n", "<leader>\\v", "<cmd>ToggleTerm size=80 direction=vertical<cr>", { desc = "Vertical" })
-keymap("n", "<leader>\\d", "<cmd>lua _LAZYDOCKER_TOGGLE()<cr>", { desc = "Lazydocker" })
-keymap("n", "<leader>\\g", "<cmd>lua _LAZYGIT_TOGGLE()<cr>", { desc = "Lazygit" })
+keymap("n", "<leader>\\p", python_toggle, { desc = "Python" })
+keymap("n", "<leader>\\d", lazydocker_toggle, { desc = "Lazydocker" })
+keymap("n", "<leader>\\g", lazygit_toggle, { desc = "Lazygit" })

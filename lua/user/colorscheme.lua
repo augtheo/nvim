@@ -19,16 +19,12 @@ require("catppuccin").setup {
     local custom_color = colors.surface0
     return {
       FloatBorder = { fg = custom_color },
-      Pmenu = { bg = colors.mantle },
-      NvimTreeWinSeparator = { fg = custom_color },
+      TreesitterContextBottom = { style = {} },
+      NoiceCmdlinePopupBorder = { fg = custom_color },
       NvimTreeWindowPicker = { bg = colors.blue, fg = colors.mantle, style = { "bold" } },
-      VertSplit = { fg = custom_color },
-      HorizSplit = { fg = custom_color },
     }
   end,
   -- transparent_background = true,
 }
-local status_ok, _ = pcall(vim.cmd.colorscheme, "catppuccin")
-if not status_ok then
-  return
-end
+
+vim.cmd.colorscheme "catppuccin"
