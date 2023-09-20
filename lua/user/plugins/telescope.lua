@@ -157,7 +157,7 @@ keymap("n", "<leader>sa", "<cmd>Telescope autocommands<cr>", { desc = "Auto Comm
 keymap("n", "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Buffer" })
 keymap("n", "<leader>sc", "<cmd>Telescope commands<cr>", { desc = "Commands" })
 keymap("n", "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", { desc = "Document diagnostics" })
-keymap("n", "<leader>sD", "<cmd>Telescope diagnostics show_ln<cr>", { desc = "Workspace diagnostics" })
+keymap("n", "<leader>sD", "<cmd>Telescope diagnostics<cr>", { desc = "Workspace diagnostics" })
 keymap("n", "<leader>sh", "<cmd>Telescope help_tags<cr>", { desc = "Help Pages" })
 keymap("n", "<leader>sH", "<cmd>Telescope highlights<cr>", { desc = "Search Highlight Groups" })
 keymap("n", "<leader>sk", "<cmd>Telescope keymaps<cr>", { desc = "Key Maps" })

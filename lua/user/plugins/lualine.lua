@@ -28,16 +28,6 @@ local diff = {
   symbols = { added = icons.git.Add .. " ", modified = icons.git.Mod .. " ", removed = icons.git.Remove .. " " },
 }
 
-local filetype = {
-  "filetype",
-  icons_enabled = colored,
-  icon_only = true,
-}
-
-local relative_filename = {
-  "filename",
-  path = 1,
-}
 local function contains(t, value)
   for _, v in pairs(t) do
     if v == value then
@@ -112,13 +102,11 @@ local language_server = {
     local client_names_str = table.concat(client_names, ", ")
 
     -- check client_names_str if empty
-    local language_servers = ""
+    language_servers = ""
     local client_names_str_len = #client_names_str
     if client_names_str_len ~= 0 then
       language_servers = client_names_str
     end
-
-    language_servers = language_servers
     return language_servers:gsub(", anonymous source", "")
   end,
   padding = 1,
@@ -157,11 +145,7 @@ local encoding = function()
   local ret, _ = (vim.bo.fenc or vim.go.enc):gsub("^utf%-8$", "")
   return ret
 end
--- fileformat: Don't display if &ff is unix.
-local fileformat = function()
-  local ret, _ = vim.bo.fileformat:gsub("^unix$", "")
-  return ret
-end
+
 local dap_status = function()
   local dap_ok, dap = pcall(require, "dap")
   if not dap_ok then
@@ -187,16 +171,13 @@ lualine.setup {
     lualine_b = { "branch" },
     lualine_c = { diff },
     lualine_x = {
-      -- {
-      --   require("noice").api.status.command.get,
-      --   cond = require("noice").api.status.command.has,
-      -- },
       { dap_status },
       {
         require("noice").api.status.mode.get,
         cond = require("noice").api.status.mode.has,
       },
       diagnostics,
+      spaces,
       encoding,
     },
     lualine_y = {

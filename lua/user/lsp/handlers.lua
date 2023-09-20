@@ -1,52 +1,6 @@
 local M = {}
 
-local icons = {
-  diagnostics = require("user.icons").diagnostics,
-}
-
-M.capabilities = vim.lsp.protocol.make_client_capabilities()
-M.capabilities.textDocument.completion.completionItem.snippetSupport = true
-M.capabilities = require("cmp_nvim_lsp").default_capabilities(M.capabilities)
-M.capabilities.textDocument.foldingRange = {
-  dynamicRegistration = false,
-  lineFoldingOnly = true,
-}
-M.setup_diagnostics = function()
-  local signs = {
-
-    { name = "DiagnosticSignError", text = icons.diagnostics.Error },
-    { name = "DiagnosticSignWarn", text = icons.diagnostics.Warn },
-    { name = "DiagnosticSignHint", text = icons.diagnostics.Hint },
-    { name = "DiagnosticSignInfo", text = icons.diagnostics.Info },
-  }
-
-  for _, sign in ipairs(signs) do
-    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-  end
-
-  local config = {
-    virtual_text = {
-      severity = { min = vim.diagnostic.severity.WARN },
-    },
-    signs = {
-      active = signs, -- show signs
-    },
-    update_in_insert = true,
-    underline = false,
-    severity_sort = true,
-    float = {
-      focusable = true,
-      style = "minimal",
-      source = "always",
-      header = "",
-      prefix = "",
-    },
-  }
-
-  vim.diagnostic.config(config)
-end
-
-local function lsp_keymaps(bufnr)
+local lsp_keymaps = function(bufnr)
   local opts = function(description)
     return { noremap = true, silent = true, desc = description }
   end
@@ -92,10 +46,13 @@ local function lsp_keymaps(bufnr)
 end
 
 M.on_attach = function(client, bufnr)
+  -- NOTE: Server formatting is disabled only for servers that support formatting
   if client.name == "tsserver" then
     client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
   elseif client.name == "lua_ls" then
     client.server_capabilities.documentFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
   elseif client.supports_method "textDocument/formatting" then
     local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
     vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }

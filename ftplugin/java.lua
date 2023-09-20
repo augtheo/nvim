@@ -1,13 +1,6 @@
-local status, jdtls = pcall(require, "jdtls")
-if not status then
-  return
-end
+local jdtls = require "jdtls"
 
--- Setup capabilities
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-
-capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
-capabilities.textDocument.completion.completionItem.snippetSupport = false
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
@@ -15,10 +8,6 @@ extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 local home = os.getenv "HOME"
 local WORKSPACE_PATH = home .. "/workspace/"
 local CONFIG = "linux"
-
-if vim.fn.has "mac" == 1 then
-  CONFIG = "mac"
-end
 
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local workspace_dir = WORKSPACE_PATH .. project_name
@@ -30,7 +19,7 @@ if root_dir == "" then
   return
 end
 
-JAVA_DAP_ACTIVE = true
+local JAVA_DAP_ACTIVE = true
 
 local bundles = {}
 

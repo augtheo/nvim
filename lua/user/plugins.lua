@@ -74,7 +74,6 @@ return packer.startup(function(use)
   }
   use {
     "nvim-lualine/lualine.nvim",
-    -- event = "VimEnter",
     config = function()
       require "user.plugins.lualine"
     end,
@@ -108,6 +107,7 @@ return packer.startup(function(use)
     config = function()
       require "user.plugins.better-quickfix"
     end,
+    opt = true,
   }
   -- Treesitter
   use {
@@ -158,10 +158,11 @@ return packer.startup(function(use)
   use {
     "windwp/nvim-autopairs",
     event = "InsertCharPre",
+    after = "nvim-cmp",
     config = function()
       require "user.plugins.autopairs"
     end,
-  } -- Autopairs, integrates with both cmp and treesitter
+  }
 
   -- cmp plugins
   use {
@@ -175,6 +176,9 @@ return packer.startup(function(use)
         {
           "L3MON4D3/LuaSnip",
           event = "InsertEnter",
+          config = function()
+            require "user.plugins.luasnip"
+          end,
           requires = {
             {
               "rafamadriz/friendly-snippets",
@@ -196,16 +200,28 @@ return packer.startup(function(use)
     "neovim/nvim-lspconfig",
     event = "BufRead",
     config = function()
-      require "user.lsp"
+      require "user.lsp.lspconfig"
     end,
     requires = {
-      { "williamboman/mason.nvim" },
-      { "jose-elias-alvarez/null-ls.nvim" }, -- for formatters and linters
+      {
+        "williamboman/mason.nvim",
+        config = function()
+          require("mason").setup()
+        end,
+      },
       {
         -- WARN: Unfortunately we won't be able to lazy load this
         "hrsh7th/cmp-nvim-lsp",
       },
     },
+  }
+
+  use {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = "BufRead",
+    config = function()
+      require "user.lsp.null-ls"
+    end,
   }
 
   use {
@@ -251,14 +267,14 @@ return packer.startup(function(use)
       "nvim-telescope/telescope-dap.nvim",
       "rcarriga/nvim-dap-ui",
       {
-        "rcarriga/cmp-dap", -- nvim-cmp source for nvim-dap REPL and nvim-dap-ui buffers
+        "rcarriga/cmp-dap",
         after = "nvim-cmp",
+        event = "BufRead",
         config = function()
           require "user.plugins.cmp-dap"
         end,
       },
     },
-    event = "CursorHold",
     after = { "nvim-cmp", "telescope.nvim" },
     config = function()
       require "user.plugins.dap"
@@ -348,7 +364,7 @@ return packer.startup(function(use)
   }
 
   use {
-    -- TODO: Make lazy loaded cmp and treesitter plugins work once session is loaded
+    event = "VimEnter",
     "folke/persistence.nvim",
     config = function()
       require("persistence").setup()
