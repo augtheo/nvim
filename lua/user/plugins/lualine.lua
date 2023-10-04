@@ -154,13 +154,11 @@ local dap_status = function()
   return dap.status()
 end
 
-local lualine_theme = "catppuccin"
-
 lualine.setup {
   options = {
     globalstatus = true,
     icons_enabled = true,
-    theme = lualine_theme,
+    theme = vim.g.LUALINE_THEME,
     component_separators = { left = "", right = "" },
     section_separators = { left = "", right = "" },
     disabled_filetypes = { "alpha", "dashboard" },

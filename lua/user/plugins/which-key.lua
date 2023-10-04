@@ -72,11 +72,6 @@ local opts = {
 }
 
 local mappings = {
-  ["a"] = { "<cmd>Alpha<cr>", "alpha" },
-  ["e"] = { "<cmd>NvimTreeToggle<cr>", "explorer" },
-  ["w"] = { "<cmd>w!<CR>", "save" },
-  ["x"] = { "<cmd>lua require 'user.utils'._RUN_CODE() <CR>", "exec" },
-
   ["<tab>"] = { name = "+tabs" },
   ["s"] = { name = "+search" },
   ["\\"] = { name = "+terminal" },

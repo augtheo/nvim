@@ -24,7 +24,7 @@ require("noice").setup {
       },
       size = {
         width = 60,
-        height = 10,
+        max_height = 10,
       },
       win_options = {
         winhighlight = "Normal:Normal,FloatBorder:FloatBorder",

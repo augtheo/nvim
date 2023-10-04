@@ -1,4 +1,7 @@
-local jdtls = require "jdtls"
+local jdtls_ok, jdtls = pcall(require, "jdtls")
+if not jdtls_ok then
+  return
+end
 
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
@@ -138,18 +141,21 @@ local config = {
     require("jdtls").setup_dap { hotcodereplace = "auto" }
     require("user.lsp.handlers").on_attach(client, bufnr)
 
+    local opts = function(description)
+      return { noremap = true, silent = true, desc = description, buffer = bufnr }
+    end
     -- stylua: ignore start
-    local keymap = vim.api.nvim_buf_set_keymap
-    keymap(bufnr, "n", "<leader>lo", "<Cmd>lua require'jdtls'.organize_imports()<CR>", { desc = "Organize Imports" })
-    keymap(bufnr, "n", "<leader>lv", "<Cmd>lua require('jdtls').extract_variable()<CR>", { desc = "Extract Variable" })
-    keymap(bufnr, "n", "<leader>lc", "<Cmd>lua require('jdtls').extract_constant()<CR>", { desc = "Extract Constant" })
-    keymap(bufnr, "n", "<leader>lt", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", { desc = "Test Method" })
-    keymap(bufnr, "n", "<leader>lT", "<Cmd>lua require'jdtls'.test_class()<CR>", { desc = "Test Class" })
-    keymap(bufnr, "n", "<leader>lu", "<Cmd>JdtUpdateConfig<CR>", { desc = "Update Config" })
+    local keymap = vim.keymap.set
+    keymap("n", "<leader>lo", "<Cmd>lua require'jdtls'.organize_imports()<CR>", opts "Organize Imports")
+    keymap("n", "<leader>lv", "<Cmd>lua require('jdtls').extract_variable()<CR>", opts "Extract Variable")
+    keymap("n", "<leader>lc", "<Cmd>lua require('jdtls').extract_constant()<CR>", opts "Extract Constant")
+    keymap("n", "<leader>lt", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", opts "Test Method")
+    keymap("n", "<leader>lT", "<Cmd>lua require'jdtls'.test_class()<CR>", opts "Test Class")
+    keymap("n", "<leader>lu", "<Cmd>JdtUpdateConfig<CR>", opts "Update Config")
 
-    keymap(bufnr, "v", "<leader>lv", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", { desc = "Extract Variable" } )
-    keymap(bufnr, "v", "<leader>lc", "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>", { desc = "Extract Constant" } )
-    keymap(bufnr, "v", "<leader>lm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", { desc = "Extract Method" } )
+    keymap("v", "<leader>lv", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", opts "Extract Variable")
+    keymap("v", "<leader>lc", "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>", opts "Extract Constant")
+    keymap("v", "<leader>lm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", opts "Extract Method")
     -- stylua: ignore end
 
     require("jdtls.dap").setup_dap_main_class_configs()

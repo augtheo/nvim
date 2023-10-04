@@ -46,6 +46,7 @@ return packer.startup(function(use)
   use { "nvim-lua/plenary.nvim" } -- Useful lua functions used by lots of plugins
 
   -- Colorschemes
+  use { "~/Proj/augtheo/pywal.nvim", as = "pywal" }
   use {
     "catppuccin/nvim",
     as = "catppuccin",
@@ -109,6 +110,8 @@ return packer.startup(function(use)
     end,
     opt = true,
   }
+
+  use { "HiPhish/rainbow-delimiters.nvim" }
   -- Treesitter
   use {
     {
@@ -193,6 +196,7 @@ return packer.startup(function(use)
     { "hrsh7th/cmp-buffer", after = "nvim-cmp" },
     { "hrsh7th/cmp-nvim-lua", after = "nvim-cmp" },
     { "hrsh7th/cmp-cmdline", after = "nvim-cmp" },
+    { "rcarriga/cmp-dap", after = "nvim-cmp" },
   }
 
   -- LSP
@@ -206,7 +210,7 @@ return packer.startup(function(use)
       {
         "williamboman/mason.nvim",
         config = function()
-          require("mason").setup()
+          require("mason").setup {}
         end,
       },
       {
@@ -263,22 +267,13 @@ return packer.startup(function(use)
   -- DAP
   use {
     "mfussenegger/nvim-dap",
-    requires = {
-      "nvim-telescope/telescope-dap.nvim",
-      "rcarriga/nvim-dap-ui",
-      {
-        "rcarriga/cmp-dap",
-        after = "nvim-cmp",
-        event = "BufRead",
-        config = function()
-          require "user.plugins.cmp-dap"
-        end,
-      },
-    },
-    after = { "nvim-cmp", "telescope.nvim" },
     config = function()
       require "user.plugins.dap"
     end,
+    requires = {
+      { "nvim-telescope/telescope-dap.nvim" },
+      { "rcarriga/nvim-dap-ui" },
+    },
   }
 
   -- Test
@@ -369,6 +364,10 @@ return packer.startup(function(use)
     config = function()
       require("persistence").setup()
     end,
+  }
+
+  use {
+    "folke/neodev.nvim",
   }
   -- end folke's plugins
   --

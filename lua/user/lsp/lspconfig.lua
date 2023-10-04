@@ -17,6 +17,18 @@ local servers = {
 require("lspconfig.ui.windows").default_options = { border = "single" }
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+-- Folding
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
+}
+
+-- -- lsp support for neovim lua api
+-- local neodev_ok, neodev = pcall(require, "neodev")
+-- if neodev_ok then
+--   neodev.setup()
+-- end
+
 for _, server in pairs(servers) do
   local opts = {
     on_attach = require("user.lsp.handlers").on_attach,

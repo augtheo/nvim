@@ -16,7 +16,7 @@ end
 
 local M = {}
 
-M._RUN_CODE = function()
+M.run_code = function()
   local fileExtension = vim.fn.expand "%:e"
   local selectedCmd = ""
   local options = "bot 10 new | term "

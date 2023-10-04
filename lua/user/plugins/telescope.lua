@@ -2,8 +2,8 @@ local telescope = require "telescope"
 
 local actions = require "telescope.actions"
 telescope.setup {
-  border = false,
   defaults = {
+    borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
     layout_strategy = "horizontal",
     layout_config = {
       horizontal = {

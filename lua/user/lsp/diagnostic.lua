@@ -15,6 +15,8 @@ end
 
 local config = {
   virtual_text = {
+    prefix = "",
+    suffix = " ",
     severity = { min = vim.diagnostic.severity.WARN },
   },
   signs = {

@@ -100,4 +100,9 @@ keymap("n", "<leader>qs", "<cmd>lua require('persistence').load()<cr>", { desc =
 keymap("n", "<leader>ql", "<cmd>lua require('persistence').load({ last = true })<cr>", { desc = "Restore Last Session" } ) 
 keymap("n", "<leader>qd", "<cmd>lua require('persistence').stop()<cr>", { desc = "Don't Save Current Session" })
 
+
+keymap("n","<leader>a", "<cmd>Alpha<cr>", {desc = "alpha"})
+keymap("n","<leader>e", "<cmd>NvimTreeToggle<cr>", {desc = "explorer"})
+keymap("n","<leader>w", "<cmd>w!<CR>", {desc = "save"})
+keymap("n","<leader>x", "<cmd>lua require 'user.utils'.run_code() <CR>", {desc = "exec"})
 -- stylua: ignore end
