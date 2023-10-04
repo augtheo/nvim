@@ -46,7 +46,13 @@ return packer.startup(function(use)
   use { "nvim-lua/plenary.nvim" } -- Useful lua functions used by lots of plugins
 
   -- Colorschemes
-  use { "~/Proj/augtheo/pywal.nvim", as = "pywal" }
+  use {
+    "augtheo/pywal.nvim",
+    as = "pywal",
+    config = function()
+      require "user.colorscheme"
+    end,
+  }
   use {
     "catppuccin/nvim",
     as = "catppuccin",
