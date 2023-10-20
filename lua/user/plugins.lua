@@ -109,14 +109,6 @@ return packer.startup(function(use)
     end,
   }
 
-  use {
-    "kevinhwang91/nvim-bqf",
-    config = function()
-      require "user.plugins.better-quickfix"
-    end,
-    opt = true,
-  }
-
   use { "HiPhish/rainbow-delimiters.nvim" }
   -- Treesitter
   use {
@@ -251,16 +243,6 @@ return packer.startup(function(use)
     end,
   }
   use { "tpope/vim-fugitive", cmd = "Git" }
-  use {
-    "ThePrimeagen/git-worktree.nvim",
-    after = "telescope.nvim",
-    requires = {
-      "nvim-telescope/telescope.nvim",
-    },
-    config = function()
-      require "user.plugins.git-worktree"
-    end,
-  }
   use {
     "ruifm/gitlinker.nvim",
     requires = "nvim-lua/plenary.nvim",

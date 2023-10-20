@@ -148,6 +148,7 @@ keymap("n", "<leader>fp", function() require("telescope.builtin").find_files(vim
 
 -- git
 keymap("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Commits" })
+keymap("n", "<leader>gC", "<cmd>Telescope git_bcommits<CR>", { desc = "Commits(Buffer)" })
 keymap("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", { desc = "Branches" })
 keymap("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "Status" })
 

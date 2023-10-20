@@ -6,4 +6,10 @@ vim.cmd "highlight StatusLine   cterm=none ctermfg=white ctermbg=black guifg=red
 vim.cmd "highlight link NvimTreeWinSeparator Normal"
 vim.cmd "highlight link WinSeparator Normal"
 
-vim.g.LUALINE_THEME = "pywal-nvim"
+vim.schedule(function()
+  require("lualine").setup {
+    options = {
+      theme = "pywal-nvim",
+    },
+  }
+end)

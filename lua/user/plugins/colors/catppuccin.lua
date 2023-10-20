@@ -27,4 +27,10 @@ require("catppuccin").setup {
   -- transparent_background = true,
 }
 
-vim.g.LUALINE_THEME = "catppuccin"
+vim.schedule(function()
+  require("lualine").setup {
+    options = {
+      theme = "catppuccin",
+    },
+  }
+end)

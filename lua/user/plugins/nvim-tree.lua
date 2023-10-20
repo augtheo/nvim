@@ -90,6 +90,7 @@ require("nvim-tree").setup {
     root_folder_modifier = ":t",
     icons = {
       git_placement = "after",
+      diagnostics_placement = "after",
       glyphs = {
         default = "",
         symlink = "",

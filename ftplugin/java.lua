@@ -9,7 +9,7 @@ extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
 --  Setup constants
 local home = os.getenv "HOME"
-local WORKSPACE_PATH = home .. "/workspace/"
+local WORKSPACE_PATH = home .. "/.workspace/"
 local CONFIG = "linux"
 
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")

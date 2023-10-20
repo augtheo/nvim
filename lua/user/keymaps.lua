@@ -19,9 +19,9 @@ vim.g.mapleader = " "
 --   term_mode = "t",
 --   command_mode = "c",
 --
+
 -- stylua: ignore start
 
--- Normal ----------------------------------------------------------
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts "Go to left window")
 keymap("n", "<C-j>", "<C-w>j", opts "Go to lower window")
@@ -44,19 +44,23 @@ keymap("n", "<S-q>", "<cmd>bdelete!<CR>", opts "Quit")
 -- Better scroll
 keymap("n", "<C-d>", "<C-d>zz", opts {})
 keymap("n", "<C-u>", "<C-u>zz", opts {})
+keymap("n", "n", "nzz", opts {})
+keymap("n", "N", "Nzz", opts {})
+keymap("n", "*", "*zz", opts {})
+keymap("n", "#", "#zz", opts {})
+keymap("n", "g*", "g*zz", opts {})
+keymap("n", "g#", "g#zz", opts {})
 
 -- Move text up and down
 keymap("n", "<A-j>", ":m .+1<CR>==", opts {})
 keymap("n", "<A-k>", ":m .-2<CR>==", opts {})
 
--- Insert ---------------------------------------------------------
 -- Press jk fast to enter
 keymap("i", "jk", "<ESC>", opts {})
 
 keymap("i", "<A-j>", "<Esc>:m .+1<CR>==gi", opts {})
 keymap("i", "<A-k>", "<Esc>:m .-2<CR>==gi", opts {})
 
--- Visual ---------------------------------------------------------
 -- Better paste
 keymap("v", "p", '"_dP', opts {})
 
