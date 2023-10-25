@@ -23,12 +23,6 @@ capabilities.textDocument.foldingRange = {
   lineFoldingOnly = true,
 }
 
--- -- lsp support for neovim lua api
--- local neodev_ok, neodev = pcall(require, "neodev")
--- if neodev_ok then
---   neodev.setup()
--- end
-
 for _, server in pairs(servers) do
   local opts = {
     on_attach = require("user.lsp.handlers").on_attach,

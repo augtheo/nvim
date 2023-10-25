@@ -17,9 +17,9 @@ dashboard.section.header.val = {
   [[                                                 ]],
 }
 dashboard.section.buttons.val = {
-  dashboard.button("f", " " .. " Find file", [[:lua require("user.plugins.telescope").find_files() <cr>]]),
+  dashboard.button("f", " " .. " Files", [[:lua require("user.plugins.telescope").find_files() <cr>]]),
   dashboard.button("e", " " .. " New file", "<cmd>ene <BAR> startinsert <cr>"),
-  dashboard.button("r", " " .. " Recently used files", [[:lua require("user.plugins.telescope").oldfiles() <cr>]]),
+  dashboard.button("r", " " .. " Recent files", [[:lua require("user.plugins.telescope").oldfiles() <cr>]]),
   dashboard.button("t", " " .. " Find text", [[:lua require("user.plugins.telescope").live_grep() <cr>]]),
   dashboard.button("s", " " .. " Restore Session", [[:lua require("persistence").load() <cr>]]),
   dashboard.button("c", " " .. " Configuration", "<cmd>e $MYVIMRC <cr>"),

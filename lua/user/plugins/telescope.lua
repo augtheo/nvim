@@ -27,6 +27,22 @@ telescope.setup {
       },
     },
   },
+  pickers = {
+    buffers = {
+      theme = "dropdown",
+      previewer = false,
+      initial_mode = "normal",
+      sort_mru = true,
+      mappings = {
+        i = {
+          ["<C-d>"] = actions.delete_buffer,
+        },
+        n = {
+          ["dd"] = actions.delete_buffer,
+        },
+      },
+    },
+  },
 }
 
 telescope.load_extension "fzf"
@@ -140,7 +156,7 @@ keymap("n", "<leader>/", function() require("telescope.builtin").live_grep(custo
 keymap("n", "<leader>:", "<cmd>Telescope command_history<cr>", { desc = "history" })
 
 -- find
-keymap("n", "<leader>fb", "<cmd>Telescope buffers sort_mru=true ignore_current_buffer=true <cr>", { desc = "Find Buffers" } )
+keymap("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find Buffers" } )
 keymap("n", "<leader>ff", M.find_files, { desc = "Files" })
 keymap("n", "<leader>fr", M.oldfiles, { desc = "Recent" })
 keymap("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { desc = "With Args" } )

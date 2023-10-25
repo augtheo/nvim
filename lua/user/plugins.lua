@@ -251,6 +251,10 @@ return packer.startup(function(use)
       require "user.plugins.gitlinker"
     end,
   }
+  use {
+    "sindrets/diffview.nvim",
+    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
+  }
 
   -- DAP
   use {
@@ -354,9 +358,6 @@ return packer.startup(function(use)
     end,
   }
 
-  use {
-    "folke/neodev.nvim",
-  }
   -- end folke's plugins
   --
   -- begin echasnovski's plugins
@@ -366,18 +367,20 @@ return packer.startup(function(use)
       require("mini.bracketed").setup()
     end,
   }
+  use {
+    "echasnovski/mini.surround",
+    config = function()
+      require("mini.surround").setup()
+    end,
+  }
+  use {
+    "echasnovski/mini.animate",
+    config = function()
+      require "user.plugins.mini-animate"
+    end,
+  }
   -- end echasnovski's plugins
-  --
-  ---- Experimental
-  -- use {
-  --   "glacambre/firenvim",
-  --   run = function()
-  --     vim.fn["firenvim#install"](0)
-  --   end,
-  -- }
 
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
     require("packer").sync()
   end

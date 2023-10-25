@@ -34,10 +34,6 @@ keymap("n", "<C-Down>", ":resize +2<CR>", opts "Horizontal resize Increase")
 keymap("n", "<C-Left>", ":vertical resize +2<CR>", opts "Vertical resize Increase")
 keymap("n", "<C-Right>", ":vertical resize -2<CR>", opts "Vertical resize Decrease")
 
--- Navigate buffers
-keymap("n", "<S-l>", ":bnext<CR>", opts "Next buffer")
-keymap("n", "<S-h>", ":bprevious<CR>", opts "Prev buffer")
-
 -- Close buffers
 keymap("n", "<S-q>", "<cmd>bdelete!<CR>", opts "Quit")
 
@@ -90,18 +86,18 @@ keymap("n", "<leader>tr", "<cmd>lua require('neotest').run.run()<cr>", { desc = 
 keymap("n", "<leader>td", "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", { desc = "Test Method DAP" })
 keymap("n", "<leader>tf", "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", { desc = "Test Class" })
 
-keymap("n", "<leader>tF", "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>", { desc = "Test Class DAP" } ) 
+keymap("n", "<leader>tF", "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>", { desc = "Test Class DAP" } )
 keymap("n", "<leader>ts", "<cmd>lua require('neotest').summary.toggle()<cr>", { desc = "Test Summary" })
 
 -- ui
 keymap("n", "<leader>uh", "<cmd>nohlsearch<cr>", { desc = "Stop Highlights" })
 keymap("n", "<leader>un", "<cmd>NoiceDismiss<cr>", { desc = "Dismiss Noice" })
-keymap("n", "<leader>ud", function()   require("user.utils").toggle_diagnostics() end, { desc = "Toggle Diagnostics" }) 
+keymap("n", "<leader>ud", function()   require("user.utils").toggle_diagnostics() end, { desc = "Toggle Diagnostics" })
 -- persistence
 keymap("n", "<leader>qo", "<cmd>%bd!|e#<cr>", { desc = "Close all other Buffers" })
 keymap("n", "<leader>qq", "<cmd>q!<CR>", { desc = "Quit" })
 keymap("n", "<leader>qs", "<cmd>lua require('persistence').load()<cr>", { desc = "Restore Session" })
-keymap("n", "<leader>ql", "<cmd>lua require('persistence').load({ last = true })<cr>", { desc = "Restore Last Session" } ) 
+keymap("n", "<leader>ql", "<cmd>lua require('persistence').load({ last = true })<cr>", { desc = "Restore Last Session" } )
 keymap("n", "<leader>qd", "<cmd>lua require('persistence').stop()<cr>", { desc = "Don't Save Current Session" })
 
 
