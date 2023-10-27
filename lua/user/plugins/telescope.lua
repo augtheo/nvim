@@ -29,7 +29,6 @@ telescope.setup {
   },
   pickers = {
     buffers = {
-      theme = "dropdown",
       previewer = false,
       initial_mode = "normal",
       sort_mru = true,
@@ -133,6 +132,13 @@ local customGrepPickerOpts = {
   end,
 }
 
+local customDropDownOpts = require("telescope.themes").get_dropdown {
+  borderchars = {
+    preview = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+    prompt = { "─", "│", " ", "│", "┌", "┐", "│", "│" },
+    results = { "─", "│", "─", "│", "├", "┤", "┘", "└" },
+  },
+}
 -- end define custom opts for pretty pickers
 --
 local M = {}
@@ -156,7 +162,7 @@ keymap("n", "<leader>/", function() require("telescope.builtin").live_grep(custo
 keymap("n", "<leader>:", "<cmd>Telescope command_history<cr>", { desc = "history" })
 
 -- find
-keymap("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find Buffers" } )
+keymap("n", "<leader>fb", function () require "telescope.builtin".buffers(customDropDownOpts) end, { desc = "Find Buffers" } )
 keymap("n", "<leader>ff", M.find_files, { desc = "Files" })
 keymap("n", "<leader>fr", M.oldfiles, { desc = "Recent" })
 keymap("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { desc = "With Args" } )
