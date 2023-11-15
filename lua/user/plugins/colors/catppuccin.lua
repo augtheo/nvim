@@ -24,7 +24,7 @@ require("catppuccin").setup {
       NvimTreeWindowPicker = { bg = colors.blue, fg = colors.mantle, style = { "bold" } },
     }
   end,
-  -- transparent_background = true,
+  transparent_background = true,
 }
 
 vim.schedule(function()

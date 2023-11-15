@@ -66,6 +66,13 @@ return packer.startup(function(use)
 
   -- UI Niceties
   use {
+    "NvChad/nvim-colorizer.lua",
+    config = function()
+      require "user.plugins.colorizer"
+    end,
+  }
+
+  use {
     "nvim-tree/nvim-tree.lua",
     cmd = "NvimTreeToggle",
     config = function()

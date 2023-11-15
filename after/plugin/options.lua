@@ -17,5 +17,6 @@ vim.opt.fillchars = {
   vertleft = "▏",
   vertright = "🭼",
   verthoriz = "▏",
-  -- stl = " ",
+  stl = " ",
+  eob = " ",
 }
