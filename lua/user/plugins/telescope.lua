@@ -154,6 +154,9 @@ M.live_grep = function()
   require("telescope.builtin").live_grep(customGrepPickerOpts)
 end
 
+M.buffers = function()
+  require("telescope.builtin").buffers(customDropDownOpts)
+end
 
 -- stylua: ignore start
 local keymap = vim.keymap.set
@@ -162,10 +165,11 @@ keymap("n", "<leader>/", function() require("telescope.builtin").live_grep(custo
 keymap("n", "<leader>:", "<cmd>Telescope command_history<cr>", { desc = "history" })
 
 -- find
-keymap("n", "<leader>fb", function () require "telescope.builtin".buffers(customDropDownOpts) end, { desc = "Find Buffers" } )
+keymap("n", "<leader>fb", M.buffers, { desc = "Find Buffers" } )
 keymap("n", "<leader>ff", M.find_files, { desc = "Files" })
+keymap("n", "<leader>fh", M.oldfiles, { desc = "Recent" })
 keymap("n", "<leader>fr", M.oldfiles, { desc = "Recent" })
-keymap("n", "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", { desc = "With Args" } )
+keymap("n", "<leader>fg", function() require("telescope.builtin").live_grep(customGrepPickerOpts) end, { desc = "grep" })
 keymap("n", "<leader>fp", function() require("telescope.builtin").find_files(vim.tbl_deep_extend("force", customFilePickerOpts, { cwd = vim.fn.input "Module: " }) ) end, { desc = "Find within project" })
 
 -- git

@@ -52,10 +52,6 @@ require("nvim-treesitter.configs").setup {
       },
     },
   },
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
-  },
   query_linter = {
     enable = true,
     use_virtual_text = true,
