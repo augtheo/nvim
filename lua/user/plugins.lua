@@ -364,6 +364,9 @@ return packer.startup(function(use)
       require("persistence").setup()
     end,
   }
+  use {
+    "folke/neodev.nvim",
+  }
 
   -- end folke's plugins
   --
@@ -384,6 +387,19 @@ return packer.startup(function(use)
     "echasnovski/mini.animate",
     config = function()
       require "user.plugins.mini-animate"
+    end,
+  }
+
+  use {
+    "ldelossa/nvim-ide",
+    config = function()
+      require "user.plugins.ide"
+    end,
+  }
+  use {
+    "dnlhc/glance.nvim",
+    config = function()
+      require("glance").setup {}
     end,
   }
   -- end echasnovski's plugins
