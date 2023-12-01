@@ -8,7 +8,7 @@ local opts = function(description)
 end
 
 --Remap space as leader key
-keymap("", "<Space>", "<Nop>", opts {})
+keymap("", "<Space>", "<Nop>", opts "")
 vim.g.mapleader = " "
 
 -- Modes
@@ -29,44 +29,44 @@ keymap("n", "<C-k>", "<C-w>k", opts "Go to upper window")
 keymap("n", "<C-l>", "<C-w>l", opts "Go to right window")
 
 -- Resize with arrows
-keymap("n", "<C-Up>", ":resize -2<CR>", opts "Horizontal resize Decrease")
-keymap("n", "<C-Down>", ":resize +2<CR>", opts "Horizontal resize Increase")
-keymap("n", "<C-Left>", ":vertical resize +2<CR>", opts "Vertical resize Increase")
-keymap("n", "<C-Right>", ":vertical resize -2<CR>", opts "Vertical resize Decrease")
+-- keymap("n", "<C-Up>", ":resize -2<CR>", opts "Horizontal resize Decrease")
+-- keymap("n", "<C-Down>", ":resize +2<CR>", opts "Horizontal resize Increase")
+keymap("n", "<M-o>", ":vertical resize +5<CR>", opts "Vertical resize Increase")
+keymap("n", "<M-i>", ":vertical resize -5<CR>", opts "Vertical resize Decrease")
 
 -- Close buffers
 keymap("n", "<S-q>", "<cmd>bdelete!<CR>", opts "Quit")
 
 -- Better scroll
-keymap("n", "<C-d>", "<C-d>zz", opts {})
-keymap("n", "<C-u>", "<C-u>zz", opts {})
-keymap("n", "n", "nzz", opts {})
-keymap("n", "N", "Nzz", opts {})
-keymap("n", "*", "*zz", opts {})
-keymap("n", "#", "#zz", opts {})
-keymap("n", "g*", "g*zz", opts {})
-keymap("n", "g#", "g#zz", opts {})
+keymap("n", "<C-d>", "<C-d>zz", opts "")
+keymap("n", "<C-u>", "<C-u>zz", opts "")
+keymap("n", "n", "nzz", opts "")
+keymap("n", "N", "Nzz", opts "")
+keymap("n", "*", "*zz", opts "")
+keymap("n", "#", "#zz", opts "")
+keymap("n", "g*", "g*zz", opts "")
+keymap("n", "g#", "g#zz", opts "")
 
 -- Move text up and down
-keymap("n", "<A-j>", ":m .+1<CR>==", opts {})
-keymap("n", "<A-k>", ":m .-2<CR>==", opts {})
+keymap("n", "<A-j>", ":m .+1<CR>==", opts "")
+keymap("n", "<A-k>", ":m .-2<CR>==", opts "")
 
 -- Press jk fast to enter
-keymap("i", "jk", "<ESC>", opts {})
+keymap("i", "jk", "<ESC>", opts "")
 
-keymap("i", "<A-j>", "<Esc>:m .+1<CR>==gi", opts {})
-keymap("i", "<A-k>", "<Esc>:m .-2<CR>==gi", opts {})
+keymap("i", "<A-j>", "<Esc>:m .+1<CR>==gi", opts "")
+keymap("i", "<A-k>", "<Esc>:m .-2<CR>==gi", opts "")
 
 -- Better paste
-keymap("v", "p", '"_dP', opts {})
+keymap("v", "p", '"_dP', opts "")
 
 -- Stay in indent mode
-keymap("v", "<", "<gv", opts {})
-keymap("v", ">", ">gv", opts {})
+keymap("v", "<", "<gv", opts "")
+keymap("v", ">", ">gv", opts "")
 
 -- Move text up and down
-keymap("v", "<A-j>", ":m '>+1<CR>gv=gv", opts {})
-keymap("v", "<A-k>", ":m '<-2<CR>gv=gv", opts {})
+keymap("v", "<A-j>", ":m '>+1<CR>gv=gv", opts "")
+keymap("v", "<A-k>", ":m '<-2<CR>gv=gv", opts "")
 
 -- Git
 keymap("n", "g[", "<cmd>diffget //2<CR>", opts "Accept Left")
@@ -82,27 +82,27 @@ keymap("n", "<leader><tab>[", "<cmd>tabprevious<cr>", opts "Previous Tab")
 
 -- Neotest
 --
-keymap("n", "<leader>tr", "<cmd>lua require('neotest').run.run()<cr>", { desc = "Test Method" })
-keymap("n", "<leader>td", "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", { desc = "Test Method DAP" })
-keymap("n", "<leader>tf", "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", { desc = "Test Class" })
+keymap("n", "<leader>tr", "<cmd>lua require('neotest').run.run()<cr>", opts "Test Method")
+keymap("n", "<leader>td", "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", opts "Test Method DAP")
+keymap("n", "<leader>tf", "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", opts "Test Class")
 
-keymap("n", "<leader>tF", "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>", { desc = "Test Class DAP" } )
-keymap("n", "<leader>ts", "<cmd>lua require('neotest').summary.toggle()<cr>", { desc = "Test Summary" })
+keymap("n", "<leader>tF", "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>", opts "Test Class DAP" )
+keymap("n", "<leader>ts", "<cmd>lua require('neotest').summary.toggle()<cr>", opts "Test Summary")
 
 -- ui
-keymap("n", "<leader>uh", "<cmd>nohlsearch<cr>", { desc = "Stop Highlights" })
-keymap("n", "<leader>un", "<cmd>NoiceDismiss<cr>", { desc = "Dismiss Noice" })
-keymap("n", "<leader>ud", function()   require("user.utils").toggle_diagnostics() end, { desc = "Toggle Diagnostics" })
+keymap("n", "<leader>uh", "<cmd>nohlsearch<cr>", opts "Stop Highlights")
+keymap("n", "<leader>un", "<cmd>NoiceDismiss<cr>", opts "Dismiss Noice")
+keymap("n", "<leader>ud", function()   require("user.utils").toggle_diagnostics() end, opts "Toggle Diagnostics")
 -- persistence
-keymap("n", "<leader>qo", "<cmd>%bd!|e#<cr>", { desc = "Close all other Buffers" })
-keymap("n", "<leader>qq", "<cmd>q!<CR>", { desc = "Quit" })
-keymap("n", "<leader>qs", "<cmd>lua require('persistence').load()<cr>", { desc = "Restore Session" })
-keymap("n", "<leader>ql", "<cmd>lua require('persistence').load({ last = true })<cr>", { desc = "Restore Last Session" } )
-keymap("n", "<leader>qd", "<cmd>lua require('persistence').stop()<cr>", { desc = "Don't Save Current Session" })
+keymap("n", "<leader>qo", "<cmd>%bd!|e#<cr>", opts "Close all other Buffers")
+keymap("n", "<leader>qq", "<cmd>qa<CR>", opts "Quit")
+keymap("n", "<leader>qs", "<cmd>lua require('persistence').load()<cr>", opts "Restore Session")
+keymap("n", "<leader>ql", "<cmd>lua require('persistence').load({ last = true })<cr>", opts "Restore Last Session" )
+keymap("n", "<leader>qd", "<cmd>lua require('persistence').stop()<cr>", opts "Don't Save Current Session")
 
 
-keymap("n","<leader>a", "<cmd>Alpha<cr>", {desc = "alpha"})
-keymap("n","<leader>e", "<cmd>NvimTreeToggle<cr>", {desc = "explorer"})
-keymap("n","<leader>w", "<cmd>w!<CR>", {desc = "save"})
-keymap("n","<leader>x", "<cmd>lua require 'user.utils'.run_code() <CR>", {desc = "exec"})
+keymap("n","<leader>a", "<cmd>Alpha<cr>", opts "alpha")
+keymap("n","<leader>e", "<cmd>NvimTreeToggle<cr>", opts "explorer")
+keymap("n","<leader>w", "<cmd>w!<CR>", opts "save")
+keymap("n","<leader>x", "<cmd>lua require 'user.utils'.run_code() <CR>", opts "exec")
 -- stylua: ignore end
