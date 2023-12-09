@@ -59,7 +59,7 @@ require("ide").setup {
   -- workspaces config
   workspaces = {
     -- which panels to open by default, one of: 'left', 'right', 'both', 'none'
-    auto_open = "left",
+    auto_open = "none",
   },
   -- default panel sizes for the different positions
   panel_sizes = {
@@ -70,5 +70,9 @@ require("ide").setup {
 }
 
 local keymap = vim.keymap.set
-keymap("n", "<leader>b", "<cmd>Workspace LeftPanelToggle<cr>", { desc = "explorer" })
+
+keymap("n", "<leader>w", "<cmd>Workspace <cr>", { desc = "explorer" })
+keymap("n", "<leader>[", "<cmd>Workspace LeftPanelToggle<cr>", { desc = "explorer" })
+keymap("n", "<leader>]", "<cmd>Workspace RightPanelToggle<cr>", { desc = "explorer" })
+keymap("n", "<leader>`", "<cmd>Workspace BottomPanelToggle<cr>", { desc = "explorer" })
 keymap("n", "<leader>e", "<cmd>Workspace Explorer Focus<cr>", { desc = "explorer" })

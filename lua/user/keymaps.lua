@@ -31,8 +31,8 @@ keymap("n", "<C-l>", "<C-w>l", opts "Go to right window")
 -- Resize with arrows
 -- keymap("n", "<C-Up>", ":resize -2<CR>", opts "Horizontal resize Decrease")
 -- keymap("n", "<C-Down>", ":resize +2<CR>", opts "Horizontal resize Increase")
-keymap("n", "<M-o>", ":vertical resize +5<CR>", opts "Vertical resize Increase")
-keymap("n", "<M-i>", ":vertical resize -5<CR>", opts "Vertical resize Decrease")
+keymap("n", "<M-o>", ":vertical resize +10<CR>", opts "Vertical resize Increase")
+keymap("n", "<M-i>", ":vertical resize -10<CR>", opts "Vertical resize Decrease")
 
 -- Close buffers
 keymap("n", "<S-q>", "<cmd>bdelete!<CR>", opts "Quit")
@@ -103,6 +103,6 @@ keymap("n", "<leader>qd", "<cmd>lua require('persistence').stop()<cr>", opts "Do
 
 keymap("n","<leader>a", "<cmd>Alpha<cr>", opts "alpha")
 keymap("n","<leader>e", "<cmd>NvimTreeToggle<cr>", opts "explorer")
-keymap("n","<leader>w", "<cmd>w!<CR>", opts "save")
+-- keymap("n","<leader>w", "<cmd>w!<CR>", opts "save")
 keymap("n","<leader>x", "<cmd>lua require 'user.utils'.run_code() <CR>", opts "exec")
 -- stylua: ignore end
