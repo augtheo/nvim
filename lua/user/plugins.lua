@@ -67,6 +67,12 @@ return packer.startup(function(use)
       require "user.colorscheme"
     end,
   }
+  use {
+    "sainnhe/everforest",
+    config = function()
+      require "user.colorscheme"
+    end,
+  }
 
   -- Icons
   use { "nvim-tree/nvim-web-devicons" }

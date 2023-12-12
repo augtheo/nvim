@@ -175,7 +175,7 @@ lualine.setup {
       },
       diagnostics,
       spaces,
-      encoding,
+      "encoding",
     },
     lualine_y = {
       python_env,
