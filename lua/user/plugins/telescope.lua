@@ -16,7 +16,7 @@ telescope.setup {
     -- path_display = { "absolute" },
     wrap_results = true,
     prompt_prefix = "   ",
-    selection_caret = "🠲 ",
+    selection_caret = " ",
     path_display = { "smart" },
     file_ignore_patterns = { ".git/", "node_modules" },
 
@@ -28,6 +28,7 @@ telescope.setup {
     },
   },
   pickers = {
+    colorscheme = { enable_preview = true },
     buffers = {
       previewer = false,
       initial_mode = "normal",

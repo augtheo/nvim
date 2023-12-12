@@ -39,22 +39,24 @@ require("ide").setup {
   },
   -- default panel groups to display on left and right.
   panels = {
-    left = "explorer",
-    right = "git",
+    -- left = "explorer",
+    left = "git",
+    right = "outline",
   },
   -- panels defined by groups of components, user is free to redefine the defaults
   -- and/or add additional.
   panel_groups = {
-    explorer = {
-      outline.Name,
-      bufferlist.Name,
-      explorer.Name,
-      bookmarks.Name,
-      callhierarchy.Name,
-      terminalbrowser.Name,
-    },
-    terminal = { terminal.Name },
+    -- explorer = {
+    --   outline.Name,
+    --   bufferlist.Name,
+    --   explorer.Name,
+    --   bookmarks.Name,
+    --   callhierarchy.Name,
+    --   terminalbrowser.Name,
+    -- },
+    -- terminal = { terminal.Name },
     git = { changes.Name, commits.Name, timeline.Name, branches.Name },
+    outline = { outline.Name },
   },
   -- workspaces config
   workspaces = {
@@ -63,16 +65,14 @@ require("ide").setup {
   },
   -- default panel sizes for the different positions
   panel_sizes = {
-    left = 30,
-    right = 30,
+    left = 45,
+    right = 45,
     bottom = 15,
   },
 }
 
 local keymap = vim.keymap.set
 
-keymap("n", "<leader>w", "<cmd>Workspace <cr>", { desc = "explorer" })
-keymap("n", "<leader>[", "<cmd>Workspace LeftPanelToggle<cr>", { desc = "explorer" })
-keymap("n", "<leader>]", "<cmd>Workspace RightPanelToggle<cr>", { desc = "explorer" })
-keymap("n", "<leader>`", "<cmd>Workspace BottomPanelToggle<cr>", { desc = "explorer" })
-keymap("n", "<leader>e", "<cmd>Workspace Explorer Focus<cr>", { desc = "explorer" })
+keymap("n", "<leader>[", "<cmd>Workspace LeftPanelToggle<cr>", { desc = "LeftPanelToggle" })
+keymap("n", "<leader>]", "<cmd>Workspace RightPanelToggle<cr>", { desc = "RightPanelToggle" })
+keymap("n", "<leader>`", "<cmd>Workspace BottomPanelToggle<cr>", { desc = "BottomPanelToggle" })
