@@ -60,7 +60,13 @@ return packer.startup(function(use)
       require "user.colorscheme"
     end,
   }
-  use { "rose-pine/neovim", as = "rose-pine" }
+  use {
+    "rose-pine/neovim",
+    as = "rose-pine",
+    config = function()
+      require "user.colorscheme"
+    end,
+  }
 
   -- Icons
   use { "nvim-tree/nvim-web-devicons" }
