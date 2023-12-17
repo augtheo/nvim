@@ -92,7 +92,10 @@ keymap("n", "<leader>ts", "<cmd>lua require('neotest').summary.toggle()<cr>", op
 -- ui
 keymap("n", "<leader>uh", "<cmd>nohlsearch<cr>", opts "Stop Highlights")
 keymap("n", "<leader>un", "<cmd>NoiceDismiss<cr>", opts "Dismiss Noice")
-keymap("n", "<leader>ud", function()   require("user.utils").toggle_diagnostics() end, opts "Toggle Diagnostics")
+keymap("n", "<leader>ud", function() require("user.utils").toggle_diagnostics() end, opts "Toggle Diagnostics")
+keymap("n", "<leader>us", function() require("user.utils").toggle("spell") end, { desc = "Toggle Spelling" })
+keymap("n", "<leader>uw", function() require("user.utils").toggle("wrap") end, { desc = "Toggle Word Wrap" })
+
 -- persistence
 keymap("n", "<leader>qo", "<cmd>%bd!|e#<cr>", opts "Close all other Buffers")
 keymap("n", "<leader>qq", "<cmd>qa<CR>", opts "Quit")

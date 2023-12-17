@@ -18,8 +18,8 @@ dashboard.section.header.val = {
 }
 dashboard.section.buttons.val = {
   dashboard.button("SPC f f", " " .. " Files", [[:lua require("user.plugins.telescope").find_files() <cr>]]),
-  dashboard.button("SPC f r", " " .. " Recent files", [[:lua require("user.plugins.telescope").oldfiles() <cr>]]),
-  dashboard.button("SPC f g", " " .. " Find text", [[:lua require("user.plugins.telescope").live_grep() <cr>]]),
+  dashboard.button("SPC f o", " " .. " Recent", [[:lua require("user.plugins.telescope").oldfiles() <cr>]]),
+  dashboard.button("SPC s g", " " .. " Find text", [[:lua require("user.plugins.telescope").live_grep() <cr>]]),
   dashboard.button("SPC q s", " " .. " Restore Session", [[:lua require("persistence").load() <cr>]]),
   dashboard.button("SPC q q", " " .. " Quit", "<cmd>qa<cr>"),
   dashboard.button("e", " " .. " New file", "<cmd>ene <BAR> startinsert <cr>"),

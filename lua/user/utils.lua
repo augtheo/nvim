@@ -16,6 +16,25 @@ end
 
 local M = {}
 
+M.toggle = function(option, silent, values)
+  if values then
+    if vim.opt_local[option]:get() == values[1] then
+      vim.opt_local[option] = values[2]
+    else
+      vim.opt_local[option] = values[1]
+    end
+    vim.notify("Set " .. option .. " to " .. vim.opt_local[option]:get(), vim.log.levels.INFO, { title = "Option" })
+  end
+  vim.opt_local[option] = not vim.opt_local[option]:get()
+  if not silent then
+    if vim.opt_local[option]:get() then
+      vim.notify("Enabled " .. option, vim.log.levels.INFO, { title = "Option" })
+    else
+      vim.notify("Disabled " .. option, vim.log.levels.WARN, { title = "Option" })
+    end
+  end
+end
+
 M.run_code = function()
   local fileExtension = vim.fn.expand "%:e"
   local selectedCmd = ""
@@ -28,10 +47,12 @@ M.run_code = function()
       compile_and_run_interactively = "g++ -DLOCAL % -o $fileBase && $fileBase",
       compile_and_run_with_input = "g++ -DLOCAL % -o $fileBase && $fileBase < input.txt | tee output.txt",
       compile_with_warning_flags = "g++ -Wall -Wextra -pedantic -std=c++17 -O2 -Wshadow -Wformat=2 -Wfloat-equal -Wconversion -Wlogical-op -Wshift-overflow=2 -Wduplicated-cond -Wcast-qual -Wcast-align -D_GLIBCXX_DEBUG -D_GLIBCXX_DEBUG_PEDANTIC -D_FORTIFY_SOURCE=2 -fsanitize=address -fsanitize=undefined -fno-sanitize-recover -fstack-protector -DLOCAL %  -o $fileBase",
+      compile_with_debug_info = "g++ -g % -o $fileBase",
       diff_output_with_expected = "diff expected.txt output.txt",
     },
     py = {
       default = "python %",
+      interactive = "python -i %",
     },
     go = {
       default = "go run %",

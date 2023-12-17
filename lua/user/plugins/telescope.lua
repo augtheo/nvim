@@ -162,16 +162,22 @@ end
 -- stylua: ignore start
 local keymap = vim.keymap.set
 
-keymap("n", "<leader>/", function() require("telescope.builtin").live_grep(customGrepPickerOpts) end, { desc = "grep" })
-keymap("n", "<leader>:", "<cmd>Telescope command_history<cr>", { desc = "history" })
 
 -- find
-keymap("n", "<leader>fb", M.buffers, { desc = "Find Buffers" } )
+keymap("n", "<leader>fb", M.buffers, { desc = "Buffers" } )
+keymap("n", "<leader>fc", "<cmd>Telescope commands<cr>", { desc = "Commands" })
+keymap("n", "<leader>f:", "<cmd>Telescope command_history<cr>", { desc = "History" })
+keymap("n", "<leader>f\"", "<cmd>Telescope registers<cr>", { desc = "Registers" })
+keymap("n", "<leader>fd", function() require("telescope.builtin").find_files(vim.tbl_deep_extend("force", customFilePickerOpts, { cwd = vim.fn.input "Directory: " }) ) end, { desc = "Files in Directory" })
 keymap("n", "<leader>ff", M.find_files, { desc = "Files" })
-keymap("n", "<leader>fh", M.oldfiles, { desc = "Recent" })
-keymap("n", "<leader>fr", M.oldfiles, { desc = "Recent" })
-keymap("n", "<leader>fg", function() require("telescope.builtin").live_grep(customGrepPickerOpts) end, { desc = "grep" })
-keymap("n", "<leader>fp", function() require("telescope.builtin").find_files(vim.tbl_deep_extend("force", customFilePickerOpts, { cwd = vim.fn.input "Module: " }) ) end, { desc = "Find within project" })
+keymap("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help Pages" })
+keymap("n", "<leader>fk", "<cmd>Telescope keymaps<cr>", { desc = "Key Maps" })
+keymap("n", "<leader>fM", "<cmd>Telescope man_pages<cr>", { desc = "Man Pages" })
+keymap("n", "<leader>fm", "<cmd>Telescope marks<cr>", { desc = "Marks" })
+keymap("n", "<leader>fO", "<cmd>Telescope vim_options<cr>", { desc = "Options" })
+keymap("n", "<leader>fo", M.oldfiles, { desc = "Recent" })
+keymap("n", "<leader>fr", "<cmd>Telescope resume<cr>", { desc = "Resume" })
+
 
 -- git
 keymap("n", "<leader>gc", "<cmd>Telescope git_commits<CR>", { desc = "Commits" })
@@ -180,22 +186,16 @@ keymap("n", "<leader>gb", "<cmd>Telescope git_branches<CR>", { desc = "Branches"
 keymap("n", "<leader>gs", "<cmd>Telescope git_status<CR>", { desc = "Status" })
 
 -- search
-keymap("n", '<leader>s"', "<cmd>Telescope registers<cr>", { desc = "Registers" })
-keymap("n", "<leader>sa", "<cmd>Telescope autocommands<cr>", { desc = "Auto Commands" })
+keymap("n", "<leader>sg", function() require("telescope.builtin").live_grep(customGrepPickerOpts) end, { desc = "Live Grep" })
 keymap("n", "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", { desc = "Buffer" })
-keymap("n", "<leader>sc", "<cmd>Telescope commands<cr>", { desc = "Commands" })
+keymap("n", "<leader>s/", function() require("telescope.builtin").grep_string( vim.tbl_deep_extend("force", customGrepPickerOpts, { search = vim.fn.input "Search: " })) end, { desc = "Grep" })
+keymap("n", "<leader>sw", function() require("telescope.builtin").grep_string(customGrepPickerOpts) end, { desc = "Cursor Word" })
+keymap("n", "<leader>sf", function() require("telescope.builtin").find_files(vim.tbl_deep_extend("force", customFilePickerOpts , {search_file = vim.fn.expand("<cword>")})) end, { desc = "Cursor Files" })
+
+
+-- diagnostics
 keymap("n", "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", { desc = "Document diagnostics" })
 keymap("n", "<leader>sD", "<cmd>Telescope diagnostics<cr>", { desc = "Workspace diagnostics" })
-keymap("n", "<leader>sh", "<cmd>Telescope help_tags<cr>", { desc = "Help Pages" })
-keymap("n", "<leader>sH", "<cmd>Telescope highlights<cr>", { desc = "Search Highlight Groups" })
-keymap("n", "<leader>sk", "<cmd>Telescope keymaps<cr>", { desc = "Key Maps" })
-keymap("n", "<leader>sM", "<cmd>Telescope man_pages<cr>", { desc = "Man Pages" })
-keymap("n", "<leader>sm", "<cmd>Telescope marks<cr>", { desc = "Jump to Mark" })
-keymap("n", "<leader>so", "<cmd>Telescope vim_options<cr>", { desc = "Options" })
-keymap("n", "<leader>sR", "<cmd>Telescope resume<cr>", { desc = "Resume" })
-keymap("n", "<leader>s/", function() require("telescope.builtin").grep_string( vim.tbl_deep_extend("force", customGrepPickerOpts, { search = vim.fn.input "Search: " })) end, { desc = "Search Word" })
-keymap("n", "<leader>sw", function() require("telescope.builtin").grep_string(customGrepPickerOpts) end, { desc = "Cursor Word" })
-
 -- lsp
 keymap("n", "<leader>ss", "<cmd>Telescope lsp_document_symbols<cr>", { desc = "Document Symbols" })
 keymap("n", "<leader>sS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", { desc = "Workspace Symbols" })

@@ -17,7 +17,7 @@ local diagnostics = {
   cond = hide_in_width,
   sections = { "error", "warn" },
   sources = { "nvim_diagnostic" },
-  symbols = { error = icons.diagnostics.Error .. " ", warn = icons.diagnostics.Warn .. " " },
+  symbols = { error = icons.diagnostics.Error, warn = icons.diagnostics.Warn },
 }
 
 local diff = {
@@ -25,7 +25,7 @@ local diff = {
   colored = colored,
   cond = hide_in_width,
   padding = { left = 1, right = 1 },
-  symbols = { added = icons.git.Add .. " ", modified = icons.git.Mod .. " ", removed = icons.git.Remove .. " " },
+  symbols = { added = icons.git.Add, modified = icons.git.Mod, removed = icons.git.Remove },
 }
 
 local function contains(t, value)
@@ -35,6 +35,10 @@ local function contains(t, value)
     end
   end
   return false
+end
+
+local function getFileName(path)
+  return path:match "^.+/(.+)$"
 end
 
 local language_servers = nil
@@ -73,8 +77,15 @@ local language_server = {
 
     -- add client
     for _, client in pairs(clients) do
-      if client.name ~= "null-ls" then
-        table.insert(client_names, client.name)
+      local client_name = client.name
+      if client_name == "pyright" then
+        local venv = vim.env.VIRTUAL_ENV
+        if venv then
+          client_name = client_name .. "[" .. getFileName(venv) .. "]"
+        end
+      end
+      if client_name ~= "null-ls" then
+        table.insert(client_names, client_name)
       end
     end
 
@@ -112,23 +123,6 @@ local language_server = {
   padding = 1,
   cond = hide_in_width,
   separator = "%#SLSeparator#" .. " │" .. "%*",
-}
-
-local function getFileName(path)
-  return path:match "^.+/(.+)$"
-end
-
-local python_env = {
-  function()
-    local venv = vim.env.VIRTUAL_ENV
-    if venv then
-      local params = getFileName(venv)
-      return "(" .. params .. ")"
-    else
-      return ""
-    end
-  end,
-  padding = { right = 0, left = 1 },
 }
 
 local location = {
@@ -178,7 +172,6 @@ lualine.setup {
       "encoding",
     },
     lualine_y = {
-      python_env,
       language_server,
     },
     lualine_z = {

@@ -92,18 +92,6 @@ require("nvim-tree").setup {
       git_placement = "after",
       diagnostics_placement = "after",
       glyphs = {
-        default = "",
-        symlink = "",
-        folder = {
-          arrow_open = "",
-          arrow_closed = "",
-          default = "",
-          open = "",
-          empty = "",
-          empty_open = "",
-          symlink = "",
-          symlink_open = "",
-        },
         git = {
           unstaged = icons.git.Unstage,
           staged = icons.git.Stage,
