@@ -192,10 +192,6 @@ keymap("n", "<leader>s/", function() require("telescope.builtin").grep_string( v
 keymap("n", "<leader>sw", function() require("telescope.builtin").grep_string(customGrepPickerOpts) end, { desc = "Cursor Word" })
 keymap("n", "<leader>sf", function() require("telescope.builtin").find_files(vim.tbl_deep_extend("force", customFilePickerOpts , {search_file = vim.fn.expand("<cword>")})) end, { desc = "Cursor Files" })
 
-
--- diagnostics
-keymap("n", "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", { desc = "Document diagnostics" })
-keymap("n", "<leader>sD", "<cmd>Telescope diagnostics<cr>", { desc = "Workspace diagnostics" })
 -- stylua: ignore end
 
 return M

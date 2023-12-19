@@ -377,10 +377,6 @@ return packer.startup(function(use)
       require("persistence").setup()
     end,
   }
-  use {
-    "folke/neodev.nvim",
-  }
-
   -- end folke's plugins
   --
   -- begin echasnovski's plugins
@@ -394,25 +390,6 @@ return packer.startup(function(use)
     "echasnovski/mini.surround",
     config = function()
       require("mini.surround").setup()
-    end,
-  }
-  use {
-    "echasnovski/mini.animate",
-    config = function()
-      require "user.plugins.mini-animate"
-    end,
-  }
-
-  use {
-    "ldelossa/nvim-ide",
-    config = function()
-      require "user.plugins.ide"
-    end,
-  }
-  use {
-    "dnlhc/glance.nvim",
-    config = function()
-      require("glance").setup {}
     end,
   }
   -- end echasnovski's plugins
