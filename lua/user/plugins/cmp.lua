@@ -106,12 +106,12 @@ cmp.setup {
     completion = {
       scrollbar = false,
       border = "single",
-      winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None", -- NOTE: https://github.com/hrsh7th/nvim-cmp/issues/1100
+      winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None", -- NOTE: https://github.com/hrsh7th/nvim-cmp/issues/1100
     },
     documentation = {
       scrollbar = false,
       border = "single",
-      winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
+      winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
     },
   },
   experimental = {

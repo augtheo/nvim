@@ -1,7 +1,6 @@
 require("catppuccin").setup {
   integrations = {
     mason = true,
-    mini = true,
     noice = true,
     notify = true,
     neotest = true,
@@ -18,13 +17,11 @@ require("catppuccin").setup {
   custom_highlights = function(colors)
     local custom_color = colors.surface0
     return {
-      FloatBorder = { fg = custom_color },
       TreesitterContextBottom = { style = {} },
-      NoiceCmdlinePopupBorder = { fg = custom_color },
       NvimTreeWindowPicker = { bg = colors.blue, fg = colors.mantle, style = { "bold" } },
     }
   end,
-  transparent_background = true,
+  transparent_background = false,
 }
 
 vim.schedule(function()
@@ -34,3 +31,5 @@ vim.schedule(function()
     },
   }
 end)
+
+require

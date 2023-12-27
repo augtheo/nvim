@@ -98,7 +98,8 @@ keymap("n", "<leader>uw", function() require("user.utils").toggle("wrap") end, {
 
 -- persistence
 keymap("n", "<leader>qo", "<cmd>%bd!|e#<cr>", opts "Close all other Buffers")
-keymap("n", "<leader>qq", "<cmd>qa<CR>", opts "Quit")
+keymap("n", "<leader>qq", "<cmd>confirm q<CR>", opts "Quit")
+keymap("n", "<leader>qa", "<cmd>confirm qa<CR>", opts "Quit all")
 keymap("n", "<leader>qs", "<cmd>lua require('persistence').load()<cr>", opts "Restore Session")
 keymap("n", "<leader>ql", "<cmd>lua require('persistence').load({ last = true })<cr>", opts "Restore Last Session" )
 keymap("n", "<leader>qd", "<cmd>lua require('persistence').stop()<cr>", opts "Don't Save Current Session")
@@ -107,5 +108,6 @@ keymap("n", "<leader>qd", "<cmd>lua require('persistence').stop()<cr>", opts "Do
 keymap("n","<leader>a", "<cmd>Alpha<cr>", opts "alpha")
 keymap("n","<leader>e", "<cmd>NvimTreeToggle<cr>", opts "explorer")
 keymap("n","<leader>w", "<cmd>w!<CR>", opts "save")
+-- keymap("c", "w!!", "w !sudo tee > /dev/null %", opts "Write as Sudo") 
 keymap("n","<leader>x", "<cmd>lua require 'user.utils'.run_code() <CR>", opts "exec")
 -- stylua: ignore end

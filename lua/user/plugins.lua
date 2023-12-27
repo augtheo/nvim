@@ -139,7 +139,6 @@ return packer.startup(function(use)
         require "user.plugins.treesitter"
       end,
     },
-    { "nvim-treesitter/playground", after = "nvim-treesitter", cmd = "TSPlaygroundToggle" },
     { "nvim-treesitter/nvim-treesitter-textobjects", after = "nvim-treesitter" },
     {
       "nvim-treesitter/nvim-treesitter-context",
@@ -172,7 +171,7 @@ return packer.startup(function(use)
     "lukas-reineke/indent-blankline.nvim",
     event = "BufRead",
     config = function()
-      require "user.plugins.indentline"
+      require("ibl").setup()
     end,
   }
 
@@ -264,11 +263,11 @@ return packer.startup(function(use)
   }
   use { "tpope/vim-fugitive", cmd = "Git" }
   use {
-    "ruifm/gitlinker.nvim",
+    "linrongbin16/gitlinker.nvim",
     requires = "nvim-lua/plenary.nvim",
     event = "BufRead",
     config = function()
-      require "user.plugins.gitlinker"
+      require("gitlinker").setup()
     end,
   }
   use {
@@ -327,7 +326,6 @@ return packer.startup(function(use)
   -- Which key
   use {
     "folke/which-key.nvim",
-    event = "CursorHold",
     config = function()
       require "user.plugins.which-key"
     end,
@@ -347,7 +345,7 @@ return packer.startup(function(use)
     "folke/trouble.nvim",
     cmd = { "Trouble", "TroubleToggle" },
     config = function()
-      require "user.plugins.trouble"
+      require("trouble").setup {}
     end,
   }
   -- Noice
@@ -390,6 +388,13 @@ return packer.startup(function(use)
     "echasnovski/mini.surround",
     config = function()
       require("mini.surround").setup()
+    end,
+  }
+
+  use {
+    "echasnovski/mini.align",
+    config = function()
+      require("mini.align").setup()
     end,
   }
   -- end echasnovski's plugins

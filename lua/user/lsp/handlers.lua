@@ -33,27 +33,27 @@ local lsp_keymaps = function(bufnr)
 
   -- stylua: ignore end
 
-  local which_key_opts = {
-    mode = "n",
-    prefix = "<leader>",
-    buffer = bufnr,
-  }
-  local mappings = {
-    ["l"] = "+lsp",
-    ["lw"] = "+workspace",
-  }
-
-  require("which-key").register(mappings, which_key_opts)
-
-  local which_key_opts_v = {
-    mode = "v",
-    prefix = "<leader>",
-    buffer = bufnr,
-  }
-  local mappings_v = {
-    ["l"] = "+lsp",
-  }
-  require("which-key").register(mappings_v, which_key_opts_v)
+  vim.schedule(function()
+    local which_key_opts = {
+      mode = "n",
+      prefix = "<leader>",
+      buffer = bufnr,
+    }
+    local mappings = {
+      ["l"] = "+lsp",
+      ["lw"] = "+workspace",
+    }
+    require("which-key").register(mappings, which_key_opts)
+    local which_key_opts_v = {
+      mode = "v",
+      prefix = "<leader>",
+      buffer = bufnr,
+    }
+    local mappings_v = {
+      ["l"] = "+lsp",
+    }
+    require("which-key").register(mappings_v, which_key_opts_v)
+  end)
 end
 
 M.on_attach = function(client, bufnr)

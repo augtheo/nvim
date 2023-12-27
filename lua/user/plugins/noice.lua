@@ -27,7 +27,7 @@ require("noice").setup {
         max_height = 10,
       },
       win_options = {
-        winhighlight = "Normal:Normal,FloatBorder:FloatBorder",
+        winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder",
       },
     },
     popup = {
@@ -48,8 +48,8 @@ require("noice").setup {
           concealcursor = "n",
           conceallevel = 3,
           winhighlight = {
-            Normal = "Normal",
-            FloatBorder = "Normal",
+            Normal = "CmpPmenu",
+            FloatBorder = "CmpBorder",
           },
         },
       },
