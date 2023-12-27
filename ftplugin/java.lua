@@ -146,16 +146,16 @@ local config = {
     end
     -- stylua: ignore start
     local keymap = vim.keymap.set
-    keymap("n", "<leader>lo", "<Cmd>lua require'jdtls'.organize_imports()<CR>", opts "Organize Imports")
-    keymap("n", "<leader>lv", "<Cmd>lua require('jdtls').extract_variable()<CR>", opts "Extract Variable")
-    keymap("n", "<leader>lc", "<Cmd>lua require('jdtls').extract_constant()<CR>", opts "Extract Constant")
-    keymap("n", "<leader>lt", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", opts "Test Method")
-    keymap("n", "<leader>lT", "<Cmd>lua require'jdtls'.test_class()<CR>", opts "Test Class")
-    keymap("n", "<leader>lu", "<Cmd>JdtUpdateConfig<CR>", opts "Update Config")
+    keymap("n", "<leader>lo", "<Cmd>lua require'jdtls'.organize_imports()<CR>",            opts "Organize Imports")
+    keymap("n", "<leader>lv", "<Cmd>lua require('jdtls').extract_variable()<CR>",          opts "Extract Variable")
+    keymap("n", "<leader>lc", "<Cmd>lua require('jdtls').extract_constant()<CR>",          opts "Extract Constant")
+    keymap("n", "<leader>lt", "<Cmd>lua require'jdtls'.test_nearest_method()<CR>",         opts "Test Method")
+    keymap("n", "<leader>lT", "<Cmd>lua require'jdtls'.test_class()<CR>",                  opts "Test Class")
+    keymap("n", "<leader>lu", "<Cmd>JdtUpdateConfig<CR>",                                  opts "Update Config")
 
     keymap("v", "<leader>lv", "<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>", opts "Extract Variable")
     keymap("v", "<leader>lc", "<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>", opts "Extract Constant")
-    keymap("v", "<leader>lm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>", opts "Extract Method")
+    keymap("v", "<leader>lm", "<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>",   opts "Extract Method")
     -- stylua: ignore end
 
     require("jdtls.dap").setup_dap_main_class_configs()

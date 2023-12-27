@@ -31,5 +31,3 @@ vim.schedule(function()
     },
   }
 end)
-
-require
