@@ -129,8 +129,18 @@ function _NVIM_TREE_TOGGLE_GROUP_BY()
   require("nvim-tree").setup { renderer = { group_empty = _GROUP_BY_TOGGLE_STATE } }
 end
 
+local function close_nvim_ide_panels()
+  if pcall(require, "ide") then
+    local ws = require("ide.workspaces.workspace_registry").get_workspace(vim.api.nvim_get_current_tabpage())
+    if ws ~= nil then
+      ws.close_panel(require("ide.panels.panel").PANEL_POS_LEFT)
+    end
+  end
+end
+
 local nvim_tree_toggle = function()
   require("dapui").close()
+  close_nvim_ide_panels()
   require("nvim-tree.api").tree.toggle()
 end
 

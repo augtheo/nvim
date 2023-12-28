@@ -18,7 +18,6 @@ require("catppuccin").setup {
     local custom_color = colors.surface0
     return {
       TreesitterContextBottom = { style = {} },
-      NvimTreeWindowPicker = { bg = colors.blue, fg = colors.mantle, style = { "bold" } },
     }
   end,
   transparent_background = false,

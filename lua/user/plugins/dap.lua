@@ -16,8 +16,21 @@ dapui.setup {
     enabled = false,
   },
 }
+
+local function close_nvim_ide_panels()
+  if pcall(require, "ide") then
+    local ws = require("ide.workspaces.workspace_registry").get_workspace(vim.api.nvim_get_current_tabpage())
+    if ws ~= nil then
+      ws.close_panel(require("ide.panels.panel").PANEL_POS_BOTTOM)
+      ws.close_panel(require("ide.panels.panel").PANEL_POS_LEFT)
+      ws.close_panel(require("ide.panels.panel").PANEL_POS_RIGHT)
+    end
+  end
+end
+
 dap.listeners.after.event_initialized["dapui_config"] = function()
   dapui.open()
+  close_nvim_ide_panels()
 end
 
 dap.listeners.before.event_terminated["dapui_config"] = function()
@@ -34,8 +47,10 @@ local keymap = vim.keymap.set
 
 local dapui_toggle = function()
   require("nvim-tree.api").tree.close()
+  close_nvim_ide_panels()
   require("dapui").toggle()
 end
+
 
 -- stylua: ignore start
 keymap("n", "<leader>db", "<cmd>DapToggleBreakpoint<cr>",                                                            { desc = "Toggle Breakpoint" })

@@ -398,7 +398,20 @@ return packer.startup(function(use)
     end,
   }
   -- end echasnovski's plugins
+  use {
+    "ldelossa/nvim-ide",
+    config = function()
+      require "user.plugins.ide"
+    end,
+  }
 
+  use {
+    "nvim-zh/colorful-winsep.nvim",
+    after = "lualine.nvim",
+    config = function()
+      require "user.plugins.colorful-winsep"
+    end,
+  }
   if PACKER_BOOTSTRAP then
     require("packer").sync()
   end

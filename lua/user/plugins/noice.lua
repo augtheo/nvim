@@ -27,7 +27,7 @@ require("noice").setup {
         max_height = 10,
       },
       win_options = {
-        winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
+        winhighlight = "Normal:Normal,FloatBorder:NoiceCmdlinePopupBorder,CursorLine:PmenuSel,Search:None", -- NOTE: https://github.com/hrsh7th/nvim-cmp/issues/1100
       },
     },
     confirm = {
@@ -51,8 +51,8 @@ require("noice").setup {
           concealcursor = "n",
           conceallevel = 3,
           winhighlight = {
-            Normal = "CmpPmenu",
-            FloatBorder = "CmpBorder",
+            Normal = "Normal",
+            FloatBorder = "FloatBorder",
           },
         },
       },
