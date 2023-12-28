@@ -87,7 +87,7 @@ return packer.startup(function(use)
 
   use {
     "nvim-tree/nvim-tree.lua",
-    cmd = "NvimTreeToggle",
+    event = "VimEnter",
     config = function()
       require "user.plugins.nvim-tree"
     end,

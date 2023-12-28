@@ -32,6 +32,10 @@ require("telescope").load_extension "dap"
 
 local keymap = vim.keymap.set
 
+local dapui_toggle = function()
+  require("nvim-tree.api").tree.close()
+  require("dapui").toggle()
+end
 
 -- stylua: ignore start
 keymap("n", "<leader>db", "<cmd>DapToggleBreakpoint<cr>",                                                            { desc = "Toggle Breakpoint" })
@@ -46,7 +50,7 @@ keymap("n", "<leader>dO", "<cmd>DapStepOut<cr>",                                
 keymap("n", "<leader>dr", "<cmd>DapToggleRepl<cr>",                                                                  { desc = "Toggle Repl" })
 keymap("n", "<leader>dt", "<cmd>DapTerminate<cr>",                                                                   { desc = "Terminate" })
 keymap("n", "<leader>dL", "<cmd>lua require'dap'.run_last()<cr>",                                                    { desc = "Run Last" })
-keymap("n", "<leader>du", "<cmd>lua require'dapui'.toggle()<cr>",                                                    { desc = "Toggle UI" })
+keymap("n", "<leader>du", dapui_toggle,                                                                              { desc = "Toggle UI" })
 
 -- telescope
 keymap("n", "<leader>sB", "<cmd>Telescope dap list_breakpoints path_display={'smart'} show_line=false<CR>",          { desc = "Breakpoints" })

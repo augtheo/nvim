@@ -129,4 +129,10 @@ function _NVIM_TREE_TOGGLE_GROUP_BY()
   require("nvim-tree").setup { renderer = { group_empty = _GROUP_BY_TOGGLE_STATE } }
 end
 
+local nvim_tree_toggle = function()
+  require("dapui").close()
+  require("nvim-tree.api").tree.toggle()
+end
+
+vim.keymap.set("n", "<leader>e", nvim_tree_toggle, { desc = "explorer" })
 vim.cmd "command! NvimTreeToggleGroupEmpty lua _NVIM_TREE_TOGGLE_GROUP_BY()"
