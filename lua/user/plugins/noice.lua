@@ -27,8 +27,11 @@ require("noice").setup {
         max_height = 10,
       },
       win_options = {
-        winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder",
+        winhighlight = "Normal:CmpPmenu,FloatBorder:CmpBorder,CursorLine:PmenuSel,Search:None",
       },
+    },
+    confirm = {
+      border = single_border,
     },
     popup = {
       border = single_border,
