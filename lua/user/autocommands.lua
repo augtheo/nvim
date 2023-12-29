@@ -30,4 +30,15 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   end,
 })
 
+vim.api.nvim_create_autocmd("Colorscheme", {
+  callback = function()
+    local colors = vim.g.colors_name
+    local require_ok, opts = pcall(require, "user.plugins.colors." .. colors)
+    vim.cmd "hi! link PmenuSel lualine_a_insert"
+    vim.cmd "hi! link NormalNC NvimTreeNormal"
+    vim.cmd "hi! link NvimTreeWindowPicker lualine_a_command"
+    vim.cmd "hi! link FloatBorder Normal"
+  end,
+})
+
 vim.cmd [[autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2]]

@@ -46,33 +46,10 @@ return packer.startup(function(use)
   use { "nvim-lua/plenary.nvim" } -- Useful lua functions used by lots of plugins
 
   -- Colorschemes
-  use {
-    "augtheo/pywal.nvim",
-    as = "pywal",
-    config = function()
-      require "user.colorscheme"
-    end,
-  }
-  use {
-    "catppuccin/nvim",
-    as = "catppuccin",
-    config = function()
-      require "user.colorscheme"
-    end,
-  }
-  use {
-    "rose-pine/neovim",
-    as = "rose-pine",
-    config = function()
-      require "user.colorscheme"
-    end,
-  }
-  use {
-    "sainnhe/everforest",
-    config = function()
-      require "user.colorscheme"
-    end,
-  }
+  use { "augtheo/pywal.nvim", as = "pywal" }
+  use { "catppuccin/nvim", as = "catppuccin" }
+  use { "rose-pine/neovim", as = "rose-pine" }
+  use { "sainnhe/everforest" }
 
   -- Icons
   use { "nvim-tree/nvim-web-devicons" }

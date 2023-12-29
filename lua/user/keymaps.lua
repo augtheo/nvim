@@ -89,6 +89,7 @@ keymap("n", "<leader>uh",         "<cmd>nohlsearch<cr>",                        
 keymap("n", "<leader>un",         "<cmd>NoiceDismiss<cr>",                                                          opts "Dismiss Noice")
 keymap("n", "<leader>ud",         function() require("user.utils").toggle_diagnostics() end,                        opts "Toggle Diagnostics")
 keymap("n", "<leader>us",         function() require("user.utils").toggle("spell") end,                             opts "Toggle Spelling")
+keymap("n", "<leader>uc",         require("telescope.builtin").colorscheme,                                         opts "Switch Colorscheme")
 keymap("n", "<leader>uw",         function() require("user.utils").toggle("wrap") end,                              opts "Toggle Word Wrap")
 
 -- persistence
