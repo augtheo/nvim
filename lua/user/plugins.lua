@@ -389,6 +389,14 @@ return packer.startup(function(use)
       require "user.plugins.colorful-winsep"
     end,
   }
+
+  use {
+    "jpmcb/nvim-llama",
+    config = function()
+      require "user.plugins.nvim-llama"
+    end,
+  }
+
   if PACKER_BOOTSTRAP then
     require("packer").sync()
   end
