@@ -4,37 +4,18 @@ local single_border = {
 }
 
 require("noice").setup {
+  cmdline = {
+    view = "cmdline",
+  },
   views = {
-    cmdline_popup = {
-      position = {
-        row = 5,
-        col = "50%",
-      },
-      size = {
-        width = 60,
-        height = "auto",
-      },
-      border = single_border,
-    },
     popupmenu = {
-      border = single_border,
-      position = {
-        row = 8,
-        col = "50%",
-      },
-      size = {
-        width = 60,
-        max_height = 10,
-      },
-      win_options = {
-        winhighlight = "Normal:Normal,FloatBorder:NoiceCmdlinePopupBorder,CursorLine:PmenuSel,Search:None", -- NOTE: https://github.com/hrsh7th/nvim-cmp/issues/1100
-      },
+      scrollbar = false,
     },
     confirm = {
       border = single_border,
     },
-    popup = {
-      border = single_border,
+    hover = {
+      scrollbar = false,
     },
   },
   lsp = {

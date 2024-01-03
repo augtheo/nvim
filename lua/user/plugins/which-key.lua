@@ -59,6 +59,7 @@ local setup = {
     -- most people should not need to change this
     i = { "j", "k" },
     v = { "j", "k" },
+    c = { "w" },
   },
 }
 

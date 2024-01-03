@@ -22,11 +22,3 @@ require("catppuccin").setup {
   end,
   transparent_background = false,
 }
-
-vim.schedule(function()
-  require("lualine").setup {
-    options = {
-      theme = "catppuccin",
-    },
-  }
-end)

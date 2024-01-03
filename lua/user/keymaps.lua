@@ -68,12 +68,12 @@ keymap("n", "g[",                 "<cmd>diffget //2<CR>",                       
 keymap("n", "g]",                 "<cmd>diffget //3<CR>",                                                           opts "Accept Right")
 
 -- tabs
-keymap("n", "<leader><tab>l",     "<cmd>tablast<cr>",                                                               opts "Last     Tab")
-keymap("n", "<leader><tab>f",     "<cmd>tabfirst<cr>",                                                              opts "First    Tab")
+keymap("n", "]<S-tab>",            "<cmd>tablast<cr>",                                                              opts "Last     Tab")
+keymap("n", "[<S-tab>",           "<cmd>tabfirst<cr>",                                                              opts "First    Tab")
+keymap("n", "]<tab>",             "<cmd>tabnext<cr>",                                                               opts "Next     Tab")
+keymap("n", "[<tab>",             "<cmd>tabprevious<cr>",                                                           opts "Previous Tab")
 keymap("n", "<leader><tab><tab>", "<cmd>tabnew %<cr>",                                                              opts "New      Tab")
-keymap("n", "<leader><tab>]",     "<cmd>tabnext<cr>",                                                               opts "Next     Tab")
 keymap("n", "<leader><tab>d",     "<cmd>tabclose<cr>",                                                              opts "Close    Tab")
-keymap("n", "<leader><tab>[",     "<cmd>tabprevious<cr>",                                                           opts "Previous Tab")
 
 -- Neotest
 --

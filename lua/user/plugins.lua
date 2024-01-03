@@ -47,7 +47,14 @@ return packer.startup(function(use)
 
   -- Colorschemes
   use { "augtheo/pywal.nvim", as = "pywal" }
-  use { "catppuccin/nvim", as = "catppuccin" }
+  use {
+    "catppuccin/nvim",
+    as = "catppuccin",
+    config = function()
+      require "user.plugins.colors.catppuccin"
+      vim.cmd.colorscheme "catppuccin"
+    end,
+  }
   use { "rose-pine/neovim", as = "rose-pine" }
   use { "sainnhe/everforest" }
 
@@ -83,6 +90,15 @@ return packer.startup(function(use)
     end,
     after = "noice.nvim",
   }
+
+  use {
+    "nvim-zh/colorful-winsep.nvim",
+    after = "lualine.nvim",
+    config = function()
+      require "user.plugins.colorful-winsep"
+    end,
+  }
+
   use {
     "nvim-telescope/telescope.nvim",
     requires = {
@@ -352,6 +368,14 @@ return packer.startup(function(use)
       require("persistence").setup()
     end,
   }
+
+  use {
+    opt = true,
+    "folke/neodev.nvim",
+    config = function()
+      require("neodev").setup()
+    end,
+  }
   -- end folke's plugins
   --
   -- begin echasnovski's plugins
@@ -377,21 +401,15 @@ return packer.startup(function(use)
   -- end echasnovski's plugins
   use {
     "ldelossa/nvim-ide",
+    event = "BufReadPost",
     config = function()
       require "user.plugins.ide"
     end,
   }
 
   use {
-    "nvim-zh/colorful-winsep.nvim",
-    after = "lualine.nvim",
-    config = function()
-      require "user.plugins.colorful-winsep"
-    end,
-  }
-
-  use {
     "jpmcb/nvim-llama",
+    cmd = "Llama",
     config = function()
       require "user.plugins.nvim-llama"
     end,

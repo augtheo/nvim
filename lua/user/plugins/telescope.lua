@@ -132,17 +132,17 @@ local customGrepPickerOpts = {
     return originalEntryTable
   end,
 }
+-- end define custom opts for pretty pickers
+--
+local M = {}
 
-local customDropDownOpts = require("telescope.themes").get_dropdown {
+M.customDropDownOpts = require("telescope.themes").get_dropdown {
   borderchars = {
     preview = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
     prompt = { "─", "│", " ", "│", "┌", "┐", "│", "│" },
     results = { "─", "│", "─", "│", "├", "┤", "┘", "└" },
   },
 }
--- end define custom opts for pretty pickers
---
-local M = {}
 M.find_files = function()
   require("telescope.builtin").find_files(customFilePickerOpts)
 end
@@ -156,7 +156,7 @@ M.live_grep = function()
 end
 
 M.buffers = function()
-  require("telescope.builtin").buffers(customDropDownOpts)
+  require("telescope.builtin").buffers(M.customDropDownOpts)
 end
 
 M.find_in_dirs = function()

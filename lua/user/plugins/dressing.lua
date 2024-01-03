@@ -4,13 +4,7 @@ require("dressing").setup {
     border = "single",
   },
   select = {
-    -- Options for nui Menu
-    nui = {
-      border = {
-        style = "single",
-      },
-    },
-
+    telescope = require("user.plugins.telescope").customDropDownOpts,
     -- Options for built-in selector
     builtin = {
       -- Display numbers for options and set up keymaps

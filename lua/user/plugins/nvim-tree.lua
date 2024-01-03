@@ -78,6 +78,7 @@ local function on_attach(bufnr)
 end
 
 require("nvim-tree").setup {
+  actions = { open_file = { quit_on_open = true } },
   on_attach = on_attach,
   hijack_cursor = true,
   hijack_unnamed_buffer_when_opening = true,
