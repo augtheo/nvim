@@ -6,6 +6,14 @@ local icons = {
 local function on_attach(bufnr)
   local api = require "nvim-tree.api"
 
+  api.events.subscribe(api.events.Event.TreeOpen, function()
+    vim.cmd "hi! link NormalNC Normal"
+  end)
+
+  api.events.subscribe(api.events.Event.TreeClose, function()
+    vim.cmd "hi! link NormalNC NvimTreeNormal"
+  end)
+
   local function opts(desc)
     return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
   end

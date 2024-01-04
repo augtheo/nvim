@@ -103,6 +103,6 @@ keymap("n", "<leader>qd",         "<cmd>lua require('persistence').stop()<cr>", 
 
 keymap("n", "<leader>a",          "<cmd>Alpha<cr>",                                                                 opts "alpha")
 keymap("n", "<leader>w",          "<cmd>w!<CR>",                                                                    opts "save")
-keymap("c", "w!!",                "w !sudo tee > /dev/null %",                                                      opts "Write as Sudo")
+-- keymap("c", "w!!",                "w !sudo tee > /dev/null %",                                                      opts "Write as Sudo")
 keymap("n", "<leader>x",          "<cmd>lua require 'user.utils'.run_code() <CR>",                                  opts "exec")
 -- stylua: ignore end

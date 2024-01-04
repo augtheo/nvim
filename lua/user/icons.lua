@@ -30,4 +30,8 @@ return {
     Info = " ",
     Warn = " ",
   },
+  ui = {
+    Search = " ",
+    Recent = " ",
+  },
 }

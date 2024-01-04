@@ -14,7 +14,7 @@ local lsp_keymaps = function(bufnr)
   keymap("n"      , "gI",          "<cmd>Telescope lsp_implementations path_display={'smart'} show_line=false<cr>", opts "Implementations" )
   keymap("n"      , "gr",          "<cmd>Telescope lsp_references path_display={'smart'} show_line=false<cr>",      opts "References" )
   keymap("n"      , "gl",          "<cmd>lua vim.diagnostic.open_float({border='single'})<CR>",                     opts "Diagnostics")
-  keymap("n"      , "gt",          "<cmd>Telescope lsp_type_definitions<cr>",                                       opts "Goto Type Definition")
+  keymap("n"      , "gp",          "<cmd>Telescope lsp_type_definitions<cr>",                                       opts "Goto Type Definition")
   --lsp capabilities
   keymap("n"      , "<leader>la",  "<cmd>lua vim.lsp.buf.code_action()<cr>",                                        opts "Code Actions")
   keymap("n"      , "<leader>ll",  "<cmd>lua vim.lsp.codelens.run()<cr>",                                           opts "CodeLens")

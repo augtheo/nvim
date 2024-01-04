@@ -46,7 +46,6 @@ return packer.startup(function(use)
   use { "nvim-lua/plenary.nvim" } -- Useful lua functions used by lots of plugins
 
   -- Colorschemes
-  use { "augtheo/pywal.nvim", as = "pywal" }
   use {
     "catppuccin/nvim",
     as = "catppuccin",
@@ -55,8 +54,6 @@ return packer.startup(function(use)
       vim.cmd.colorscheme "catppuccin"
     end,
   }
-  use { "rose-pine/neovim", as = "rose-pine" }
-  use { "sainnhe/everforest" }
 
   -- Icons
   use { "nvim-tree/nvim-web-devicons" }
@@ -369,13 +366,6 @@ return packer.startup(function(use)
     end,
   }
 
-  use {
-    opt = true,
-    "folke/neodev.nvim",
-    config = function()
-      require("neodev").setup()
-    end,
-  }
   -- end folke's plugins
   --
   -- begin echasnovski's plugins
@@ -399,21 +389,6 @@ return packer.startup(function(use)
     end,
   }
   -- end echasnovski's plugins
-  use {
-    "ldelossa/nvim-ide",
-    event = "BufReadPost",
-    config = function()
-      require "user.plugins.ide"
-    end,
-  }
-
-  use {
-    "jpmcb/nvim-llama",
-    cmd = "Llama",
-    config = function()
-      require "user.plugins.nvim-llama"
-    end,
-  }
 
   if PACKER_BOOTSTRAP then
     require("packer").sync()

@@ -1,4 +1,5 @@
 local telescope = require "telescope"
+local icons = require "user.icons"
 
 local actions = require "telescope.actions"
 telescope.setup {
@@ -15,7 +16,7 @@ telescope.setup {
     find_command = { "fd", "-t=f", "-a" },
     -- path_display = { "absolute" },
     wrap_results = true,
-    prompt_prefix = "   ",
+    prompt_prefix = icons.ui.Search,
     selection_caret = " ",
     path_display = { "smart" },
     file_ignore_patterns = { ".git/", "node_modules" },
