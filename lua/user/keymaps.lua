@@ -68,7 +68,7 @@ keymap("n", "g[",                 "<cmd>diffget //2<CR>",                       
 keymap("n", "g]",                 "<cmd>diffget //3<CR>",                                                           opts "Accept Right")
 
 -- tabs
-keymap("n", "]<S-tab>",            "<cmd>tablast<cr>",                                                              opts "Last     Tab")
+keymap("n", "]<S-tab>",           "<cmd>tablast<cr>",                                                               opts "Last     Tab")
 keymap("n", "[<S-tab>",           "<cmd>tabfirst<cr>",                                                              opts "First    Tab")
 keymap("n", "]<tab>",             "<cmd>tabnext<cr>",                                                               opts "Next     Tab")
 keymap("n", "[<tab>",             "<cmd>tabprevious<cr>",                                                           opts "Previous Tab")

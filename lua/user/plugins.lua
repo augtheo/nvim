@@ -31,6 +31,7 @@ end
 
 -- Have packer use a popup window
 packer.init {
+  snapshot_path = require("packer.util").join_paths(vim.fn.stdpath "config", "packerSnapshot"), -- Default save directory for snapshots
   display = {
     open_fn = function()
       return require("packer.util").float { border = "single" }
