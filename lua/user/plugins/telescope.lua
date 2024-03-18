@@ -46,9 +46,6 @@ telescope.setup {
   },
 }
 
-telescope.load_extension "fzf"
-telescope.load_extension "undo"
-
 -- begin define custom opts for pretty pickers
 local telescopeUtilities = require "telescope.utils"
 local telescopeMakeEntryModule = require "telescope.make_entry"

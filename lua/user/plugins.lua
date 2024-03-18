@@ -99,10 +99,6 @@ return packer.startup(function(use)
 
   use {
     "nvim-telescope/telescope.nvim",
-    requires = {
-      { "debugloop/telescope-undo.nvim" },
-      { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
-    },
     config = function()
       require "user.plugins.telescope"
     end,
@@ -254,7 +250,7 @@ return packer.startup(function(use)
   }
   use { "tpope/vim-fugitive", cmd = "Git" }
   use {
-    "linrongbin16/gitlinker.nvim",
+    "ruifm/gitlinker.nvim",
     requires = "nvim-lua/plenary.nvim",
     event = "BufRead",
     config = function()
@@ -303,16 +299,6 @@ return packer.startup(function(use)
     ft = { "python" },
   }
   use { "AckslD/swenv.nvim" }
-
-  -- Markdown
-  use {
-    "iamcco/markdown-preview.nvim",
-    run = function()
-      vim.fn["mkdp#util#install"]()
-    end,
-    ft = { "markdown" },
-  }
-
   -- begin folke's plugins
   -- Which key
   use {
