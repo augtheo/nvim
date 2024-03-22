@@ -270,7 +270,12 @@ return packer.startup(function(use)
     end,
     requires = {
       { "nvim-telescope/telescope-dap.nvim" },
-      { "rcarriga/nvim-dap-ui" },
+      {
+        "rcarriga/nvim-dap-ui",
+        requires = {
+          "nvim-neotest/nvim-nio",
+        },
+      },
     },
   }
 
