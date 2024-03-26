@@ -82,13 +82,26 @@ require("lazy").setup {
     end,
   },
 
+  {
+    "HiPhish/rainbow-delimiters.nvim",
+    event = "BufRead",
+  },
+
+  {
+    "RRethy/vim-illuminate",
+    event = "BufRead",
+    config = function()
+      require "user.plugins.illuminate"
+    end,
+  },
   -----------------------------------------------------------------------------------------------
   --[[
-             _ 
-       __ __(_)
-      / // / / 
-      \_,_/_/  
+           __  _ __
+     __ __/ /_(_) /
+    / // / __/ / / 
+    \_,_/\__/_/_/  
   --]]
+  --
   {
     "nvim-tree/nvim-tree.lua",
     event = "VimEnter",
@@ -109,8 +122,37 @@ require("lazy").setup {
       require "user.plugins.toggleterm"
     end,
   },
-  { "HiPhish/rainbow-delimiters.nvim" },
 
+  {
+    "folke/which-key.nvim",
+    config = function()
+      require "user.plugins.which-key"
+    end,
+  },
+
+  {
+    event = "VimEnter",
+    "folke/persistence.nvim",
+    config = function()
+      require("persistence").setup()
+    end,
+  },
+
+  {
+    "folke/todo-comments.nvim",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = "nvim-lua/plenary.nvim",
+    config = function()
+      require("todo-comments").setup {}
+    end,
+  },
+  {
+    "folke/trouble.nvim",
+    cmd = { "Trouble", "TroubleToggle" },
+    config = function()
+      require("trouble").setup {}
+    end,
+  },
   -----------------------------------------------------------------------------------------------
   --[[
              ___ __ 
@@ -141,19 +183,17 @@ require("lazy").setup {
   },
 
   {
-    {
-      "nvim-treesitter/nvim-treesitter",
-      event = "BufRead",
-      dependencies = {
-        { "nvim-treesitter/nvim-treesitter-textobjects" },
-        { "nvim-treesitter/nvim-treesitter-context" },
-        { "JoosepAlviste/nvim-ts-context-commentstring" },
-      },
-      config = function()
-        require "user.plugins.treesitter"
-        require "user.plugins.context"
-      end,
+    "nvim-treesitter/nvim-treesitter",
+    event = "BufRead",
+    dependencies = {
+      { "nvim-treesitter/nvim-treesitter-textobjects" },
+      { "nvim-treesitter/nvim-treesitter-context" },
+      { "JoosepAlviste/nvim-ts-context-commentstring" },
     },
+    config = function()
+      require "user.plugins.treesitter"
+      require "user.plugins.context"
+    end,
   },
 
   {
@@ -163,6 +203,7 @@ require("lazy").setup {
       require "user.plugins.comment"
     end,
   },
+
   {
     "kevinhwang91/nvim-ufo",
     event = "BufRead",
@@ -247,14 +288,6 @@ require("lazy").setup {
     end,
   },
 
-  {
-    "RRethy/vim-illuminate",
-    event = "BufRead",
-    config = function()
-      require "user.plugins.illuminate"
-    end,
-  },
-
   -----------------------------------------------------------------------------------------------
   --[[ 
         ___ _(_) /_
@@ -329,37 +362,4 @@ require("lazy").setup {
     ft = { "python" },
   },
   { "AckslD/swenv.nvim" },
-
-  -- Which key
-  {
-    "folke/which-key.nvim",
-    config = function()
-      require "user.plugins.which-key"
-    end,
-  },
-
-  {
-    "folke/todo-comments.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = "nvim-lua/plenary.nvim",
-    config = function()
-      require("todo-comments").setup {}
-    end,
-  },
-  {
-    "folke/trouble.nvim",
-    cmd = { "Trouble", "TroubleToggle" },
-    config = function()
-      require("trouble").setup {}
-    end,
-  },
-
-  {
-    event = "VimEnter",
-    "folke/persistence.nvim",
-    config = function()
-      require("persistence").setup()
-    end,
-  },
 }
---   -- end echasnovski's plugins
