@@ -1,7 +1,4 @@
 require("lazy").setup {
-
-  { "nvim-lua/plenary.nvim" },
-
   -----------------------------------------------------------------------------------------------
   --[[
              _ 
@@ -22,9 +19,11 @@ require("lazy").setup {
 
   {
     "nvim-tree/nvim-web-devicons",
+    lazy = true,
   },
 
   {
+    event = "BufRead",
     "NvChad/nvim-colorizer.lua",
     config = function()
       require "user.plugins.colorizer"
@@ -186,9 +185,9 @@ require("lazy").setup {
     "nvim-treesitter/nvim-treesitter",
     event = "BufRead",
     dependencies = {
-      { "nvim-treesitter/nvim-treesitter-textobjects" },
-      { "nvim-treesitter/nvim-treesitter-context" },
-      { "JoosepAlviste/nvim-ts-context-commentstring" },
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      "nvim-treesitter/nvim-treesitter-context",
+      "JoosepAlviste/nvim-ts-context-commentstring",
     },
     config = function()
       require "user.plugins.treesitter"
@@ -268,22 +267,22 @@ require("lazy").setup {
     },
   },
 
-  -- LSP
+  -----------------------------------------------------------------------------------------------
+  --[[ 
+       __   _______ 
+      / /  / __/ _ \
+     / /___\ \/ ___/
+    /____/___/_/    
+  --]]
   {
     "neovim/nvim-lspconfig",
     event = "BufRead",
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "jose-elias-alvarez/null-ls.nvim",
+    },
     config = function()
       require "user.lsp.lspconfig"
-    end,
-    dependencies = {
-      { "hrsh7th/cmp-nvim-lsp" },
-    },
-  },
-
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = "BufRead",
-    config = function()
       require "user.lsp.null-ls"
     end,
   },
@@ -331,29 +330,41 @@ require("lazy").setup {
       require "user.plugins.dap"
     end,
     dependencies = {
-      { "nvim-telescope/telescope-dap.nvim" },
-      { "rcarriga/nvim-dap-ui" },
-      { "nvim-neotest/nvim-nio" },
+      "nvim-telescope/telescope-dap.nvim",
+      "rcarriga/nvim-dap-ui",
+      "nvim-neotest/nvim-nio",
     },
   },
 
-  -- Test
+  -----------------------------------------------------------------------------------------------
+  --[[ 
+      __          __ 
+     / /____ ___ / /_
+    / __/ -_|_-</ __/
+    \__/\__/___/\__/ 
+  --]]
   {
-    { "nvim-neotest/neotest" },
-    { "andy-bell101/neotest-java" },
-    { "nvim-neotest/neotest-python" },
+    "nvim-neotest/neotest",
+    event = "BufRead",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "andy-bell101/neotest-java",
+      "nvim-neotest/neotest-python",
+    },
+    config = function()
+      require "user.plugins.neotest"
+    end,
   },
 
-  --Java
-  { "mfussenegger/nvim-jdtls", ft = { "java" } },
-  { "https://gitlab.com/schrieveslaach/sonarlint.nvim", as = "sonarlint.nvim", ft = { "java" } },
-  {
-    "augtheo/gradle.nvim",
-    run = "./gradlew install",
-    cmd = { "GradleTasks", "GradleRun" },
-  },
-
-  --Python
+  -----------------------------------------------------------------------------------------------
+  --[[ 
+        ___  __ __
+     _ / _ \/ // /
+    (_) .__/\_, / 
+     /_/   /___/
+  --]]
   {
     "mfussenegger/nvim-dap-python",
     config = function()
@@ -361,5 +372,4 @@ require("lazy").setup {
     end,
     ft = { "python" },
   },
-  { "AckslD/swenv.nvim" },
 }
