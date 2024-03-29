@@ -8,6 +8,7 @@ require("nvim-treesitter.configs").setup {
     "python",
     "bash",
     "lua",
+    "query",
     "markdown",
     "markdown_inline",
     "html",

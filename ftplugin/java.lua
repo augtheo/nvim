@@ -8,8 +8,7 @@ local extendedClientCapabilities = jdtls.extendedClientCapabilities
 extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
 
 --  Setup constants
-local home = os.getenv "HOME"
-local WORKSPACE_PATH = home .. "/.workspace/"
+local WORKSPACE_PATH = "/tmp" .. "/.workspace/"
 local CONFIG = "linux"
 
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
@@ -197,14 +196,5 @@ require("sonarlint").setup {
     -- 'cpp',
     -- Requires nvim-jdtls, otherwise an error message will be printed
     "java",
-  },
-}
-
-require("neotest").setup {
-  floating = {
-    border = "single",
-  },
-  adapters = {
-    require "neotest-java",
   },
 }

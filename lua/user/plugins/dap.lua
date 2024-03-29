@@ -1,5 +1,8 @@
 local dap = require "dap"
 
+require("telescope").load_extension "dap"
+
+-- debug icons
 local icons = {
   dap = require("user.icons").dap,
 }
@@ -8,8 +11,28 @@ for name, sign in pairs(icons.dap) do
   vim.fn.sign_define("Dap" .. name, { text = sign[1], texthl = sign[2] or "DiagnosticInfo", linehl = "", numhl = "" })
 end
 
-local dapui = require "dapui"
+-- dap configurations
+dap.adapters.gdb = {
+  type = "executable",
+  command = "gdb",
+  args = { "-i", "dap" },
+}
+dap.configurations.cpp = {
+  {
+    name = "Launch",
+    type = "gdb",
+    request = "launch",
+    program = function()
+      return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+    end,
+    cwd = "${workspaceFolder}",
+    stopAtBeginningOfMainSubprogram = false,
+  },
+}
 
+-- dapui
+
+local dapui = require "dapui"
 dapui.setup {
   expand_lines = false,
   controls = {
@@ -41,18 +64,16 @@ dap.listeners.before.event_exited["dapui_config"] = function()
   dapui.close()
 end
 
-require("telescope").load_extension "dap"
-
-local keymap = vim.keymap.set
-
 local dapui_toggle = function()
   require("nvim-tree.api").tree.close()
   close_nvim_ide_panels()
   require("dapui").toggle()
 end
 
-
+-- keymaps
 -- stylua: ignore start
+local keymap = vim.keymap.set
+
 keymap("n", "<leader>db", "<cmd>DapToggleBreakpoint<cr>",                                                            { desc = "Toggle Breakpoint" })
 keymap("n", "<leader>dB", function() require("dap").set_breakpoint(vim.fn.input "Breakpoint Condition: ") end,       { desc = "Conditional breakpoint" })
 keymap("n", "<leader>dl", function() require("dap").set_breakpoint(nil, nil, vim.fn.input "Log point message: ") end,{ desc = "Logpoint" })

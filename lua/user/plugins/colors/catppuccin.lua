@@ -20,5 +20,5 @@ require("catppuccin").setup {
       TreesitterContextBottom = { style = {} },
     }
   end,
-  transparent_background = true,
+  transparent_background = false,
 }
