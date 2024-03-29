@@ -8,13 +8,13 @@ require("lazy").setup {
   --]]
   {
     "catppuccin/nvim",
-    lazy = false,
-    priority = 1000,
     as = "catppuccin",
     config = function()
       require "user.plugins.colors.catppuccin"
       vim.cmd.colorscheme "catppuccin"
     end,
+    lazy = false,
+    priority = 1000,
   },
 
   {
@@ -23,11 +23,11 @@ require("lazy").setup {
   },
 
   {
-    event = "BufRead",
     "NvChad/nvim-colorizer.lua",
     config = function()
       require "user.plugins.colorizer"
     end,
+    event = "BufRead",
   },
 
   {
@@ -35,27 +35,28 @@ require("lazy").setup {
     config = function()
       require "user.plugins.notify"
     end,
+    event = "VimEnter",
   },
 
   {
     "folke/noice.nvim",
-    event = "VimEnter",
+    config = function()
+      require "user.plugins.noice"
+    end,
     dependencies = {
       "MunifTanjim/nui.nvim",
       "rcarriga/nvim-notify",
       "nvim-telescope/telescope.nvim",
     },
-    config = function()
-      require "user.plugins.noice"
-    end,
+    event = "VimEnter",
   },
 
   {
     "goolord/alpha-nvim",
-    event = "VimEnter",
     config = function()
       require "user.plugins.alpha"
     end,
+    event = "VimEnter",
   },
 
   {
@@ -63,22 +64,25 @@ require("lazy").setup {
     config = function()
       require "user.plugins.lualine"
     end,
+    event = "VimEnter",
   },
 
   {
     "nvim-zh/colorful-winsep.nvim",
-    dependencies = "lualine.nvim",
     config = function()
       require "user.plugins.colorful-winsep"
     end,
+    dependencies = "lualine.nvim",
+    event = "WinNew",
   },
 
   {
     "stevearc/dressing.nvim",
-    dependencies = "telescope.nvim",
     config = function()
       require "user.plugins.dressing"
     end,
+    dependencies = "telescope.nvim",
+    event = "VeryLazy",
   },
 
   {
@@ -100,13 +104,12 @@ require("lazy").setup {
     / // / __/ / / 
     \_,_/\__/_/_/  
   --]]
-  --
   {
     "nvim-tree/nvim-tree.lua",
-    event = "VimEnter",
     config = function()
       require "user.plugins.nvim-tree"
     end,
+    event = "VimEnter",
   },
 
   {
@@ -120,6 +123,7 @@ require("lazy").setup {
     config = function()
       require "user.plugins.toggleterm"
     end,
+    event = "VimEnter",
   },
 
   {
@@ -127,23 +131,24 @@ require("lazy").setup {
     config = function()
       require "user.plugins.which-key"
     end,
+    event = "CursorHold",
   },
 
   {
-    event = "VimEnter",
     "folke/persistence.nvim",
     config = function()
       require("persistence").setup()
     end,
+    event = "VimEnter",
   },
 
   {
     "folke/todo-comments.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    dependencies = "nvim-lua/plenary.nvim",
     config = function()
       require("todo-comments").setup {}
     end,
+    dependencies = "nvim-lua/plenary.nvim",
+    event = { "BufReadPost", "BufNewFile" },
   },
   {
     "folke/trouble.nvim",
@@ -166,12 +171,15 @@ require("lazy").setup {
     config = function()
       require("mini.bracketed").setup()
     end,
+    event = "BufRead",
   },
+
   {
     "echasnovski/mini.surround",
     config = function()
       require("mini.surround").setup()
     end,
+    event = "BufRead",
   },
 
   {
@@ -179,56 +187,58 @@ require("lazy").setup {
     config = function()
       require("mini.align").setup()
     end,
+    event = "BufRead",
   },
 
   {
     "nvim-treesitter/nvim-treesitter",
-    event = "BufRead",
+    config = function()
+      require "user.plugins.treesitter"
+      require "user.plugins.context"
+    end,
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
       "nvim-treesitter/nvim-treesitter-context",
       "JoosepAlviste/nvim-ts-context-commentstring",
     },
-    config = function()
-      require "user.plugins.treesitter"
-      require "user.plugins.context"
-    end,
+    event = "BufRead",
   },
 
   {
     "numToStr/Comment.nvim",
-    dependencies = "nvim-treesitter",
     config = function()
       require "user.plugins.comment"
     end,
+    dependencies = "nvim-treesitter",
+    event = "BufRead",
   },
 
   {
     "kevinhwang91/nvim-ufo",
-    event = "BufRead",
-    dependencies = {
-      { "kevinhwang91/promise-async" },
-    },
     config = function()
       require "user.plugins.ufo"
     end,
+    dependencies = {
+      "kevinhwang91/promise-async",
+    },
+    event = "BufRead",
   },
 
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = "BufRead",
     config = function()
       require("ibl").setup()
     end,
+    event = "BufRead",
   },
 
   {
     "windwp/nvim-autopairs",
-    event = "InsertCharPre",
-    dependencies = { "nvim-cmp" },
     config = function()
       require "user.plugins.autopairs"
     end,
+    dependencies = { "nvim-cmp" },
+    event = "InsertCharPre",
   },
 
   -----------------------------------------------------------------------------------------------
@@ -276,15 +286,15 @@ require("lazy").setup {
   --]]
   {
     "neovim/nvim-lspconfig",
-    event = "BufRead",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "jose-elias-alvarez/null-ls.nvim",
-    },
     config = function()
       require "user.lsp.lspconfig"
       require "user.lsp.null-ls"
     end,
+    dependencies = {
+      "hrsh7th/cmp-nvim-lsp",
+      "jose-elias-alvarez/null-ls.nvim",
+    },
+    event = "BufRead",
   },
 
   -----------------------------------------------------------------------------------------------
@@ -298,19 +308,22 @@ require("lazy").setup {
 
   {
     "lewis6991/gitsigns.nvim",
-    event = "BufRead",
     config = function()
       require "user.plugins.gitsigns"
     end,
+    event = "BufRead",
   },
+
   { "tpope/vim-fugitive", cmd = "Git" },
+
   {
     "ruifm/gitlinker.nvim",
-    event = "BufRead",
     config = function()
       require("gitlinker").setup()
     end,
+    event = "BufRead",
   },
+
   {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
@@ -334,6 +347,7 @@ require("lazy").setup {
       "rcarriga/nvim-dap-ui",
       "nvim-neotest/nvim-nio",
     },
+    event = "VimEnter",
   },
 
   -----------------------------------------------------------------------------------------------
@@ -345,7 +359,9 @@ require("lazy").setup {
   --]]
   {
     "nvim-neotest/neotest",
-    event = "BufRead",
+    config = function()
+      require "user.plugins.neotest"
+    end,
     dependencies = {
       "nvim-neotest/nvim-nio",
       "nvim-lua/plenary.nvim",
@@ -353,9 +369,7 @@ require("lazy").setup {
       "andy-bell101/neotest-java",
       "nvim-neotest/neotest-python",
     },
-    config = function()
-      require "user.plugins.neotest"
-    end,
+    event = "BufRead",
   },
 
   -----------------------------------------------------------------------------------------------
