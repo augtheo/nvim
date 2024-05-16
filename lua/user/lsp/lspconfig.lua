@@ -8,6 +8,7 @@ local servers = {
   "html",
   "jsonls",
   "lua_ls",
+  "nil_ls",
   "pyright",
   "rust_analyzer",
   "tsserver",

@@ -16,7 +16,6 @@ require("lazy").setup {
     lazy = false,
     priority = 1000,
   },
-
   {
     "nvim-tree/nvim-web-devicons",
     lazy = true,
@@ -35,7 +34,7 @@ require("lazy").setup {
     config = function()
       require "user.plugins.notify"
     end,
-    event = "VimEnter",
+    event = "VeryLazy",
   },
 
   {
@@ -343,11 +342,12 @@ require("lazy").setup {
       require "user.plugins.dap"
     end,
     dependencies = {
+      "nvim-telescope/telescope.nvim",
       "nvim-telescope/telescope-dap.nvim",
       "rcarriga/nvim-dap-ui",
       "nvim-neotest/nvim-nio",
     },
-    event = "VimEnter",
+    event = "VeryLazy",
   },
 
   -----------------------------------------------------------------------------------------------
@@ -370,20 +370,5 @@ require("lazy").setup {
       "nvim-neotest/neotest-python",
     },
     event = "BufRead",
-  },
-
-  -----------------------------------------------------------------------------------------------
-  --[[ 
-        ___  __ __
-     _ / _ \/ // /
-    (_) .__/\_, / 
-     /_/   /___/
-  --]]
-  {
-    "mfussenegger/nvim-dap-python",
-    config = function()
-      require("dap-python").setup(vim.fn.expand "$MASON/packages/debugpy/venv/bin/python")
-    end,
-    ft = { "python" },
   },
 }

@@ -87,9 +87,9 @@ keymap("n", "<leader>ts",         "<cmd>lua require('neotest').summary.toggle()<
 -- ui
 keymap("n", "<leader>uh",         "<cmd>nohlsearch<cr>",                                                            opts "Stop Highlights")
 keymap("n", "<leader>un",         "<cmd>NoiceDismiss<cr>",                                                          opts "Dismiss Noice")
-keymap("n", "<leader>ud",         function() require("user.utils").toggle_diagnostics() end,                        opts "Toggle Diagnostics")
+keymap("n", "<leader>ud",         require("user.utils").toggle_diagnostics,                        opts "Toggle Diagnostics")
 keymap("n", "<leader>us",         function() require("user.utils").toggle("spell") end,                             opts "Toggle Spelling")
-keymap("n", "<leader>uc",         require("telescope.builtin").colorscheme,                                         opts "Switch Colorscheme")
+keymap("n", "<leader>uc",         function() require("telescope.builtin").colorscheme() end,                                         opts "Switch Colorscheme")
 keymap("n", "<leader>uw",         function() require("user.utils").toggle("wrap") end,                              opts "Toggle Word Wrap")
 
 -- persistence

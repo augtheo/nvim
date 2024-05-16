@@ -42,4 +42,6 @@ vim.opt.iskeyword:append "-"                          -- treats words with `-` a
 vim.opt.formatoptions:remove { "c", "r", "o" }        -- This is a sequence of letters which describes how automatic formatting is to be done
 vim.opt.linebreak      = true
 vim.opt.guicursor      = ""
+vim.opt.showbreak      = "↪"
+vim.opt.breakindent    = true
 -- stylua: ignore end
