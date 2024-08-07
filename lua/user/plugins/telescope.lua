@@ -27,6 +27,16 @@ telescope.setup {
         ["<C-p>"] = actions.cycle_history_prev,
       },
     },
+    vimgrep_arguments = {
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+      "--hidden",
+    },
   },
   pickers = {
     find_files = {

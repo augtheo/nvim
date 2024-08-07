@@ -1,32 +1,27 @@
 local which_key = require "which-key"
 
-local setup = {
-  layout = {
-    align = "center", -- align columns left, center or right
+which_key.setup {
+  preset = "helix",
+  win = {
+    border = "single",
   },
 }
-
-local opts = {
-  mode = "n", -- NORMAL mode
-  prefix = "<leader>",
-  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-  silent = true, -- use `silent` when creating keymaps
-  noremap = true, -- use `noremap` when creating keymaps
-  nowait = true, -- use `nowait` when creating keymaps
+which_key.add {
+  {
+    "<leader>m",
+    group = "buffers",
+    expand = function()
+      return require("which-key.extras").expand.buf()
+    end,
+  },
+  { "<leader><tab>", group = "tabs", nowait = true, remap = false },
+  { "<leader>\\", group = "terminal", nowait = true, remap = false },
+  { "<leader>d", group = "debug", nowait = true, remap = false },
+  { "<leader>f", group = "find", nowait = true, remap = false },
+  { "<leader>g", group = "git", nowait = true, remap = false },
+  { "<leader>gw", group = "worktrees", nowait = true, remap = false },
+  { "<leader>q", group = "quit/session", nowait = true, remap = false },
+  { "<leader>s", group = "search", nowait = true, remap = false },
+  { "<leader>t", group = "test", nowait = true, remap = false },
+  { "<leader>u", group = "ui", nowait = true, remap = false },
 }
-
-local mappings = {
-  ["<tab>"] = { name = "+tabs" },
-  ["s"] = { name = "+search" },
-  ["\\"] = { name = "+terminal" },
-  ["u"] = { name = "+ui" },
-  ["f"] = { name = "+find" },
-  ["t"] = { name = "+test" },
-  ["q"] = { name = "+quit/session" },
-  ["d"] = { name = "+debug" },
-  ["g"] = { name = "+git" },
-  ["gw"] = { name = "+worktrees" },
-}
-
-which_key.setup(setup)
-which_key.register(mappings, opts)

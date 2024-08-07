@@ -150,11 +150,7 @@ require("lazy").setup {
     event = { "BufReadPost", "BufNewFile" },
   },
   {
-    "folke/trouble.nvim",
-    cmd = { "Trouble", "TroubleToggle" },
-    config = function()
-      require("trouble").setup {}
-    end,
+    import = "user.plugins.trouble",
   },
   -----------------------------------------------------------------------------------------------
   --[[
@@ -238,6 +234,10 @@ require("lazy").setup {
     end,
     dependencies = { "nvim-cmp" },
     event = "InsertCharPre",
+  },
+
+  {
+    "b0o/schemastore.nvim",
   },
 
   -----------------------------------------------------------------------------------------------
