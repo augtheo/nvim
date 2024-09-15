@@ -17,7 +17,7 @@ require("toggleterm").setup {
 
 function _G.set_terminal_keymaps()
   local opts = { noremap = true }
-  -- vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
   vim.api.nvim_buf_set_keymap(0, "t", "<C-h>", [[<C-\><C-n><C-W>h]], opts)
   vim.api.nvim_buf_set_keymap(0, "t", "<C-j>", [[<C-\><C-n><C-W>j]], opts)
   vim.api.nvim_buf_set_keymap(0, "t", "<C-k>", [[<C-\><C-n><C-W>k]], opts)
@@ -27,21 +27,6 @@ end
 vim.cmd "autocmd! TermOpen term://* lua set_terminal_keymaps()"
 
 local Terminal = require("toggleterm.terminal").Terminal
-local lazygit = Terminal:new { cmd = "lazygit", hidden = true }
-local lazydocker = Terminal:new { cmd = "lazydocker", hidden = true }
-local python = Terminal:new { cmd = "python", hidden = true }
-
-local function lazygit_toggle()
-  lazygit:toggle()
-end
-
-local function lazydocker_toggle()
-  lazydocker:toggle()
-end
-
-local function python_toggle()
-  python:toggle()
-end
 
 -- Shorten function name
 local keymap = vim.keymap.set
@@ -50,6 +35,3 @@ keymap("n", "<leader>\\s", "<cmd>TermSelect<CR>", { desc = "Term Select" })
 keymap("n", "<leader>\\f", "<cmd>ToggleTerm direction=float<cr>", { desc = "Float" })
 keymap("n", "<leader>\\h", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", { desc = "Horizontal" })
 keymap("n", "<leader>\\v", "<cmd>ToggleTerm size=80 direction=vertical<cr>", { desc = "Vertical" })
-keymap("n", "<leader>\\p", python_toggle, { desc = "Python" })
-keymap("n", "<leader>\\d", lazydocker_toggle, { desc = "Lazydocker" })
-keymap("n", "<leader>\\g", lazygit_toggle, { desc = "Lazygit" })

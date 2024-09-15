@@ -17,6 +17,9 @@ require("noice").setup {
     hover = {
       scrollbar = false,
     },
+    cmdline_input = {
+      border = single_border,
+    },
   },
   lsp = {
     signature = { enabled = true },

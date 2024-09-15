@@ -4,9 +4,9 @@ require("catppuccin").setup {
     noice = true,
     notify = true,
     neotest = true,
-    telescope = {
-      style = "nvchad",
-    },
+    -- telescope = {
+    --   style = "nvchad",
+    -- },
     lsp_trouble = true,
     treesitter_context = true,
     treesitter = true,
@@ -21,4 +21,11 @@ require("catppuccin").setup {
     }
   end,
   transparent_background = false,
+  color_overrides = {
+    mocha = {
+      base = "#000000",
+      mantle = "#000000",
+      crust = "#000000",
+    },
+  },
 }

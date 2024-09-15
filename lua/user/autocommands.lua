@@ -33,24 +33,30 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 vim.api.nvim_create_autocmd("Colorscheme", {
   callback = function()
     local colors = vim.g.colors_name
-    if vim.startswith(colors, "catppuccin") then
-      colors = "catppuccin"
-    end
-    local require_ok, opts = pcall(require, "user.plugins.colors." .. colors)
-    if not require_ok then
-      vim.schedule(function()
-        require("lualine").setup {
-          options = {
-            theme = "auto",
-          },
-        }
-      end)
+    -- if vim.startswith(colors, "catppuccin") then
+    --   colors = "catppuccin"
+    -- end
+    -- local require_ok, opts = pcall(require, "user.plugins.colors." .. colors)
+    -- if not require_ok then
+    --   vim.schedule(function()
+    --     require("lualine").setup {
+    --       options = {
+    --         theme = "auto",
+    --       },
+    --     }
+    --   end)
+    -- end
+    local file = io.open(vim.fn.stdpath "config" .. "/lua/user/colorscheme.lua", "w")
+    if file then
+      file:write(string.format('vim.cmd.colorscheme "%s"\n', colors))
+      file:close()
     end
     vim.cmd "hi! link PmenuSel lualine_a_insert"
     vim.cmd "hi! link NormalNC NvimTreeNormal"
-    vim.cmd "hi! link NvimTreeWinSeparator TelescopeBorder"
-    vim.cmd "hi! link NvimTreeWindowPicker lualine_a_command"
-    vim.cmd "hi! link FloatBorder Normal"
+    -- vim.cmd "hi! link NvimSeparator TelescopeBorder"
+    -- vim.cmd "hi! link NvimTreeWinSeparator TelescopeBorder"
+    -- vim.cmd "hi! link NvimTreeWindowPicker lualine_a_command"
+    -- vim.cmd "hi! link FloatBorder Normal"
   end,
 })
 

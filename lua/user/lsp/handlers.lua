@@ -62,7 +62,7 @@ end
 
 M.on_attach = function(client, bufnr)
   -- NOTE: Server formatting is disabled only for servers that support formatting
-  if client.name == "tsserver" then
+  if client.name == "ts_ls" then
     client.server_capabilities.documentFormattingProvider = false
     client.server_capabilities.documentRangeFormattingProvider = false
   elseif client.name == "lua_ls" then

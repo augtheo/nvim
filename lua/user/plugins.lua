@@ -11,10 +11,12 @@ require("lazy").setup {
     as = "catppuccin",
     config = function()
       require "user.plugins.colors.catppuccin"
-      vim.cmd.colorscheme "catppuccin"
     end,
     lazy = false,
     priority = 1000,
+  },
+  {
+    "sainnhe/everforest",
   },
   {
     "nvim-tree/nvim-web-devicons",
@@ -53,6 +55,7 @@ require("lazy").setup {
   {
     "goolord/alpha-nvim",
     config = function()
+      -- require'alpha'.setup(require'alpha.themes.theta'.config)
       require "user.plugins.alpha"
     end,
     event = "VimEnter",
@@ -67,6 +70,7 @@ require("lazy").setup {
   },
 
   {
+    branch = "alpha",
     "nvim-zh/colorful-winsep.nvim",
     config = function()
       require "user.plugins.colorful-winsep"
@@ -95,6 +99,14 @@ require("lazy").setup {
     config = function()
       require "user.plugins.illuminate"
     end,
+  },
+
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    opts = {},
+    -- dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.nvim" }, -- if you use the mini.nvim suite
+    -- dependencies = { "nvim-treesitter/nvim-treesitter", "echasnovski/mini.icons" }, -- if you use standalone mini plugins
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" }, -- if you prefer nvim-web-devicons
   },
   -----------------------------------------------------------------------------------------------
   --[[
@@ -160,9 +172,13 @@ require("lazy").setup {
     \__/\_,_/_/\__/ 
                   
   --]]
+  -- {
+  --   import = "user.plugins.mini",
+  -- },
 
   {
-    "echasnovski/mini.bracketed",
+    -- dir = "~/projects/augtheo/bracketed",
+    "augtheo/bracketed",
     config = function()
       require("mini.bracketed").setup()
     end,
@@ -181,6 +197,14 @@ require("lazy").setup {
     "echasnovski/mini.align",
     config = function()
       require("mini.align").setup()
+    end,
+    event = "BufRead",
+  },
+
+  {
+    "echasnovski/mini.files",
+    config = function()
+      require "user.plugins.files"
     end,
     event = "BufRead",
   },
@@ -326,6 +350,10 @@ require("lazy").setup {
   {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewToggleFiles", "DiffviewFocusFiles" },
+  },
+
+  {
+    "ThePrimeagen/vim-be-good",
   },
 
   -----------------------------------------------------------------------------------------------
