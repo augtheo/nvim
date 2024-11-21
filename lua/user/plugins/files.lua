@@ -35,6 +35,11 @@ local map_split = function(buf_id, lhs, direction)
   vim.keymap.set("n", lhs, rhs, { buffer = buf_id, desc = desc })
 end
 
+local run_system = function()
+  local path = MiniFiles.get_fs_entry().path
+  vim.fn.jobstart({ "xdg-open", path }, { detach = true })
+end
+
 vim.api.nvim_create_autocmd("User", {
   pattern = "MiniFilesBufferCreate",
   callback = function(args)
@@ -42,5 +47,6 @@ vim.api.nvim_create_autocmd("User", {
     -- Tweak keys to your liking
     map_split(buf_id, "<C-s>", "belowright horizontal")
     map_split(buf_id, "<C-v>", "belowright vertical")
+    vim.keymap.set("n", "<C-o>", run_system , {buffer = buf_id , desc = "Open with System Viewer"})
   end,
 })
